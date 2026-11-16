@@ -1,0 +1,1973 @@
+/* --- CONFIGURACIÓN GENERAL --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #06070c;
+    color: #ffffff;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    scroll-behavior: smooth; /* Permite que la pantalla baje suave al hacer click */
+}
+
+/* --- ENCABEZADO (NAVBAR) --- */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5px 25px 5px;
+}
+
+.logo-gaming {
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
+.carrito-contenedor {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.icono-carrito { 
+    width: 24px; 
+    height: 24px; 
+}
+
+.badge {
+    position: absolute;
+    top: -6px;       
+    right: -8px;    
+    background-color: #00ff66;
+    color: #000000;  
+    font-weight: bold;
+    font-size: 0.7rem;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 6px rgba(0, 255, 102, 0.4);
+    transition: transform 0.2s ease;
+}
+
+/* --- HERO CON FOTO LOCAL Y ANIMACIÓN --- */
+.hero-stream {
+    position: relative;
+    height: 230px;
+    border-radius: 24px;
+    overflow: hidden; 
+    margin-bottom: 25px;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hero-background-criminales {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('Dian.jpg') center/cover no-repeat;
+    animation: zoom-criminales 6s infinite ease-in-out alternate;
+    z-index: 1;
+}
+
+.hero-contenido {
+    position: relative;
+    z-index: 3;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    background: transparent; 
+}
+
+.bienvenida {
+    color: #ffffff;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.titulo-stream {
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    font-weight: 900;
+    font-size: 1.9rem;
+    line-height: 1.15;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.text-neon {
+    color: #ff0033;
+    text-shadow: 0 0 15px rgba(255, 0, 51, 0.9); 
+}
+
+.btn-principal {
+    background-color: #06070c;
+    color: #ffffff;
+    border: 2px solid #ff0033;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 30px;
+    width: 100%;
+    max-width: 220px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    animation: parpadeo-veloz 0.6s infinite;
+}
+
+/* --- ANIMACIONES DEL HERO --- */
+@keyframes zoom-criminales { 
+    0% { transform: scale(1); } 
+    100% { transform: scale(1.18); } 
+}
+
+@keyframes parpadeo-veloz { 
+    0%, 100% { box-shadow: 0 0 4px rgba(255, 0, 51, 0.2); border-color: rgba(255, 0, 51, 0.4); opacity: 0.8; } 
+    50% { box-shadow: 0 0 22px #ff0033, 0 0 8px rgba(255, 0, 51, 0.6); border-color: #ff0033; opacity: 1; } 
+}
+
+/* --- MARQUESINA TRANSPARENTE DE CORRIDO FLUIDO --- */
+.marcas-marcador {
+    width: 100%;
+    overflow: hidden;
+    background-color: transparent; 
+    padding: 20px 0;
+    margin-bottom: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.marcas-cinta-infinita {
+    display: flex;
+    white-space: nowrap;
+    gap: 75px; 
+    width: max-content; 
+    align-items: center; 
+    will-change: transform;
+    animation: desplazamiento-marcas 14s linear infinite; 
+}
+
+.img-logo { 
+    width: 105px; 
+    height: 38px; 
+    object-fit: contain; 
+    display: inline-block; 
+    filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.45)); 
+}
+
+@keyframes desplazamiento-marcas { 
+    0% { transform: translate3d(0, 0, 0); } 
+    100% { transform: translate3d(-50%, 0, 0); } 
+}
+/* --- SECCIÓN PRODUCTOS DESTACADOS --- */
+.productos-destacados {
+    background-color: rgba(16, 18, 30, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    padding: 25px 20px;
+    border-radius: 24px;
+    margin-bottom: 35px;
+}
+
+.titulo-destacados-container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    text-align: left; 
+    margin-bottom: 20px; 
+}
+
+.texto-titulo h2 { 
+    font-family: 'Montserrat', sans-serif; 
+    font-style: italic; 
+    font-size: 1.6rem; 
+    font-weight: 900; 
+    line-height: 1.1; 
+    letter-spacing: 0.5px; 
+}
+
+.fuego-glow {
+    font-size: 1.4rem;
+    width: 55px;
+    height: 55px;
+    background: radial-gradient(circle, #ff6a00 0%, #ffaa00 50%, rgba(255,106,0,0) 70%);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 30px #ff6a00, 0 0 15px #ffaa00;
+    animation: pulso-fuego 1.5s infinite alternate;
+}
+
+@keyframes pulso-fuego { 
+    0% { transform: scale(0.95); box-shadow: 0 0 25px #ff6a00; } 
+    100% { transform: scale(1.05); box-shadow: 0 0 40px #ff6a00; } 
+}
+
+.btn-catalogo { 
+    background-color: transparent; 
+    color: #00ff66; 
+    border: 1px solid rgba(0, 255, 102, 0.3); 
+    padding: 10px 24px; 
+    font-size: 0.85rem; 
+    font-weight: 700; 
+    border-radius: 20px; 
+    cursor: pointer; 
+}
+
+/* --- MÓDULO CATÁLOGO PRINCIPAL (ESTILO KIOZSTREAM) --- */
+.seccion-catalogo-principal {
+    margin-bottom: 40px;
+    padding: 10px 5px;
+}
+
+.caja-busqueda-container {
+    background: linear-gradient(180deg, #111422 0%, #0b0d16 100%);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    padding: 30px 20px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.rombo-icono { 
+    font-size: 2.2rem; 
+    margin-bottom: 12px; 
+    filter: drop-shadow(0 0 10px #0077ff); 
+}
+
+.caja-busqueda-container h2 { 
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    margin-bottom: 5px; 
+}
+
+.sub-busqueda { 
+    color: #64748b; 
+    font-size: 0.85rem; 
+    margin-bottom: 25px; 
+}
+
+.barra-busqueda-flex {
+    display: flex;
+    background-color: #07090e;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 6px;
+    align-items: center;
+}
+
+.barra-busqueda-flex input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    padding: 10px;
+    font-size: 0.95rem;
+    outline: none;
+}
+
+.btn-buscar {
+    background-color: #121829;
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Botones de Categorías Ovalados */
+.pestañas-categorias-flex {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+}
+
+.tab-btn {
+    background-color: #11131e;
+    color: #94a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: #ffffff;
+    background: linear-gradient(90deg, #0055ff, #00bbff);
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 85, 255, 0.4);
+}
+
+/* Cuadrícula de Tarjetas de Productos */
+.catalogo-grid-productos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tarjeta-real {
+    background-color: #0b0d16;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 18px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tarjeta-real-top { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.tarjeta-real-top h3 { 
+    font-size: 1.25rem; 
+    font-weight: 800; 
+}
+
+.tag-promo { 
+    background-color: rgba(255, 0, 51, 0.1); 
+    color: #ff0033; 
+    font-size: 0.7rem; 
+    font-weight: 800; 
+    padding: 4px 10px; 
+    border-radius: 8px; 
+    border: 1px solid rgba(255, 0, 51, 0.2); 
+    text-transform: uppercase; 
+}
+
+.tag-normal { 
+    background-color: rgba(0, 255, 102, 0.05); 
+    color: #00ff66; 
+    font-size: 0.7rem; 
+    font-weight: 800; 
+    padding: 4px 10px; 
+    border-radius: 8px; 
+    border: 1px solid rgba(0, 255, 102, 0.1); 
+    text-transform: uppercase; 
+}
+
+.tarjeta-real-desc { 
+    color: #64748b; 
+    font-size: 0.85rem; 
+    line-height: 1.4; 
+}
+
+.tarjeta-real-bottom { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-top: 5px; 
+}
+
+.tarjeta-real-bottom .precio { 
+    font-family: 'Montserrat', sans-serif; 
+    font-style: italic; 
+    font-size: 1.4rem; 
+    font-weight: 900; 
+}
+
+.btn-add-real {
+    background-color: rgba(0, 255, 102, 0.05);
+    color: #00ff66;
+    border: 1px solid rgba(0, 255, 102, 0.3);
+    padding: 8px 24px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-add-real:active { 
+    background-color: #00ff66; 
+    color: #000000; 
+}
+
+/* --- SECCIÓN COMENTARIOS --- */
+.comentarios-seccion { 
+    background-color: rgba(16, 18, 30, 0.3); 
+    border: 1px solid rgba(255, 255, 255, 0.02); 
+    padding: 25px 20px; 
+    border-radius: 24px; 
+    margin-bottom: 40px; 
+}
+
+.comentarios-cabecera { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 8px; 
+}
+
+.comentarios-titulo { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.comentarios-titulo h2 { 
+    font-family: 'Montserrat', sans-serif; 
+    font-style: italic; 
+    font-size: 1.6rem; 
+    font-weight: 900; 
+}
+
+.icono-comentario { 
+    font-size: 1.4rem; 
+}
+
+.tag-comienza { 
+    background-color: rgba(0, 255, 102, 0.05); 
+    color: #00ff66; 
+    border: 1px solid rgba(0, 255, 102, 0.2); 
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    padding: 6px 12px; 
+    border-radius: 12px; 
+}
+
+.comentarios-subtitulo { 
+    color: #94a3b8; 
+    font-size: 0.85rem; 
+    margin-bottom: 20px; 
+}
+
+.comentario-card { 
+    background-color: #11131e; 
+    border-radius: 16px; 
+    padding: 15px; 
+    border: 1px solid rgba(255, 255, 255, 0.02); 
+}
+
+.comentario-meta { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    margin-bottom: 8px; 
+}
+
+.rating { 
+    background-color: rgba(0, 255, 102, 0.05); 
+    color: #00ff66; 
+    font-size: 0.75rem; 
+    font-weight: 700; 
+    padding: 3px 8px; 
+    border-radius: 8px; 
+    border: 1px solid rgba(0, 255, 102, 0.2); 
+}
+
+.usuario { 
+    font-weight: 700; 
+    font-size: 0.95rem; 
+}
+
+.comentario-texto { 
+    color: #94a3b8; 
+    font-size: 0.85rem; 
+    line-height: 1.4; 
+}
+/* Configuración de la cuadrícula de 2 columnas */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Divide la pantalla en dos columnas iguales */
+  gap: 12px;                             /* Espacio entre las tarjetas */
+  padding: 16px;
+  background-color: #0b0c10;             /* Fondo oscuro de la tienda */
+}
+
+/* Diseño de la tarjeta individual */
+.product-card {
+  background-color: #15161e;             /* Fondo gris oscuro de la tarjeta */
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #222531;             /* Borde sutil de la tarjeta */
+}
+
+/* Contenedor de la imagen del servicio */
+.product-image-container {
+  width: 100%;
+  aspect-ratio: 1 / 1;                   /* Mantiene la imagen perfectamente cuadrada */
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                     /* Ajusta la imagen sin deformarla */
+}
+
+/* Textos de la tarjeta */
+.product-info {
+  margin-top: 10px;
+  color: #ffffff;
+}
+
+.product-title {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.product-price {
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 500;
+  margin: 4px 0 10px 0;
+}
+
+/* Contenedor de botones */
+.product-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;                              /* Espacio entre el botón agregar y detalles */
+}
+
+/* Botón Agregar al carrito */
+.btn-add-cart {
+  background-color: #1e202c;
+  color: #ffffff;
+  border: 1px solid #313547;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Botón Detalles */
+.btn-details {
+  background-color: transparent;
+  color: #8a8d9f;
+  border: 1px solid #282a36;
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+/* Contenedor de la barra lineal */
+.buscar-lineal-contenedor {
+  display: flex;
+  align-items: center;
+  background-color: #12131a; /* Fondo oscuro sutil */
+  border: 1px solid #222531; /* Borde delgado */
+  border-radius: 20px;       /* Bordes redondeados tipo píldora */
+  padding: 8px 16px;
+  margin: 20px 16px;         /* Espaciado exterior */
+}
+
+/* Icono de la lupa */
+.icono-lupa {
+  color: #6c7281;
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+/* Caja de texto de búsqueda */
+.input-buscar-lineal {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100%;
+}
+
+/* Color del texto de sugerencia (placeholder) */
+.input-buscar-lineal::placeholder {
+  color: #4e5361;
+}
+/* ==========================================
+   ESTILOS MEJORADOS E INTEGRADOS - ¿CÓMO COMPRAR?
+   ========================================== */
+
+.como-comprar-seccion {
+  padding: 24px 16px;
+  text-align: center;
+  background: transparent; /* Se integra totalmente con el fondo de tu app */
+}
+
+.titulo-como-comprar {
+  color: #ffffff;
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 0 6px 0;
+  font-family: sans-serif;
+  letter-spacing: -0.5px;
+}
+
+.subtitulo-como-comprar {
+  color: #515868; /* Color más sutil */
+  font-size: 13px;
+  margin: 0 0 28px 0;
+  font-family: sans-serif;
+}
+
+.pasos-intercalados-contenedor {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Un poco más de espacio entre pasos */
+}
+
+/* Tarjeta Base estilizada sin caja rígida trasera */
+.tarjeta-paso {
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.02); /* Fondo casi invisible y limpio */
+  padding: 14px 18px;
+  gap: 16px;
+  min-height: 70px;
+  box-sizing: border-box;
+}
+
+.tarjeta-paso.inversa {
+  justify-content: space-between;
+}
+
+/* Bordes curvos perfectos con efecto Neón/Glow sutil */
+.borde-azul {
+  border-radius: 12px;
+  border-left: 3px solid #0084ff;
+  box-shadow: -4px 0 12px rgba(0, 132, 255, 0.15);
+}
+
+.borde-verde {
+  border-radius: 12px;
+  border-right: 3px solid #00e676;
+  box-shadow: 4px 0 12px rgba(0, 230, 118, 0.15);
+}
+
+/* Números con esquinas suavizadas */
+.numero-paso {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px; /* Bordes curvados más modernos */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 15px;
+  color: #ffffff;
+  flex-shrink: 0;
+  font-family: sans-serif;
+}
+
+.bg-azul { 
+  background-color: #0084ff;
+  box-shadow: 0 0 10px rgba(0, 132, 255, 0.3);
+}
+
+.bg-verde { 
+  background-color: #00e676; 
+  color: #000000;
+  box-shadow: 0 0 10px rgba(0, 230, 118, 0.3);
+}
+
+/* Bloques de Texto Informativo */
+.info-paso {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  font-family: sans-serif;
+}
+
+.info-paso h4 {
+  color: #ffffff;
+  font-size: 15px;
+  margin: 0 0 4px 0;
+  font-weight: 600;
+}
+
+.info-paso p {
+  color: #7a8293; /* Texto secundario más suave para que no compita */
+  font-size: 12px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.text-left { text-align: left; }
+.text-right { text-align: left; }
+/* Cambiar botón de Ver Catálogo Completo a Rojo */
+.seccion-catalogo-principal button, 
+#modulo-catalogo button,
+.btn-catalogo, /* Por si tiene esta clase */
+button[onclick*="catalogo"],
+a[onclick*="catalogo"] {
+  color: #ff0000 !important;
+  border: 1px solid #ff0000 !important;
+  background-color: transparent !important;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.1) !important;
+}
+
+/* Efecto al presionarlo */
+.seccion-catalogo-principal button:active,
+#modulo-catalogo button:active {
+  background-color: rgba(255, 0, 0, 0.1) !important;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.3) !important;
+}
+/* FORZAR LETRAS BLANCAS EN TODOS LOS BOTONES DE CATEGORÍAS */
+.categorias-contenedor button, 
+[style*="overflow-x: auto"] button {
+  background: #12131a !important;
+  color: #ffffff !important; /* Fuerza las letras a blanco */
+  border: 1px solid #222531 !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  font-weight: bold !important;
+}
+
+/* ESTILO PARA EL BOTÓN CUANDO ESTÁ SELECCIONADO (ACTIVO) */
+.categorias-contenedor button.active,
+[style*="overflow-x: auto"] button.active,
+.categorias-contenedor button:focus {
+  background: linear-gradient(135deg, #ff0000, #b30000) !important;
+  color: #ffffff !important; /* Mantiene la letra blanca */
+  border: none !important;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.4) !important;
+}
+/* BLOQUEO DEFINITIVO DE DESPLAZAMIENTO HORIZONTAL */
+html, body {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important; /* Oculta y bloquea cualquier desborde hacia los lados */
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+/* Estilo base para los 4 botones (Oscuros por defecto) */
+.btn-categoria {
+    background: #12131a !important;
+    border: 1px solid #222531 !important;
+    padding: 8px 16px !important;
+    border-radius: 20px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: background 0.3s ease !important;
+}
+
+/* El degradado ROJO elegante para la pestaña que selecciones */
+.btn-categoria.active {
+    background: linear-gradient(135deg, #ff0000, #b30000) !important;
+    border: none !important;
+}
+/* ==========================================================
+   ESTILOS GLOBALES PARA LOS BOTONES DE LAS TARJETAS DE PRODUCTO
+   ========================================================== */
+
+/* 1. Botón de Agregar (Borde Rojo / Letras Blancas) */
+.product-card .btn-comprar {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 90% !important;
+    margin: 8px auto 6px auto !important;
+    background-color: transparent !important;
+    color: #ffffff !important; /* Fuerza las letras a blanco */
+    border: 1px solid #ff0000 !important; /* Borde rojo elegante */
+    border-radius: 20px !important; /* Forma completamente ovalada */
+    padding: 6px 0 !important;
+    font-size: 13px !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+}
+
+/* Fuerza el color blanco en textos internos o iconos dentro de Agregar */
+.product-card .btn-comprar * {
+    color: #ffffff !important;
+}
+
+/* 2. Botón de Detalles (Borde Gris / Letras Gris Claro) */
+.product-card .btn-detalles,
+.product-card .btn-details {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 90% !important;
+    margin: 0 auto 8px auto !important;
+    background-color: transparent !important;
+    color: #e0e0e0 !important; /* Letras gris claro plateado */
+    border: 1px solid #333333 !important; /* Borde gris oscuro sutil */
+    border-radius: 20px !important; /* Forma completamente ovalada */
+    padding: 6px 0 !important;
+    font-size: 13px !important;
+    box-sizing: border-box !important;
+    cursor: pointer !important;
+}
+
+/* Fuerza el color gris claro en textos internos o iconos dentro de Detalles */
+.product-card .btn-detalles *,
+.product-card .btn-details * {
+    color: #e0e0e0 !important;
+}
+/* Contenedor flotante que cubre toda la pantalla */
+.modal-container {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.85) !important; /* Fondo oscuro translúcido */
+    display: none; /* JavaScript lo cambiará a 'flex' para mostrarlo */
+    align-items: center !important;
+    justify-content: center !important;
+    z-index: 9999 !important; /* Lo pone por encima de cualquier producto */
+    padding: 20px !important;
+    box-sizing: border-box !important;
+}
+
+/* Caja de contenido del menú */
+.modal-content {
+    background-color: #161719 !important;
+    border: 1px solid #2a2b2f !important;
+    border-radius: 16px !important;
+    width: 100% !important;
+    max-width: 400px !important;
+    padding: 20px !important;
+    box-sizing: border-box !important;
+    color: #ffffff !important;
+}
+/* Color VERDE BRILLANTE cuando el botón se activa */
+.btn-verde-brillante {
+    background-color: #00e676 !important; /* Verde encendido */
+    color: #000000 !important; /* Texto negro para que resalte */
+    width: 100% !important;
+    padding: 12px !important;
+    border-radius: 8px !important;
+    border: none !important;
+    font-weight: bold !important;
+    font-size: 15px !important;
+    cursor: pointer !important;
+    transition: background-color 0.3s ease !important;
+}
+.info-container-mini {
+    background-color: transparent; /* Se mantiene sin fondo */
+    border: 1px solid #2a2b31;     /* Contorno gris sutil, idéntico al de tus botones */
+    border-radius: 12px;           /* Esquinas ovaladas / redondeadas */
+    padding: 12px;                 /* Espaciado interno para que el texto no choque con el borde */
+    margin: 8px 0 16px 0;          /* Separación con el título superior y las monedas */
+    font-family: sans-serif;
+}
+
+.info-title-mini {
+    color: #f1b811;                /* Amarillo/dorado para el título */
+    font-size: 11px;               
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.info-content-mini {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;                      /* Separación ideal entre cada punto */
+}
+
+.info-item-mini {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 11px;               /* Tamaño de texto reducido */
+    line-height: 1.4;
+}
+
+.info-item-mini span {
+    color: #9ca3af;                /* Gris claro para el texto, haciendo que los círculos verdes resalten más */
+}
+
+.info-item-mini strong {
+    color: #ffffff;                /* Títulos de los puntos en blanco negrita */
+}
+/* Estado cuando el comprobante ya fue cargado con éxito */
+.comprobante-listo {
+    border: 2px dashed #00ff88 !important; /* Cambia el borde a verde neón segmentado */
+    background-color: rgba(0, 255, 136, 0.05) !important; /* Le da un fondo verde muy suave */
+}
+/* --- ESTILOS DE LA TUERCA Y SU MENÚ FLOTANTE --- */
+.menu-desplegable-contenido {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background-color: #121214;
+  min-width: 220px;
+  border: 1px solid #27272a;
+  border-radius: 8px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.6);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.opcion-menu {
+  color: #e4e4e7;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-family: sans-serif;
+  font-size: 14px;
+  border-bottom: 1px solid #1f1f23;
+  transition: background 0.2s ease;
+}
+
+.opcion-menu:last-child {
+  border-bottom: none;
+}
+
+.opcion-menu:hover {
+  background-color: #1a1a1e;
+  color: #ffffff;
+}
+
+.opcion-menu.destacado {
+  background: linear-gradient(90deg, #1a1a1e 0%, #2d0b11 100%);
+  color: #ff3355;
+  font-weight: bold;
+}
+
+.opcion-menu.destacado:hover {
+  background: linear-gradient(90deg, #25252a 0%, #44101a 100%);
+}
+
+.icono-opcion {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+/* Clase clave que activa JavaScript para mostrar el menú */
+.mostrar-menu {
+  display: block !important;
+}
+/* --- ESTILOS DE LA VENTANA DE REGISTRO (MODAL) --- */
+.modal-registro-bg {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-registro-contenido {
+  background-color: #121214;
+  border: 1px solid #ff003c;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
+  font-family: sans-serif;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
+}
+
+.cerrar-modal {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #aaa;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.cerrar-modal:hover {
+  color: #ff003c;
+}
+
+.modal-registro-contenido h2 {
+  margin-top: 0;
+  font-size: 22px;
+  text-align: center;
+}
+
+.modal-subtitulo {
+  color: #a1a1aa;
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-grupo {
+  margin-bottom: 15px;
+}
+
+.input-grupo label {
+  display: block;
+  font-size: 12px;
+  color: #e4e4e7;
+  margin-bottom: 5px;
+}
+
+.input-grupo input {
+  width: 100%;
+  padding: 10px;
+  background-color: #1a1a1e;
+  border: 1px solid #27272a;
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 14px;
+}
+
+.input-grupo input:focus {
+  border-color: #ff003c;
+  outline: none;
+}
+
+.btn-modal-enviar {
+  width: 100%;
+  background-color: #ff003c;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.btn-modal-enviar:hover {
+  background-color: #cc0030;
+}
+
+.divisor-modal {
+  text-align: center;
+  margin: 15px 0;
+  position: relative;
+}
+
+.divisor-modal::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 1px;
+  background-color: #27272a;
+  z-index: 1;
+}
+
+.divisor-modal span {
+  background-color: #121214;
+  padding: 0 10px;
+  color: #71717a;
+  font-size: 12px;
+  position: relative;
+  z-index: 2;
+}
+
+.btn-modal-invitado {
+  width: 100%;
+  background: none;
+  border: 1px solid #71717a;
+  color: #e4e4e7;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-modal-invitado:hover {
+  background-color: #1a1a1e;
+  border-color: #e4e4e7;
+}
+/* --- ESTILOS DE LA MONEDA GAMER Y ÉXITO --- */
+.modal-exito-contenido {
+  background-color: #121214;
+  border: 2px solid #ff003c;
+  padding: 35px 25px;
+  border-radius: 16px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  font-family: sans-serif;
+  color: #ffffff;
+  box-shadow: 0 0 30px rgba(255, 0, 60, 0.4);
+  animation: aparecerModal 0.3s ease-out;
+}
+
+.moneda-animada {
+  font-size: 65px;
+  margin-bottom: 15px;
+  display: inline-block;
+  animation: flotarMoneda 2s ease-in-out infinite;
+}
+
+.modal-exito-contenido h3 {
+  font-size: 24px;
+  margin: 0 0 10px 0;
+  color: #ffffff;
+}
+
+.puntos-ganados {
+  font-size: 38px;
+  font-weight: 900;
+  color: #ff003c;
+  text-shadow: 0 0 10px rgba(255, 0, 60, 0.5);
+  margin: 15px 0;
+}
+
+.texto-secundario {
+  color: #a1a1aa;
+  font-size: 13px;
+  margin-bottom: 25px;
+}
+
+/* ANIMACIONES GAMER */
+@keyframes flotarMoneda {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(10deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes aparecerModal {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+/* Corrección estructural definitiva para las secciones del modal */
+#seccion-registro, #seccion-login {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    box-sizing: border-box;
+}
+
+#seccion-registro form, #seccion-login form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+/* Centrar correctamente los textos inferiores de cambio */
+#seccion-registro p, #seccion-login p {
+    width: 100%;
+    text-align: center;
+}
+/* Posicionamiento y animación para el aviso gamer */
+#notificacionGamer {
+    position: fixed !important;
+    bottom: 30px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important; /* Lo centra de forma perfecta en pantallas móviles */
+    background-color: #121214 !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
+    animation: aparecerNotificacion 0.3s ease-out;
+}
+
+@keyframes aparecerNotificacion {
+    from { bottom: 0px; opacity: 0; }
+    to { bottom: 30px; opacity: 1; }
+}
+/* NUEVO DISEÑO CORREGIDO DE LA BURBUJA FLOTANTE */
+.floating-cart-btn {
+  position: fixed;
+  bottom: 110px; /* Se eleva bastante para quedar justo arriba del botón de chat */
+  right: 24px;   /* Se mueve a la derecha, alineado con el botón de soporte */
+  width: 60px;
+  height: 60px;
+  background-color: #00cc44; /* Verde brillante idéntico a tus botones */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  box-shadow: 0px 4px 20px rgba(0, 204, 68, 0.6);
+  cursor: pointer;
+  
+  /* ESTO FUERZA A QUE APAREZCA ADELANTE DE TODO */
+  z-index: 999999 !important; 
+  
+  /* Transición de tamaño y opacidad */
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* CLASE QUE LA ESCONDE SI EL CARRITO ESTÁ VACÍO (0) */
+.floating-cart-btn.hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: scale(0) !important; /* Se encoge por completo */
+}
+
+/* NÚMERO ROJO NOTIFICADOR */
+.cart-badge-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.badge-numero {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background-color: #ff0022; /* Rojo para resaltar */
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 3px 7px;
+  min-width: 14px;
+  text-align: center;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+}
+.contenedor-precios {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacio entre los dos precios */
+    margin-bottom: 12px;
+}
+
+.precio-actual {
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.precio-tachado {
+    color: #ff4d4d; /* Color rojo para resaltar el descuento */
+    text-decoration: line-through; /* Esto hace la línea del tachado */
+    font-size: 0.9rem;
+    opacity: 0.7; /* Lo hace un poco más opaco */
+}
+/* Opacidad al 75% para las letras blancas superiores */
+.titulo-stream .banner-blanco {
+    color: rgba(255, 255, 255, 0.75) !important; 
+    font-weight: 800;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Opacidad al 75% para las letras naranjas inferiores */
+.titulo-stream .banner-dorado {
+    color: rgba(255, 85, 0, 0.75) !important;  
+    font-weight: 900;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+/* Estilo definitivo para resaltar la bienvenida con blanco brillante */
+.hero-contenido p {
+    color: #FFFFFF !important;
+    font-weight: 800; /* Letra gruesa para que tenga fuerza */
+    text-transform: uppercase; /* Todo en mayúsculas como tu diseño original */
+    letter-spacing: 1px; /* Separa un poquito las letras para un estilo premium */
+    
+    /* La misma sombra oscura para despegarlo de la ilustración trasera */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9), 0 0 8px rgba(0, 0, 0, 0.6);
+}
+/* Botón Testimonios Línea de Diseño Jon Vxnts */
+.btn-experiencia-vxnts {
+    background: linear-gradient(135deg, #13151a 0%, #0b0c0f 100%) !important;
+    color: #ffffff !important;
+    font-family: system-ui, -apple-system, sans-serif !important;
+    font-weight: bold !important;
+    font-size: 14px !important;
+    letter-spacing: 0.5px !important;
+    padding: 14px 28px !important;
+    width: 100% !important; /* Se estira de lado a lado ocupando el ancho de los pasos */
+    max-width: 400px !important;
+    border-radius: 12px !important; /* Misma curvatura que tus bloques de pasos */
+    border: 1px solid #4a0d0d !important; /* Rojo oscuro sutil de tus bordes */
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5) !important;
+    transition: all 0.2s ease-in-out !important;
+    touch-action: none;
+    -webkit-tap-highlight-color: transparent !important;
+    outline: none !important;
+}
+
+/* Efecto al tocar el botón en el celular (Brillo Rojo Vxnts) */
+.btn-experiencia-vxnts:active,
+.btn-experiencia-vxnts:focus {
+    background: linear-gradient(135deg, #1a1d24 0%, #0f1116 100%) !important;
+    border-color: #ff0000 !important; /* Enciende el borde en tu rojo neón */
+    box-shadow: 0px 0px 15px rgba(255, 0, 0, 0.5) !important; /* Resplandor rojo premium */
+    transform: scale(0.98) !important; /* Pequeño hundimiento físico */
+    outline: none !important;
+}
+
+/* Animación pequeña para el emoji */
+.btn-experiencia-vxnts .icono-destello {
+    font-size: 16px !important;
+    transition: transform 0.2s ease !important;
+}
+.btn-experiencia-vxnts:active .icono-destello {
+    transform: scale(1.2) rotate(15deg) !important;
+}
+/* Contenedor Fondo Translúcido */
+.modal-testimonio-overlay {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.85) !important; /* Fondo oscuro transparente */
+    backdrop-filter: blur(5px) !important; /* Desenfoque estético de fondo */
+    z-index: 99999999 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 15px !important;
+    box-sizing: border-box !important;
+}
+
+/* Caja del Contenido del Modal */
+.modal-testimonio-contenido {
+    background: linear-gradient(135deg, #111317 0%, #08090c 100%) !important;
+    width: 100% !important;
+    max-width: 420px !important;
+    border-radius: 16px !important;
+    border: 1px solid #320b0b !important; /* Borde rojo oscuro de tu línea gráfica */
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.7) !important;
+    overflow: hidden !important;
+    animation: aparecerModalVxnts 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+@keyframes aparecerModalVxnts {
+    0% {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+/* Cabecera del Modal */
+.modal-testimonio-header {
+    padding: 18px 20px !important;
+    border-bottom: 1px solid #1f232b !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+}
+.modal-testimonio-header h3 {
+    margin: 0 !important;
+    color: #ffffff !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    font-family: system-ui, sans-serif !important;
+}
+.modal-testimonio-cerrar {
+    color: #888888 !important;
+    font-size: 24px !important;
+    cursor: pointer !important;
+    transition: color 0.2s !important;
+    -webkit-tap-highlight-color: transparent;
+}
+.modal-testimonio-cerrar:active { color: #ff0000 !important; }
+
+/* Cuerpo y Campos de Entrada */
+.modal-testimonio-body {
+    padding: 20px !important;
+    max-height: 70vh !important;
+    overflow-y: auto !important; /* Permite scroll interno en pantallas pequeñas */
+}
+.grupo-input-vxnts {
+    margin-bottom: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+.grupo-input-vxnts label {
+    color: #aaaaaa !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    font-family: sans-serif !important;
+}
+
+/* Inputs, Selects y Textareas Estilizados */
+.grupo-input-vxnts input[type="text"],
+.grupo-input-vxnts select,
+.grupo-input-vxnts textarea {
+    background-color: #14171d !important;
+    color: #ffffff !important;
+    border: 1px solid #232833 !important;
+    border-radius: 8px !important;
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    outline: none !important;
+    font-family: sans-serif !important;
+    transition: border-color 0.2s, box-shadow 0.2s !important;
+}
+.grupo-input-vxnts input:focus,
+.grupo-input-vxnts select:focus,
+.grupo-input-vxnts textarea:focus {
+    border-color: #ff0000 !important; /* Foco Rojo Vxnts */
+    box-shadow: 0px 0px 8px rgba(255, 0, 0, 0.2) !important;
+}
+
+/* Selector Personalizado de Archivos */
+.wrapper-file-vxnts input[type="file"] {
+    color: #888 !important;
+    font-size: 13px !important;
+}
+
+/* Sistema de Estrellas Interactivas */
+.estrellas-rating-vxnts {
+    display: flex !important;
+    gap: 8px !important;
+    font-size: 26px !important;
+    color: #232833 !important; /* Estrellas apagadas inicialmente */
+    cursor: pointer !important;
+    user-select: none !important;
+}
+.estrella-vxnts {
+    transition: color 0.2s, transform 0.1s !important;
+}
+.estrella-vxnts.activa {
+    color: #ff0000 !important; /* Enciende en tu rojo neón */
+    text-shadow: 0px 0px 8px rgba(255, 0, 0, 0.5) !important;
+}
+
+.nota-moderacion-vxnts {
+    color: #666666 !important;
+    font-size: 11px !important;
+    margin: 10px 0 0 0 !important;
+    text-align: center !important;
+}
+
+/* Footer y Botón de Envío */
+.modal-testimonio-footer {
+    padding: 15px 20px !important;
+    border-top: 1px solid #1f232b !important;
+    background-color: #0c0d10 !important;
+}
+.btn-enviar-testimonio {
+    width: 100% !important;
+    background-color: #ff0000 !important; /* Botón Rojo Neón */
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 12px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    box-shadow: 0px 4px 15px rgba(255, 0, 0, 0.3) !important;
+    transition: all 0.2s !important;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+.btn-enviar-testimonio:active {
+    transform: scale(0.98) !important;
+    background-color: #cc0000 !important;
+    box-shadow: 0px 0px 10px rgba(255, 0, 0, 0.5) !important;
+}
+#previewContenedorVxnts {
+    display: none; /* Se activará dinámicamente con JS */
+    text-align: center;
+    padding: 10px;
+}
+.contenedor-premios {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.casilla-premio {
+  position: absolute;
+  width: 45px;  /* Ajusta el ancho de los iconos */
+  height: 35px; /* Ajusta el alto de los iconos */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 1. Primero se rota el eje en múltiplos de 36 grados (para 10 sectores)
+     2. Luego se empuja hacia afuera en el eje Y negativo. 
+        Ajusta el '-110px' si necesitas que queden más al borde o más al centro */
+  transform: rotate(calc(var(--i) * 36deg)) translateY(-110px);
+}
+
+.casilla-premio img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+/* Cuando la imagen no tiene ruta (src vacío) o no carga */
+.contenedor-agotado {
+    position: relative;
+    background-color: #141416 !important; /* Mismo fondo exacto negro/gris oscuro de tu tienda */
+    min-height: 250px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Oculta el icono feo de imagen rota */
+.contenedor-agotado img[src=""], 
+.contenedor-agotado img:not([src]),
+.contenedor-agotado img[src="iphone.jpg"] { /* Fuerza el ocultado si dejas el nombre base */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+}
+
+/* Letrero de PRÓXIMAMENTE combinando con tu tienda */
+.contenedor-agotado:has(img[src=""])::after,
+.contenedor-agotado:has(img:not([src]))::after,
+.contenedor-agotado:has(img[src="iphone.jpg"])::after {
+    content: "PRÓXIMAMENTE";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ff0044; /* Rojo neón idéntico al de tus títulos y bordes */
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 10px 22px;
+    border-radius: 6px;
+    box-shadow: 0 0 15px rgba(255, 0, 68, 0.4); /* Efecto brillo sutil rojo */
+    letter-spacing: 1px;
+    z-index: 10;
+}
+/* Selecciona directamente las imágenes vacías o sin ruta de tu carrusel */
+img[src=""], 
+img:not([src]) {
+    content: url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' width='300' height='250' viewBox='0 0 300 250'><rect width='100%' height='100%' fill='%23141416'/></svg>") !important;
+    position: relative;
+}
+
+/* Aplica el cartel flotante de PRÓXIMAMENTE usando el elemento padre de la imagen */
+div:has(> img[src=""])::after,
+div:has(> img:not([src]))::after,
+div:has(> #jvx-img-carrusel-cuenta[src=""])::after {
+    content: "PRÓXIMAMENTE";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ff0044; /* Rojo neón VIP de tu catálogo */
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 12px 24px;
+    border-radius: 6px;
+    box-shadow: 0 0 15px rgba(255, 0, 68, 0.6); /* Brillo neón */
+    letter-spacing: 1px;
+    z-index: 99;
+    white-space: nowrap;
+    text-align: center;
+}
+/* ==========================================
+   ESTILO DE PRÓXIMAMENTE PARA ANDROID Y TIENDA
+   ========================================== */
+
+/* 1. Oculta por completo la imagen rota de Android cuando dejas el img: "" vacío */
+img[src=""], 
+img:not([src]) {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important;
+}
+
+/* 2. Le da el fondo oscuro y la altura correcta al contenedor de Android si no hay foto */
+div:has(> img[src=""]),
+div:has(> img:not([src])) {
+    position: relative !important;
+    background-color: #141416 !important; /* El color oscuro VIP de tu tienda */
+    min-height: 220px !important; /* Espacio perfecto para que quepa el cartel */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 8px;
+}
+
+/* 3. El cartel rojo neón de PRÓXIMAMENTE flotante y centrado automáticamente */
+div:has(> img[src=""])::after,
+div:has(> img:not([src]))::after {
+    content: "PRÓXIMAMENTE";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ff0044; /* Rojo neón exacto de tu catálogo */
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 12px 24px;
+    border-radius: 6px;
+    box-shadow: 0 0 15px rgba(255, 0, 68, 0.6); /* Reflejo neón brillante */
+    letter-spacing: 1px;
+    z-index: 99;
+    white-space: nowrap;
+}
+/* ========================================================
+   CAÍDA EN DIAGONAL PERFECTA (ESCALERA DE SEGURIDAD)
+   ======================================================== */
+
+/* Contenedor base relativo obligatorio */
+div:has(> img[src="referencia3.jpg"]),
+div:has(> img[src="referencia4.jpg"]),
+.contenedor-captura-agua {
+    position: relative !important;
+}
+
+/* Quitamos los textos automáticos de antes para que no estorben */
+div:has(> img[src="referencia3.jpg"])::before,
+div:has(> img[src="referencia4.jpg"])::before,
+div:has(> img[src="referencia3.jpg"])::after,
+div:has(> img[src="referencia4.jpg"])::after,
+.contenedor-captura-agua::before,
+.contenedor-captura-agua::after {
+    content: none !important;
+}
+
+/* Estilo base para las 4 marcas de agua del HTML */
+.m-1, .m-2, .m-3, .m-4 {
+    position: absolute !important;
+    color: rgba(255, 255, 255, 0.35) !important; /* Visibilidad nítida */
+    font-weight: bold !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 1px !important;
+    transform: rotate(-15deg) !important; /* Inclinación idéntica y estética */
+    z-index: 99 !important;
+    pointer-events: none !important;
+    white-space: nowrap !important;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* POSICIONES EXACTAS DE LA ESCALERA DIAGONAL */
+.m-1 { top: 12% !important; left: 45% !important; }  /* 1. Arriba */
+.m-2 { top: 36% !important; left: 32% !important; }  /* 2. Un poco más abajo */
+.m-3 { top: 60% !important; left: 20% !important; }  /* 3. En la zona de las cuentas */
+.m-4 { top: 84% !important; left: 8% !important; }   /* 4. Abajo del todo sobre tu texto */
+/* Botones de las pestañas de categorías ocultas */
+.btn-filtro {
+    flex: 0 0 auto;
+    background: #141416;
+    border: 1px solid #222;
+    color: #a1a1aa;
+    padding: 8px 16px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+.btn-filtro.active, .btn-filtro:hover {
+    background: rgba(255, 26, 26, 0.1);
+    border-color: #ff3333;
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 26, 26, 0.3);
+}
+
+/* Manejo estructural del filtrado veloz */
+.item-galeria {
+    display: block;
+    transition: all 0.3s ease;
+}
+/* Forzar la levitación del personaje Shy Guy */
+@keyframes jvxFlotar {
+    0% { transform: translateY(0px) !important; }
+    50% { transform: translateY(-8px) !important; }
+    100% { transform: translateY(0px) !important; }
+}
+/* Levita de forma independiente a Shy Guy */
+@keyframes jvxFlotarDirecto {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-7px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Estilo estético para las pestañas dentro del modal */
+#jvx-modal-galeria .btn-filtro {
+    flex: 0 0 auto;
+    background: #141416;
+    border: 1px solid #222;
+    color: #a1a1aa;
+    padding: 8px 16px;
+    border-radius: 15px;
+    font-size: 11px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+#jvx-modal-galeria .btn-filtro.active, #jvx-modal-galeria .btn-filtro:hover {
+    background: rgba(255, 26, 26, 0.1);
+    border-color: #ff3333;
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 26, 26, 0.3);
+}
+
+/* Control del carrusel horizontal modal */
+.item-galeria-modal {
+    display: block;
+    transition: all 0.2s ease;
+}
+/* ========================================================
+   CARRUSEL DE REFERENCIAS: VELOCIDAD MÁXIMA Y ESCALABLE
+   ======================================================== */
+
+/* Apuntamos directo al contenedor horizontal nativo de tus tarjetas */
+div:has(> div[style*="flex: 0 0 240px"]) {
+    display: flex !important;
+    gap: 16px !important;
+    width: max-content !important;
+    padding: 10px 0 !important;
+    /* VELOCIDAD ULTRA RÁPIDA: Bajamos el tiempo a solo 8 segundos para que flote súper veloz */
+    animation: jvxCarruselVeloz 9s linear infinite !important;
+    will-change: transform;
+}
+
+/* Si el cliente mantiene presionado el dedo en la pantalla, se congela al instante para leer */
+div:has(> div[style*="flex: 0 0 240px"]):hover {
+    animation-play-state: paused !important;
+}
+
+/* Animación fluida de desplazamiento continuo */
+@keyframes jvxCarruselVeloz {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        /* Desplaza la fila completa de forma continua hacia la izquierda */
+        transform: translateX(-100%);
+    }
+}
+/* ========================================================
+   FONDO REAL DE 16 TRIÁNGULOS PERFECTOS PARA LA RULETA
+   ======================================================== */
+
+/* 1. Aseguramos que el disco giratorio tenga un fondo cónico que pinte los 16 tramos */
+#ruleta-circulo, 
+#jvx-ruleta-giro,
+div:has(> .contenedor-premios) {
+    position: relative !important;
+    width: 300px !important;
+    height: 300px !important;
+    border-radius: 50% !important;
+    /* Este truco de degradado dibuja físicamente los 16 tramos intercalando negro y gris oscuro */
+    background: conic-gradient(
+        #111115 0deg 22.5deg, #181820 22.5deg 45deg,
+        #111115 45deg 67.5deg, #181820 67.5deg 90deg,
+        #111115 90deg 112.5deg, #181820 112.5deg 135deg,
+        #111115 135deg 157.5deg, #181820 157.5deg 180deg,
+        #111115 180deg 202.5deg, #181820 202.5deg 225deg,
+        #111115 225deg 247.5deg, #181820 247.5deg 270deg,
+        #111115 270deg 292.5deg, #181820 292.5deg 315deg,
+        #111115 315deg 337.5deg, #181820 337.5deg 360deg
+    ) !important;
+    overflow: hidden !important;
+}
+
+/* 2. Dibujamos las 8 líneas divisorias cruzadas que forman los 16 triángulos limpios */
+.ruleta-corte {
+    position: absolute !important;
+    top: 0 !important;
+    left: 50% !important;
+    width: 1px !important;
+    height: 100% !important;
+    background: rgba(255, 255, 255, 0.12) !important; /* Líneas finas iluminadas */
+    transform-origin: center center !important;
+    z-index: 2 !important;
+}
+
+/* 3. Forzamos a que los ítems queden delgaditos en la punta de cada uno de los 16 espacios */
+.jvx-item-ruleta {
+    position: absolute !important;
+    top: 20px !important; /* Lo subimos un poquito para ganar espacio */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    color: #ffffff !important;
+    font-family: 'Arial Black', sans-serif !important;
+    font-size: 9.5px !important; /* Tamaño fino perfecto para que no se voltee el texto */
+    font-weight: 900 !important;
+    line-height: 1.1 !important;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.9) !important;
+}
+/* ========================================================
+   RECALIBRACIÓN DE CIRCULO PERFECTO Y 16 TRAMOS REALES
+   ======================================================== */
+
+/* Forzamos a que el disco giratorio sea 100% redondo e independiente de imágenes rotas */
+#ruleta-circulo-giro,
+.ruleta-circulo-giro,
+div:has(> .contenedor-premios) {
+    width: 280px !important;
+    height: 280px !important;
+    max-width: 280px !important;
+    max-height: 280px !important;
+    aspect-ratio: 1 / 1 !important; /* Mantiene la redondez perfecta contra deformaciones */
+    border-radius: 50% !important;
+    box-sizing: border-box !important;
+    overflow: hidden !important;
+    /* Dibuja físicamente las 16 porciones oscuras en el fondo del círculo */
+    background: conic-gradient(
+        #101014 0deg 22.5deg, #16161d 22.5deg 45deg,
+        #101014 45deg 67.5deg, #16161d 67.5deg 90deg,
+        #101014 90deg 112.5deg, #16161d 112.5deg 135deg,
+        #101014 135deg 157.5deg, #16161d 157.5deg 180deg,
+        #101014 180deg 202.5deg, #16161d 202.5deg 225deg,
+        #101014 225deg 247.5deg, #16161d 247.5deg 270deg,
+        #101014 270deg 292.5deg, #16161d 292.5deg 315deg,
+        #101014 315deg 337.5deg, #16161d 337.5deg 360deg
+    ) !important;
+}
+
+/* Forzar la alineación y el tamaño mini de los iconos en el tramo de 16 partes */
+.jvx-item-ruleta {
+    position: absolute !important;
+    top: 22px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+.jvx-item-ruleta img {
+    max-height: 22px !important;
+    width: auto !important;
+    object-fit: contain !important;
+}
+/* ESTILOS DE LA RULETA HEROICA JON VXNTS */
+.bet-btn {
+    background-color: #151a21;
+    border: 2px solid #2c3540;
+    color: white;
+    padding: 12px 5px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    font-size: 14px;
+}
+.bet-btn:hover {
+    border-color: #00d2ff;
+    background-color: #1a233a;
+}
+.bet-btn.selected {
+    background: linear-gradient(135deg, #8f94fb, #4e54c8);
+    border-color: #00d2ff;
+    box-shadow: 0 0 10px #8f94fb;
+}
+.bet-btn.boosted {
+    border-color: #e52521 !important; /* Rojo Mario/Betano */
+    box-shadow: 0 0 12px #e52521 !important;
+    animation: glitchEffect 0.3s infinite alternate;
+}
+.spin-btn {
+    background: linear-gradient(135deg, #00f2fe, #4facfe);
+    color: #0b0c10;
+    border: none;
+    padding: 15px 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+    width: 100%;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+.spin-btn:disabled {
+    background: #4a5568;
+    color: #a0aec0;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+.multiplier-badge {
+    color: white;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 0 8px rgba(229, 37, 33, 0.5);
+}
+@keyframes glitchEffect {
+    from { transform: scale(1); }
+    to { transform: scale(1.03); }
+}
+/* Fuerza al carrusel a ignorar los clics para que nunca se congele */
+#carruselResenasVxnts {
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+
+/* Registra la animación en la tarjeta gráfica de forma imparable */
+@keyframes scrollResenasInfinito {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+.slot-ganador-animado {
+    animation: zoomGanadorNeon 0.4s ease-in-out infinite alternate !important;
+    border: 2px solid #ff2a6d !important;
+    z-index: 5 !important;
+}
+
+@keyframes zoomGanadorNeon {
+    0% {
+        transform: scale(1);
+        box-shadow: inset 0 0 8px #000, 0 0 5px rgba(255, 42, 109, 0.5);
+    }
+    100% {
+        transform: scale(1.08); /* Crece el cuadro suavemente */
+        box-shadow: inset 0 0 8px #000, 0 0 15px #ff2a6d; /* Brillo rosa */
+    }
+}

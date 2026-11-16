@@ -1,0 +1,23 @@
+{
+  "name": "Jon Vxnts • Tienda Oficial",
+  "short_name": "Jon Vxnts",
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0b0e",
+  "theme_color": "#ff1a1a",
+  "icons": [
+    {
+      "src": "JonVxntsapk.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "JonVxntsapk.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
