@@ -8545,18 +8545,20 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (e) { mostrarError('Error: Verifica tus datos o usa al menos 6 caracteres.'); }
   };
 
-  window.jvxLoginGoogle = async function() {
-    if (!auth) { mostrarError('Falta pegar tu firebaseConfig en el código.'); return; }
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      window.jvxCerrarAuth();
-      if (!localStorage.getItem('jvx_alias_' + user.uid)) {
-        document.getElementById('jvx-nuevo-alias-input').value = user.displayName || '';
-        document.getElementById('jvx-modal-alias').style.display = 'flex';
-      }
-    } catch (e) { mostrarError('Verifica que jonvxnts.com esté en Dominios Autorizados de Firebase.'); }
-  };
+window.jvxLoginGoogle = async function() {
+  alert("¡El botón sí funciona!");
+  if (!auth) { mostrarError('Falta pegar tu firebaseConfig en el código.'); return; }
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    window.jvxCerrarAuth();
+    if (!localStorage.getItem('jvx_alias_' + user.uid)) {
+      document.getElementById('jvx-nuevo-alias-input').value = user.displayName || '';
+      document.getElementById('jvx-modal-alias').style.display = 'flex';
+    }
+  } catch (e) { mostrarError('Verifica que jonvxnts.com esté en Dominios Autorizados de Firebase.'); }
+};
+
 
   window.jvxAbrirModalAlias = function() {
     if (!auth || !auth.currentUser) return;
