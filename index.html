@@ -8494,8 +8494,19 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <script type="module">
-  import { initializeApp } from "https://gstatic.com";
-  import { getAuth, GoogleAuthProvider, signInWithRedirect, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut } from "https://gstatic.com";
+  const fbBase = "https://" + "://gstatic.com";
+const { initializeApp } = await import(fbBase + "firebase-app.js");
+const {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithRedirect,
+  getRedirectResult,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+  onAuthStateChanged,
+  signOut
+} = await import(fbBase + "firebase-auth.js");
 
   // REEMPLAZA ESTOS 6 VALORES POR LOS DE TU PROYECTO EN FIREBASE
   const firebaseConfig = {
