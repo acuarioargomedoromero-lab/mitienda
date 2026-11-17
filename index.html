@@ -8495,7 +8495,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 <script type="module">
   import { initializeApp } from "https://gstatic.com";
-  import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut } from "https://gstatic.com";
+  import { getAuth, GoogleAuthProvider, signInWithRedirect, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut } from "https://gstatic.com";
 
   // REEMPLAZA ESTOS 6 VALORES POR LOS DE TU PROYECTO EN FIREBASE
   const firebaseConfig = {
@@ -8546,10 +8546,9 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
 window.jvxLoginGoogle = async function() {
-  alert("¡El botón sí funciona!");
   if (!auth) { mostrarError('Falta pegar tu firebaseConfig en el código.'); return; }
   try {
-    const result = await signInWithPopup(auth, provider);
+    const result = await signInWithRedirect(auth, provider);
     const user = result.user;
     window.jvxCerrarAuth();
     if (!localStorage.getItem('jvx_alias_' + user.uid)) {
