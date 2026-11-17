@@ -8501,8 +8501,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const {
     getAuth,
     GoogleAuthProvider,
-    signInWithRedirect,
-    getRedirectResult,
+    signInWithPopup,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updateProfile,
@@ -8530,20 +8529,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  getRedirectResult(auth).then((result) => {
-    if (result && result.user) {
-      window.jvxCerrarAuth();
-      if (!localStorage.getItem('jvx_alias_' + result.user.uid)) {
-        const inp = document.getElementById('jvx-nuevo-alias-input');
-        const mod = document.getElementById('jvx-modal-alias');
-        if (inp) inp.value = result.user.displayName || '';
-        if (mod) mod.style.display = 'flex';
-      }
-    }
-  }).catch((e) => {
-    mostrarError('Error Google: ' + e.message);
-  });
-
   window.jvxProcesarCorreo = async function() {
     const email = document.getElementById('jvx-email')?.value.trim();
     const pass = document.getElementById('jvx-pass')?.value;
@@ -8555,13 +8540,13 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       if (window.jvxModoReg) {
         const cred = await createUserWithEmailAndPassword(auth, email, pass);
-        const nombreFinal = aliasReg || email.split('@')[0];
+        const nombreFinal = aliasReg || email.split('@');
         await updateProfile(cred.user, { displayName: nombreFinal });
         localStorage.setItem('jvx_alias_' + cred.user.uid, nombreFinal);
       } else {
         await signInWithEmailAndPassword(auth, email, pass);
       }
-      window.jvxCerrarAuth();
+      if (typeof window.jvxCerrarAuth === 'function') window.jvxCerrarAuth();
     } catch (e) {
       mostrarError('Error: ' + e.message);
     }
@@ -8569,28 +8554,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.jvxLoginGoogle = async function() {
     try {
-      await signInWithRedirect(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      if (!localStorage.getItem('jvx_alias_' + user.uid)) {
+        const inp = document.getElementById('jvx-nuevo-alias-input');
+        const mod = document.getElementById('jvx-modal-alias');
+        if (inp) inp.value = user.displayName || '';
+        if (mod) mod.style.display = 'flex';
+      }
     } catch (e) {
-      mostrarError('Error al abrir Google: ' + e.message);
+      mostrarError('Error Google: ' + e.message);
     }
   };
 
   window.jvxAbrirModalAlias = function() {
     if (!auth.currentUser) return;
     const user = auth.currentUser;
-    document.getElementById('jvx-nuevo-alias-input').value = localStorage.getItem('jvx_alias_' + user.uid) || user.displayName || '';
-    document.getElementById('jvx-modal-alias').style.display = 'flex';
+    const inp = document.getElementById('jvx-nuevo-alias-input');
+    const mod = document.getElementById('jvx-modal-alias');
+    if (inp) inp.value = localStorage.getItem('jvx_alias_' + user.uid) || user.displayName || '';
+    if (mod) mod.style.display = 'flex';
   };
 
   window.jvxGuardarAlias = async function() {
     if (!auth.currentUser) return;
     const user = auth.currentUser;
-    const nuevoAlias = document.getElementById('jvx-nuevo-alias-input').value.trim();
+    const nuevoAlias = document.getElementById('jvx-nuevo-alias-input')?.value.trim();
     if (nuevoAlias) {
       localStorage.setItem('jvx_alias_' + user.uid, nuevoAlias);
       await updateProfile(user, { displayName: nuevoAlias });
-      if (typeof actualizarVistaUsuario === 'function') actualizarVistaUsuario(user);
-      document.getElementById('jvx-modal-alias').style.display = 'none';
+      actualizarVistaUsuario(user);
+      const mod = document.getElementById('jvx-modal-alias');
+      if (mod) mod.style.display = 'none';
     }
   };
 
@@ -8599,15 +8594,27 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function actualizarVistaUsuario(user) {
+    const vistaForm = document.getElementById('jvx-vista-formulario');
+    const vistaPerfil = document.getElementById('jvx-vista-perfil');
     const btnAbrir = document.getElementById('jvx-btn-abrir-auth');
     const perfilBox = document.getElementById('jvx-perfil-usuario');
+
     if (user) {
+      const alias = localStorage.getItem('jvx_alias_' + user.uid) || user.displayName || user.email.split('@');
+      const foto = user.photoURL || 'https://ui-avatars.com' + encodeURIComponent(alias);
+
+      if (vistaForm) vistaForm.style.display = 'none';
+      if (vistaPerfil) vistaPerfil.style.display = 'block';
+      if (document.getElementById('jvx-perfil-alias')) document.getElementById('jvx-perfil-alias').innerText = alias;
+      if (document.getElementById('jvx-perfil-correo')) document.getElementById('jvx-perfil-correo').innerText = user.email;
+      if (document.getElementById('jvx-perfil-foto')) document.getElementById('jvx-perfil-foto').src = foto;
+
       if (btnAbrir) btnAbrir.style.display = 'none';
       if (perfilBox) perfilBox.style.display = 'flex';
-      const alias = localStorage.getItem('jvx_alias_' + user.uid) || user.displayName || user.email.split('@')[0];
-      const nomEl = document.getElementById('jvx-perfil-nombre');
-      if (nomEl) nomEl.innerText = alias;
+      if (document.getElementById('jvx-perfil-nombre')) document.getElementById('jvx-perfil-nombre').innerText = alias;
     } else {
+      if (vistaForm) vistaForm.style.display = 'block';
+      if (vistaPerfil) vistaPerfil.style.display = 'none';
       if (btnAbrir) btnAbrir.style.display = 'flex';
       if (perfilBox) perfilBox.style.display = 'none';
     }
@@ -8617,4 +8624,3 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarVistaUsuario(user);
   });
 </script>
-
