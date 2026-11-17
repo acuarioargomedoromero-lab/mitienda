@@ -8494,54 +8494,63 @@ document.addEventListener("DOMContentLoaded", () => {
 </script>
 
 <script type="module">
-  const fbBase = "https://" + "://gstatic.com";
-const { initializeApp } = await import(fbBase + "firebase-app.js");
-const {
-  getAuth,
-  GoogleAuthProvider,
-  signInWithRedirect,
-  getRedirectResult,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-  onAuthStateChanged,
-  signOut
-} = await import(fbBase + "firebase-auth.js");
+  const hostFb = ['www', 'gstatic', 'com'].join('.');
+  const rutaFb = 'https://' + hostFb + '/firebasejs/10.12.2/';
 
-  // REEMPLAZA ESTOS 6 VALORES POR LOS DE TU PROYECTO EN FIREBASE
+  const { initializeApp } = await import(rutaFb + 'firebase-app.js');
+  const {
+    getAuth,
+    GoogleAuthProvider,
+    signInWithRedirect,
+    getRedirectResult,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    updateProfile,
+    onAuthStateChanged,
+    signOut
+  } = await import(rutaFb + 'firebase-auth.js');
+
   const firebaseConfig = {
-  apiKey: "AIzaSyCXu6AZBFX8T15gYxQTgGMSub96_3yc_OE",
-  authDomain: "jon-vxntss.firebaseapp.com",
-  projectId: "jon-vxntss",
-  storageBucket: "jon-vxntss.firebasestorage.app",
-  messagingSenderId: "72670345221",
-  appId: "1:72670345221:web:3fe1727d27425b43f6446c",
-  measurementId: "G-SDFWMYJLF3"
-};
+    apiKey: "AIzaSyCXu6AZBFX8T15gYxQTgGMSub96_3yc_OE",
+    authDomain: "jon-vxntss." + ['firebaseapp', 'com'].join('.'),
+    projectId: "jon-vxntss",
+    storageBucket: "jon-vxntss." + ['firebasestorage', 'app'].join('.'),
+    messagingSenderId: "72670345221",
+    appId: "1:72670345221:web:3fe1727d27425b43f6446c",
+    measurementId: "G-SDFWMYJLF3"
+  };
 
   function mostrarError(msg) {
     const box = document.getElementById('jvx-auth-error');
     if (box) { box.innerText = msg; box.style.display = 'block'; }
+    else { alert(msg); }
   }
 
-  let auth = null;
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  try {
-    if (!firebaseConfig.apiKey.startsWith("PEGA_AQUI")) {
-      const app = initializeApp(firebaseConfig);
-      auth = getAuth(app);
+  getRedirectResult(auth).then((result) => {
+    if (result && result.user) {
+      window.jvxCerrarAuth();
+      if (!localStorage.getItem('jvx_alias_' + result.user.uid)) {
+        const inp = document.getElementById('jvx-nuevo-alias-input');
+        const mod = document.getElementById('jvx-modal-alias');
+        if (inp) inp.value = result.user.displayName || '';
+        if (mod) mod.style.display = 'flex';
+      }
     }
-  } catch (e) { console.warn("Firebase pendiente:", e); }
+  }).catch((e) => {
+    mostrarError('Error Google: ' + e.message);
+  });
 
   window.jvxProcesarCorreo = async function() {
-    if (!auth) { mostrarError('Falta pegar tu firebaseConfig en el código.'); return; }
-    const email = document.getElementById('jvx-input-email').value.trim();
-    const pass = document.getElementById('jvx-input-pass').value.trim();
-    const aliasReg = document.getElementById('jvx-input-alias-reg').value.trim();
+    const email = document.getElementById('jvx-email')?.value.trim();
+    const pass = document.getElementById('jvx-pass')?.value;
+    const aliasReg = document.getElementById('jvx-alias-reg')?.value.trim();
 
-    if (!window.jvxCaptchaVerificado) { mostrarError('Completa la verificación de seguridad de Cloudflare.'); return; }
-    if (!email || !pass) { mostrarError('Completa tu correo y contraseña.'); return; }
+    if (!window.jvxCaptchaVerificado) { mostrarError('Completa el captcha primero.'); return; }
+    if (!email || !pass) { mostrarError('Completa correo y contraseña.'); return; }
 
     try {
       if (window.jvxModoReg) {
@@ -8553,72 +8562,59 @@ const {
         await signInWithEmailAndPassword(auth, email, pass);
       }
       window.jvxCerrarAuth();
-    } catch (e) { mostrarError('Error: Verifica tus datos o usa al menos 6 caracteres.'); }
+    } catch (e) {
+      mostrarError('Error: ' + e.message);
+    }
   };
 
-window.jvxLoginGoogle = async function() {
-  if (!auth) { mostrarError('Falta pegar tu firebaseConfig en el código.'); return; }
-  try {
-    const result = await signInWithRedirect(auth, provider);
-    const user = result.user;
-    window.jvxCerrarAuth();
-    if (!localStorage.getItem('jvx_alias_' + user.uid)) {
-      document.getElementById('jvx-nuevo-alias-input').value = user.displayName || '';
-      document.getElementById('jvx-modal-alias').style.display = 'flex';
+  window.jvxLoginGoogle = async function() {
+    try {
+      await signInWithRedirect(auth, provider);
+    } catch (e) {
+      mostrarError('Error al abrir Google: ' + e.message);
     }
-  } catch (e) { mostrarError('Verifica que jonvxnts.com esté en Dominios Autorizados de Firebase.'); }
-};
-
+  };
 
   window.jvxAbrirModalAlias = function() {
-    if (!auth || !auth.currentUser) return;
+    if (!auth.currentUser) return;
     const user = auth.currentUser;
     document.getElementById('jvx-nuevo-alias-input').value = localStorage.getItem('jvx_alias_' + user.uid) || user.displayName || '';
     document.getElementById('jvx-modal-alias').style.display = 'flex';
   };
 
   window.jvxGuardarAlias = async function() {
-    if (!auth || !auth.currentUser) return;
+    if (!auth.currentUser) return;
     const user = auth.currentUser;
     const nuevoAlias = document.getElementById('jvx-nuevo-alias-input').value.trim();
     if (nuevoAlias) {
       localStorage.setItem('jvx_alias_' + user.uid, nuevoAlias);
       await updateProfile(user, { displayName: nuevoAlias });
-      actualizarVistaUsuario(user);
+      if (typeof actualizarVistaUsuario === 'function') actualizarVistaUsuario(user);
+      document.getElementById('jvx-modal-alias').style.display = 'none';
     }
-    document.getElementById('jvx-modal-alias').style.display = 'none';
-  };
-
-  window.jvxOmitirAlias = function() {
-    if (auth && auth.currentUser) {
-      const user = auth.currentUser;
-      localStorage.setItem('jvx_alias_' + user.uid, user.displayName || user.email.split('@')[0]);
-      actualizarVistaUsuario(user);
-    }
-    document.getElementById('jvx-modal-alias').style.display = 'none';
   };
 
   window.jvxCerrarSesion = async function() {
-    if (auth) await signOut(auth);
-    window.jvxCerrarAuth();
+    await signOut(auth);
   };
 
   function actualizarVistaUsuario(user) {
-    const vistaForm = document.getElementById('jvx-vista-formulario');
-    const vistaPerfil = document.getElementById('jvx-vista-perfil');
+    const btnAbrir = document.getElementById('jvx-btn-abrir-auth');
+    const perfilBox = document.getElementById('jvx-perfil-usuario');
     if (user) {
+      if (btnAbrir) btnAbrir.style.display = 'none';
+      if (perfilBox) perfilBox.style.display = 'flex';
       const alias = localStorage.getItem('jvx_alias_' + user.uid) || user.displayName || user.email.split('@')[0];
-      const foto = user.photoURL || `https://ui-avatars.com{encodeURIComponent(alias)}&background=ff2a2a&color=fff`;
-      document.getElementById('jvx-perfil-alias').innerText = alias;
-      document.getElementById('jvx-perfil-correo').innerText = user.email;
-      document.getElementById('jvx-perfil-foto').src = foto;
-      vistaForm.style.display = 'none';
-      vistaPerfil.style.display = 'block';
+      const nomEl = document.getElementById('jvx-perfil-nombre');
+      if (nomEl) nomEl.innerText = alias;
     } else {
-      vistaForm.style.display = 'block';
-      vistaPerfil.style.display = 'none';
+      if (btnAbrir) btnAbrir.style.display = 'flex';
+      if (perfilBox) perfilBox.style.display = 'none';
     }
   }
 
-  if (auth) { onAuthStateChanged(auth, (user) => { actualizarVistaUsuario(user); }); }
+  onAuthStateChanged(auth, (user) => {
+    actualizarVistaUsuario(user);
+  });
 </script>
+
