@@ -6659,6 +6659,7 @@ function jvxFiltrarFlotante(categoria) {
         }
     });
 }
+
 </script>
 <!-- Modal flotante ULTRA SEGURO con 4 marcas de agua bien claras -->
 <div id="jvx-lightbox-modal" style="display: none; position: fixed; z-index: 99999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 8, 0.98); align-items: center; justify-content: center; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
@@ -8738,7 +8739,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", () => setTimeout(verificarModales, 50));
   });
 </script>
-<!-- SCRIPT COMPLETO DE RENDERIZADO Y VALIDACIÓN CLOUDFLARE TURNSTILE -->
+<!-- SCRIPT CON REINTENTO AUTOMÁTICO PARA CLOUDFLARE TURNSTILE -->
 <script>
   window.jvxCaptchaValidado = false;
   let jvxWidgetId = null;
@@ -8752,9 +8753,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function renderizarTurnstileJVX() {
     const caja = document.getElementById("jvx-turnstile-box");
-    // Verifica que la caja exista, esté visible en pantalla y la librería ya haya cargado
-    if (!caja || typeof turnstile === "undefined") return;
-    if (caja.offsetParent === null) return;
+    if (!caja) return;
+
+    // Si la librería de Cloudflare aún no termina de cargar, reintenta en 500ms
+    if (typeof turnstile === "undefined") {
+      setTimeout(renderizarTurnstileJVX, 500);
+      return;
+    }
 
     if (jvxWidgetId !== null) {
       window.jvxCaptchaValidado = false;
@@ -8768,15 +8773,11 @@ document.addEventListener("DOMContentLoaded", () => {
         sitekey: "1x00000000000000000000AA",
         theme: "dark",
         language: "es",
-        callback: function (token) {
+        callback: function () {
           window.jvxCaptchaValidado = true;
           actualizarEstadoBotonJVX();
         },
         "expired-callback": function () {
-          window.jvxCaptchaValidado = false;
-          actualizarEstadoBotonJVX();
-        },
-        "error-callback": function () {
           window.jvxCaptchaValidado = false;
           actualizarEstadoBotonJVX();
         }
@@ -8784,15 +8785,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  document.addEventListener("DOMContentLoaded", function () {
+  // Se ejecuta al cargar y cada vez que tocas un botón
+  window.addEventListener("load", function () {
     actualizarEstadoBotonJVX();
+    setTimeout(renderizarTurnstileJVX, 600);
+  });
 
-    // Se activa apenas abres el modal de cuenta o cambias entre Iniciar sesión / Registrarme
-    document.addEventListener("click", function (e) {
-      if (e.target.closest("button, a, [onclick]")) {
-        setTimeout(renderizarTurnstileJVX, 200);
-      }
-    });
+  document.addEventListener("click", function (e) {
+    if (e.target.closest("button, a, [onclick]")) {
+      setTimeout(renderizarTurnstileJVX, 250);
+    }
   });
 </script>
-
