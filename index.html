@@ -18,6 +18,7 @@
     <link rel="apple-touch-icon" href="JonVxntsapk.png">
 <script src="https://cloudflare.com" async defer></script>
 
+
 </head>
   
 <body>
@@ -147,7 +148,7 @@
                 if(btnLogout) btnLogout.style.display = "block";
             }
         }, 400);
-        </script>
+        </scrip>
   
 </div>
     </div>
@@ -8409,15 +8410,9 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 </script>
 
-      <!-- WIDGET DE VERIFICACIÓN CLOUDFLARE TURNSTILE -->
-<div style="display: flex; justify-content: center; margin: 14px 0;">
-  <div class="cf-turnstile" 
-       data-sitekey="1x00000000000000000000AA" 
-       data-theme="dark" 
-       data-language="es" 
-       data-callback="jvxCaptchaOk">
-  </div>
-</div>
+<!-- CONTENEDOR OFICIAL DE VERIFICACIÓN CLOUDFLARE TURNSTILE -->
+<div id="jvx-turnstile-box" style="display: flex; justify-content: center; align-items: center; min-height: 65px; width: 100%; margin: 14px 0;"></div>
+
 
 
       <div id="jvx-auth-error" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; font-size: 12px; padding: 8px 10px; border-radius: 8px; margin-bottom: 12px; text-align: center;"></div>
@@ -8743,45 +8738,59 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", () => setTimeout(verificarModales, 50));
   });
 </script>
-<!-- SCRIPT DE VALIDACIÓN Y CONTROL DE CLOUDFLARE TURNSTILE -->
+<!-- SCRIPT COMPLETO DE RENDERIZADO Y VALIDACIÓN CLOUDFLARE TURNSTILE -->
 <script>
   window.jvxCaptchaValidado = false;
+  let jvxWidgetId = null;
 
   function actualizarEstadoBotonJVX() {
     const btn = document.getElementById("jvx-btn-submit");
     if (!btn) return;
-    if (window.jvxCaptchaValidado) {
-      btn.style.opacity = "1";
-      btn.style.pointerEvents = "auto";
+    btn.style.opacity = window.jvxCaptchaValidado ? "1" : "0.55";
+    btn.style.pointerEvents = window.jvxCaptchaValidado ? "auto" : "none";
+  }
+
+  function renderizarTurnstileJVX() {
+    const caja = document.getElementById("jvx-turnstile-box");
+    // Verifica que la caja exista, esté visible en pantalla y la librería ya haya cargado
+    if (!caja || typeof turnstile === "undefined") return;
+    if (caja.offsetParent === null) return;
+
+    if (jvxWidgetId !== null) {
+      window.jvxCaptchaValidado = false;
+      actualizarEstadoBotonJVX();
+      try {
+        turnstile.reset(jvxWidgetId);
+      } catch (e) {}
     } else {
-      btn.style.opacity = "0.55";
-      btn.style.pointerEvents = "none";
+      caja.innerHTML = "";
+      jvxWidgetId = turnstile.render("#jvx-turnstile-box", {
+        sitekey: "1x00000000000000000000AA",
+        theme: "dark",
+        language: "es",
+        callback: function (token) {
+          window.jvxCaptchaValidado = true;
+          actualizarEstadoBotonJVX();
+        },
+        "expired-callback": function () {
+          window.jvxCaptchaValidado = false;
+          actualizarEstadoBotonJVX();
+        },
+        "error-callback": function () {
+          window.jvxCaptchaValidado = false;
+          actualizarEstadoBotonJVX();
+        }
+      });
     }
-  }
-
-  // Cloudflare llama a esta función apenas sale el check verde
-  function jvxCaptchaOk(token) {
-    window.jvxCaptchaValidado = true;
-    actualizarEstadoBotonJVX();
-  }
-
-  // Si el token expira o falla, vuelve a bloquear el botón hasta verificar de nuevo
-  function jvxCaptchaExpirado() {
-    window.jvxCaptchaValidado = false;
-    actualizarEstadoBotonJVX();
   }
 
   document.addEventListener("DOMContentLoaded", function () {
     actualizarEstadoBotonJVX();
 
-    // Reinicia la verificación al cambiar entre "Iniciar sesión" y "Registrarme"
+    // Se activa apenas abres el modal de cuenta o cambias entre Iniciar sesión / Registrarme
     document.addEventListener("click", function (e) {
-      if (e.target.closest("#jvx-link-switch, [onclick*='jvx']")) {
-        window.jvxCaptchaValidado = false;
-        actualizarEstadoBotonJVX();
-        if (typeof turnstile !== "undefined") {
-          try { turnstile.reset(); } catch (err) {}
-        }
+      if (e.target.closest("button, a, [onclick]")) {
+        setTimeout(renderizarTurnstileJVX, 200);
       }
     });
   });
