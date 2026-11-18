@@ -8546,7 +8546,8 @@ document.addEventListener("DOMContentLoaded", () => {
     signInWithEmailAndPassword,
     updateProfile,
     onAuthStateChanged,
-    signOut
+    signOut,
+    sendPasswordResetEmail
   } = await import(rutaFb + 'firebase-auth.js');
 
   const firebaseConfig = {
@@ -8568,6 +8569,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+window.jvxEnviarCorreoReal = function(correo) {
+  return sendPasswordResetEmail(auth, correo);
+};
 
   window.jvxProcesarCorreo = async function() {
     const email = document.getElementById('jvx-email')?.value.trim();
@@ -8772,5 +8776,191 @@ document.addEventListener("DOMContentLoaded", () => {
     document.head.appendChild(s);
   })();
 </script>
+<!-- MODAL Y PROCESO COMPLETO DE RECUPERACIÓN DE CONTRASEÑA - JON VXNTS -->
+<div id="jvx-modal-recuperar" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88); z-index: 999999; align-items: center; justify-content: center; padding: 16px; font-family: sans-serif;">
+  <div style="background: #141417; border: 1px solid #2b2b33; border-radius: 18px; width: 100%; max-width: 390px; padding: 26px 22px; position: relative; color: #ffffff; box-shadow: 0 20px 50px rgba(0,0,0,0.85);">
+    
+    <!-- Botón cerrar (X) -->
+    <button type="button" onclick="cerrarRecuperarJVX()" style="position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; border-radius: 50%; background: #222228; border: 1px solid #32323a; color: #9ca3af; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;">
+      ✕
+    </button>
+
+    <div style="text-align: center; margin-bottom: 20px;">
+      <div style="color: #ef4444; font-weight: 800; font-size: 18px; letter-spacing: 1px; margin-bottom: 8px;">JON VXNTS</div>
+      <h3 id="jvx-rec-titulo" style="margin: 0 0 6px 0; font-size: 20px; font-weight: 700;">Recuperar contraseña</h3>
+      <p id="jvx-rec-subtitulo" style="margin: 0; font-size: 13px; color: #9ca3af; line-height: 1.4;">
+        Ingresa el correo electrónico asociado a tu cuenta para restablecer tu clave.
+      </p>
+    </div>
+
+    <!-- PASO 1: PEDIR CORREO -->
+    <div id="jvx-paso-1">
+      <label style="display: block; font-size: 11px; font-weight: 700; color: #9ca3af; letter-spacing: 0.5px; margin-bottom: 6px; text-transform: uppercase;">
+        CORREO ELECTRÓNICO
+      </label>
+      <input type="email" id="jvx-rec-correo" placeholder="tu@correo.com" style="width: 100%; box-sizing: border-box; background: #1e1e24; border: 1px solid #2e2e36; border-radius: 10px; padding: 13px 14px; color: #ffffff; font-size: 14px; outline: none; margin-bottom: 16px;">
+      
+      <button type="button" onclick="enviarCodigoJVX()" style="width: 100%; background: linear-gradient(90deg, #ef4444, #dc2626); border: none; border-radius: 10px; padding: 13px; color: #ffffff; font-weight: 700; font-size: 14px; cursor: pointer; margin-bottom: 12px;">
+        Enviar código de recuperación →
+      </button>
+
+      <div style="text-align: center; border-top: 1px solid #24242b; padding-top: 12px; margin-top: 6px;">
+        <span style="display: block; font-size: 12px; color: #6b7280; margin-bottom: 6px;">¿No recuerdas tu correo o perdiste el acceso?</span>
+        <a href="https://wa.me" target="_blank" style="color: #22c55e; font-size: 12.5px; font-weight: 600; text-decoration: none;">
+          Contactar soporte por WhatsApp →
+        </a>
+      </div>
+    </div>
+
+    <!-- PASO 2: VERIFICAR CÓDIGO Y CREAR NUEVA CONTRASEÑA -->
+    <div id="jvx-paso-2" style="display: none;">
+      <div style="background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.3); color: #4ade80; font-size: 12px; padding: 10px; border-radius: 8px; margin-bottom: 14px; text-align: center;">
+        ✓ Código enviado a <strong id="jvx-correo-mostrado"></strong>
+      </div>
+
+      <label style="display: block; font-size: 11px; font-weight: 700; color: #9ca3af; letter-spacing: 0.5px; margin-bottom: 6px;">
+        CÓDIGO DE 6 DÍGITOS
+      </label>
+      <input type="text" id="jvx-rec-codigo" maxlength="6" placeholder="000000" style="width: 100%; box-sizing: border-box; background: #1e1e24; border: 1px solid #2e2e36; border-radius: 10px; padding: 12px 14px; color: #ffffff; font-size: 16px; letter-spacing: 4px; text-align: center; outline: none; margin-bottom: 12px;">
+
+      <label style="display: block; font-size: 11px; font-weight: 700; color: #9ca3af; letter-spacing: 0.5px; margin-bottom: 6px;">
+        NUEVA CONTRASEÑA
+      </label>
+      <input type="password" id="jvx-rec-nueva-pass" placeholder="Mínimo 6 caracteres" style="width: 100%; box-sizing: border-box; background: #1e1e24; border: 1px solid #2e2e36; border-radius: 10px; padding: 12px 14px; color: #ffffff; font-size: 14px; outline: none; margin-bottom: 16px;">
+
+      <button type="button" onclick="guardarNuevaPassJVX()" style="width: 100%; background: linear-gradient(90deg, #ef4444, #dc2626); border: none; border-radius: 10px; padding: 13px; color: #ffffff; font-weight: 700; font-size: 14px; cursor: pointer;">
+        Guardar nueva contraseña →
+      </button>
+    </div>
+
+    <!-- PASO 3: CONFIRMACIÓN -->
+    <div id="jvx-paso-3" style="display: none; text-align: center; padding: 10px 0;">
+      <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(34, 197, 94, 0.15); color: #22c55e; font-size: 26px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px auto;">
+        ✓
+      </div>
+      <h4 style="margin: 0 0 8px 0; font-size: 18px; color: #ffffff;">¡Contraseña restablecida!</h4>
+      <p style="margin: 0 0 18px 0; font-size: 13px; color: #9ca3af;">
+        Tu clave ha sido actualizada. Ya puedes iniciar sesión con tu nueva contraseña.
+      </p>
+      <button type="button" onclick="cerrarRecuperarJVX()" style="width: 100%; background: #222228; border: 1px solid #32323a; border-radius: 10px; padding: 12px; color: #ffffff; font-weight: 600; font-size: 14px; cursor: pointer;">
+        Volver a Iniciar sesión
+      </button>
+    </div>
+
+    <div style="text-align: center; margin-top: 14px;">
+      <a href="javascript:void(0)" onclick="cerrarRecuperarJVX()" style="font-size: 12.5px; color: #9ca3af; text-decoration: none;">
+        ← Volver al inicio de sesión
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  let codigoGeneradoJVX = "";
+
+  function abrirRecuperarJVX() {
+    document.getElementById("jvx-paso-1").style.display = "block";
+    document.getElementById("jvx-paso-2").style.display = "none";
+    document.getElementById("jvx-paso-3").style.display = "none";
+    document.getElementById("jvx-rec-titulo").textContent = "Recuperar contraseña";
+    document.getElementById("jvx-rec-subtitulo").style.display = "block";
+    document.getElementById("jvx-modal-recuperar").style.display = "flex";
+  }
+
+  function cerrarRecuperarJVX() {
+    document.getElementById("jvx-modal-recuperar").style.display = "none";
+  }
+
+  function enviarCodigoJVX() {
+  const correo = document.getElementById("jvx-rec-correo").value.trim();
+  if (!correo || !correo.includes("@")) {
+    alert("Por favor, escribe un correo electrónico válido.");
+    return;
+  }
+
+  if (typeof window.jvxEnviarCorreoReal === "function") {
+    window.jvxEnviarCorreoReal(correo)
+      .then(function () {
+        document.getElementById("jvx-paso-1").style.display = "none";
+        document.getElementById("jvx-paso-2").style.display = "none";
+        document.getElementById("jvx-paso-3").style.display = "block";
+        document.getElementById("jvx-rec-titulo").textContent = "Revisa tu correo";
+        document.getElementById("jvx-rec-subtitulo").style.display = "none";
+        document.querySelector("#jvx-paso-3 h4").textContent = "¡Enlace enviado a Gmail!";
+        document.querySelector("#jvx-paso-3 p").textContent = "Hemos enviado un enlace oficial a " + correo + " (revisa tu bandeja principal o Spam) para que escribas tu nueva contraseña.";
+      })
+      .catch(function (error) {
+        if (error.code === "auth/user-not-found") {
+          alert("Este correo no está registrado en Jon Vxnts.");
+        } else {
+          alert("No se pudo enviar el correo: " + error.message);
+        }
+      });
+  }
+}
+
+    // Si tu web usa Firebase Auth, envía el enlace oficial real al correo del cliente
+    if (typeof firebase !== "undefined" && firebase.auth) {
+      firebase.auth().sendPasswordResetEmail(correo)
+        .then(function () {
+          document.getElementById("jvx-paso-1").style.display = "none";
+          document.getElementById("jvx-paso-3").style.display = "block";
+          document.getElementById("jvx-rec-titulo").textContent = "Revisa tu correo";
+          document.getElementById("jvx-rec-subtitulo").style.display = "none";
+          document.querySelector("#jvx-paso-3 h4").textContent = "¡Enlace enviado a tu correo!";
+          document.querySelector("#jvx-paso-3 p").textContent = "Revisa tu bandeja de entrada o spam en " + correo + " para crear tu nueva contraseña.";
+        })
+        .catch(function (error) {
+          alert("Error: Verifica que ese correo esté registrado (" + error.message + ")");
+        });
+      return;
+    }
+
+    // Si tu sistema usa almacenamiento local (localStorage), genera código de 6 dígitos
+    codigoGeneradoJVX = Math.floor(100000 + Math.random() * 900000).toString();
+    document.getElementById("jvx-correo-mostrado").textContent = correo;
+
+    document.getElementById("jvx-paso-1").style.display = "none";
+    document.getElementById("jvx-paso-2").style.display = "block";
+    document.getElementById("jvx-rec-titulo").textContent = "Verificar identidad";
+    document.getElementById("jvx-rec-subtitulo").textContent = "Ingresa el código generado y escribe tu nueva clave.";
+
+    setTimeout(function () {
+      alert("Tu código de verificación Jon Vxnts es: " + codigoGeneradoJVX);
+    }, 300);
+  }
+
+  function guardarNuevaPassJVX() {
+    const codigo = document.getElementById("jvx-rec-codigo").value.trim();
+    const nuevaPass = document.getElementById("jvx-rec-nueva-pass").value.trim();
+    const correo = document.getElementById("jvx-rec-correo").value.trim();
+
+    if (codigo !== codigoGeneradoJVX) {
+      alert("El código ingresado es incorrecto.");
+      return;
+    }
+    if (nuevaPass.length < 6) {
+      alert("La nueva contraseña debe tener al menos 6 caracteres.");
+      return;
+    }
+
+    // Actualiza la clave en el sistema local de usuarios si existe
+    try {
+      const usuarios = JSON.parse(localStorage.getItem("jvx_usuarios") || "{}");
+      if (usuarios[correo]) {
+        usuarios[correo].password = nuevaPass;
+        localStorage.setItem("jvx_usuarios", JSON.stringify(usuarios));
+      }
+      localStorage.setItem("jvx_remember_email", correo);
+      localStorage.setItem("jvx_remember_pass", nuevaPass);
+    } catch (e) {}
+
+    document.getElementById("jvx-paso-2").style.display = "none";
+    document.getElementById("jvx-paso-3").style.display = "block";
+    document.getElementById("jvx-rec-titulo").textContent = "¡Listo!";
+    document.getElementById("jvx-rec-subtitulo").style.display = "none";
+  }
+</script>
+
 </body>
 </html>
