@@ -8856,109 +8856,51 @@ window.jvxEnviarCorreoReal = function(correo) {
 </div>
 
 <script>
-  let codigoGeneradoJVX = "";
-
   function abrirRecuperarJVX() {
+    const modal = document.getElementById("jvx-modal-recuperar");
+    if (!modal) return;
     document.getElementById("jvx-paso-1").style.display = "block";
     document.getElementById("jvx-paso-2").style.display = "none";
     document.getElementById("jvx-paso-3").style.display = "none";
     document.getElementById("jvx-rec-titulo").textContent = "Recuperar contraseña";
+    document.getElementById("jvx-rec-subtitulo").textContent = "Ingresa el correo electrónico asociado a tu cuenta para restablecer tu clave.";
     document.getElementById("jvx-rec-subtitulo").style.display = "block";
-    document.getElementById("jvx-modal-recuperar").style.display = "flex";
+    modal.style.display = "flex";
   }
 
   function cerrarRecuperarJVX() {
-    document.getElementById("jvx-modal-recuperar").style.display = "none";
+    const modal = document.getElementById("jvx-modal-recuperar");
+    if (modal) modal.style.display = "none";
   }
 
   function enviarCodigoJVX() {
-  const correo = document.getElementById("jvx-rec-correo").value.trim();
-  if (!correo || !correo.includes("@")) {
-    alert("Por favor, escribe un correo electrónico válido.");
-    return;
-  }
+    const correo = document.getElementById("jvx-rec-correo").value.trim();
+    if (!correo || !correo.includes("@")) {
+      alert("Por favor, escribe un correo electrónico válido.");
+      return;
+    }
 
-  if (typeof window.jvxEnviarCorreoReal === "function") {
-    window.jvxEnviarCorreoReal(correo)
-      .then(function () {
-        document.getElementById("jvx-paso-1").style.display = "none";
-        document.getElementById("jvx-paso-2").style.display = "none";
-        document.getElementById("jvx-paso-3").style.display = "block";
-        document.getElementById("jvx-rec-titulo").textContent = "Revisa tu correo";
-        document.getElementById("jvx-rec-subtitulo").style.display = "none";
-        document.querySelector("#jvx-paso-3 h4").textContent = "¡Enlace enviado a Gmail!";
-        document.querySelector("#jvx-paso-3 p").textContent = "Hemos enviado un enlace oficial a " + correo + " (revisa tu bandeja principal o Spam) para que escribas tu nueva contraseña.";
-      })
-      .catch(function (error) {
-        if (error.code === "auth/user-not-found") {
-          alert("Este correo no está registrado en Jon Vxnts.");
-        } else {
-          alert("No se pudo enviar el correo: " + error.message);
-        }
-      });
-  }
-}
-
-    // Si tu web usa Firebase Auth, envía el enlace oficial real al correo del cliente
-    if (typeof firebase !== "undefined" && firebase.auth) {
-      firebase.auth().sendPasswordResetEmail(correo)
+    if (typeof window.jvxEnviarCorreoReal === "function") {
+      window.jvxEnviarCorreoReal(correo)
         .then(function () {
           document.getElementById("jvx-paso-1").style.display = "none";
+          document.getElementById("jvx-paso-2").style.display = "none";
           document.getElementById("jvx-paso-3").style.display = "block";
           document.getElementById("jvx-rec-titulo").textContent = "Revisa tu correo";
           document.getElementById("jvx-rec-subtitulo").style.display = "none";
-          document.querySelector("#jvx-paso-3 h4").textContent = "¡Enlace enviado a tu correo!";
-          document.querySelector("#jvx-paso-3 p").textContent = "Revisa tu bandeja de entrada o spam en " + correo + " para crear tu nueva contraseña.";
+          document.querySelector("#jvx-paso-3 h4").textContent = "¡Enlace enviado a Gmail!";
+          document.querySelector("#jvx-paso-3 p").textContent = "Hemos enviado un enlace oficial a " + correo + " (revisa tu bandeja principal o Spam) para que escribas tu nueva contraseña.";
         })
         .catch(function (error) {
-          alert("Error: Verifica que ese correo esté registrado (" + error.message + ")");
+          if (error.code === "auth/user-not-found") {
+            alert("Este correo no está registrado en Jon Vxnts.");
+          } else {
+            alert("No se pudo enviar el correo: " + error.message);
+          }
         });
-      return;
+    } else {
+      alert("Conectando con el servidor, intenta de nuevo en 2 segundos.");
     }
-
-    // Si tu sistema usa almacenamiento local (localStorage), genera código de 6 dígitos
-    codigoGeneradoJVX = Math.floor(100000 + Math.random() * 900000).toString();
-    document.getElementById("jvx-correo-mostrado").textContent = correo;
-
-    document.getElementById("jvx-paso-1").style.display = "none";
-    document.getElementById("jvx-paso-2").style.display = "block";
-    document.getElementById("jvx-rec-titulo").textContent = "Verificar identidad";
-    document.getElementById("jvx-rec-subtitulo").textContent = "Ingresa el código generado y escribe tu nueva clave.";
-
-    setTimeout(function () {
-      alert("Tu código de verificación Jon Vxnts es: " + codigoGeneradoJVX);
-    }, 300);
-  }
-
-  function guardarNuevaPassJVX() {
-    const codigo = document.getElementById("jvx-rec-codigo").value.trim();
-    const nuevaPass = document.getElementById("jvx-rec-nueva-pass").value.trim();
-    const correo = document.getElementById("jvx-rec-correo").value.trim();
-
-    if (codigo !== codigoGeneradoJVX) {
-      alert("El código ingresado es incorrecto.");
-      return;
-    }
-    if (nuevaPass.length < 6) {
-      alert("La nueva contraseña debe tener al menos 6 caracteres.");
-      return;
-    }
-
-    // Actualiza la clave en el sistema local de usuarios si existe
-    try {
-      const usuarios = JSON.parse(localStorage.getItem("jvx_usuarios") || "{}");
-      if (usuarios[correo]) {
-        usuarios[correo].password = nuevaPass;
-        localStorage.setItem("jvx_usuarios", JSON.stringify(usuarios));
-      }
-      localStorage.setItem("jvx_remember_email", correo);
-      localStorage.setItem("jvx_remember_pass", nuevaPass);
-    } catch (e) {}
-
-    document.getElementById("jvx-paso-2").style.display = "none";
-    document.getElementById("jvx-paso-3").style.display = "block";
-    document.getElementById("jvx-rec-titulo").textContent = "¡Listo!";
-    document.getElementById("jvx-rec-subtitulo").style.display = "none";
   }
 </script>
 
