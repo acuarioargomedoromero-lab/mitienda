@@ -8739,42 +8739,58 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", () => setTimeout(verificarModales, 50));
   });
 </script>
-<!-- WIDGET OFICIAL REAL DE CLOUDFLARE TURNSTILE - JON VXNTS -->
+<!-- AUTOINYECCIÓN DIRECTA DE CLOUDFLARE TURNSTILE -->
 <script>
-  window.jvxCaptchaValidado = false;
-  let jvxWidgetId = null;
+  (function () {
+    window.jvxCaptchaValidado = false;
+    let jvxWidgetId = null;
 
-  function actualizarEstadoBotonJVX() {
-    const btn = document.getElementById("jvx-btn-submit");
-    if (!btn) return;
-    btn.style.opacity = window.jvxCaptchaValidado ? "1" : "0.55";
-    btn.style.pointerEvents = window.jvxCaptchaValidado ? "auto" : "none";
-  }
-
-  function cargarTurnstileOficial() {
-    const caja = document.getElementById("jvx-turnstile-box");
-    if (!caja || typeof turnstile === "undefined") return;
-
-    const esVisible = caja.offsetParent !== null || caja.getClientRects().length > 0;
-    if (!esVisible) return;
-
-    if (jvxWidgetId === null) {
-      caja.innerHTML = "";
-      jvxWidgetId = turnstile.render("#jvx-turnstile-box", {
-        sitekey: "0x4AAAAAAGG0lOT_3GXyDxlI",
-        theme: "dark",
-        language: "es",
-        callback: function (token) {
-          window.jvxCaptchaValidado = true;
-          actualizarEstadoBotonJVX();
-        },
-        "expired-callback": function () {
-          window.jvxCaptchaValidado = false;
-          actualizarEstadoBotonJVX();
-        }
-      });
+    function actualizarBotonJVX() {
+      const btn = document.getElementById("jvx-btn-submit");
+      if (!btn) return;
+      btn.style.opacity = window.jvxCaptchaValidado ? "1" : "0.55";
+      btn.style.pointerEvents = window.jvxCaptchaValidado ? "auto" : "none";
     }
-  }
 
-  setInterval(cargarTurnstileOficial, 600);
+    // Si api.js no existe en la página, lo crea e inserta automáticamente
+    if (!document.querySelector('script[src*="://cloudflare.com"]')) {
+      const s = document.createElement("script");
+      s.src = "https://://cloudflare.com/v0/api.js?render=explicit";
+      s.async = true;
+      s.defer = true;
+      document.head.appendChild(s);
+    }
+
+    setInterval(function () {
+      const caja = document.getElementById("jvx-turnstile-box");
+      if (!caja) return;
+
+      const visible = caja.offsetParent !== null || caja.getClientRects().length > 0;
+      if (!visible) return;
+
+      actualizarBotonJVX();
+
+      if (typeof turnstile !== "undefined" && jvxWidgetId === null) {
+        caja.innerHTML = "";
+        jvxWidgetId = turnstile.render("#jvx-turnstile-box", {
+          sitekey: "0x4AAAAAAGG0lOT_3GXyDxlI",
+          theme: "dark",
+          language: "es",
+          callback: function () {
+            window.jvxCaptchaValidado = true;
+            actualizarBotonJVX();
+          },
+          "expired-callback": function () {
+            window.jvxCaptchaValidado = false;
+            actualizarBotonJVX();
+          },
+          "error-callback": function (code) {
+            caja.innerHTML = '<span style="color:#ef4444;font-size:12px;">Error Cloudflare (' + code + ')</span>';
+          }
+        });
+      }
+    }, 500);
+  })();
 </script>
+</body>
+</html>
