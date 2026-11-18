@@ -8855,10 +8855,30 @@ window.jvxEnviarCorreoReal = function(correo) {
   </div>
 </div>
 
+<style>
+  @keyframes jvxBtnSpin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .jvx-spinner-btn {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2.5px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: jvxBtnSpin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+</style>
+
 <script>
   function abrirRecuperarJVX() {
     const modal = document.getElementById("jvx-modal-recuperar");
     if (!modal) return;
+
+    restaurarBotonRecuperarJVX();
     document.getElementById("jvx-paso-1").style.display = "block";
     document.getElementById("jvx-paso-2").style.display = "none";
     document.getElementById("jvx-paso-3").style.display = "none";
@@ -8873,29 +8893,93 @@ window.jvxEnviarCorreoReal = function(correo) {
     if (modal) modal.style.display = "none";
   }
 
+  function restaurarBotonRecuperarJVX() {
+    const btn = document.querySelector('#jvx-paso-1 button');
+    if (btn) {
+      btn.disabled = false;
+      btn.style.opacity = "1";
+      btn.style.cursor = "pointer";
+      btn.innerHTML = "Enviar código de recuperación →";
+    }
+  }
+
+  function mostrarVistaResultadoJVX(tipo, titulo, mensaje) {
+    const paso3 = document.getElementById("jvx-paso-3");
+    const icono = paso3.querySelector("div");
+    const h4 = paso3.querySelector("h4");
+    const p = paso3.querySelector("p");
+    const btnVolver = paso3.querySelector("button");
+
+    document.getElementById("jvx-paso-1").style.display = "none";
+    document.getElementById("jvx-paso-2").style.display = "none";
+    paso3.style.display = "block";
+    document.getElementById("jvx-rec-subtitulo").style.display = "none";
+
+    if (tipo === "exito") {
+      document.getElementById("jvx-rec-titulo").textContent = "Revisa tu correo";
+      icono.style.background = "rgba(34, 197, 94, 0.15)";
+      icono.style.color = "#22c55e";
+      icono.textContent = "✓";
+      h4.textContent = titulo;
+      p.textContent = mensaje;
+      btnVolver.textContent = "Volver a Iniciar sesión";
+      btnVolver.onclick = cerrarRecuperarJVX;
+    } else {
+      document.getElementById("jvx-rec-titulo").textContent = "Correo no encontrado";
+      icono.style.background = "rgba(239, 68, 68, 0.15)";
+      icono.style.color = "#ef4444";
+      icono.textContent = "✕";
+      h4.textContent = titulo;
+      p.textContent = mensaje;
+      btnVolver.textContent = "Intentar con otro correo";
+      btnVolver.onclick = abrirRecuperarJVX;
+    }
+  }
+
   function enviarCodigoJVX() {
     const correo = document.getElementById("jvx-rec-correo").value.trim();
+    const btn = document.querySelector('#jvx-paso-1 button');
+
     if (!correo || !correo.includes("@")) {
-      alert("Por favor, escribe un correo electrónico válido.");
+      mostrarVistaResultadoJVX(
+        "error",
+        "Correo inválido",
+        "Por favor, escribe un correo electrónico válido para continuar."
+      );
       return;
     }
 
     if (typeof window.jvxEnviarCorreoReal === "function") {
+      if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = "0.75";
+        btn.style.cursor = "not-allowed";
+        btn.innerHTML = '<span class="jvx-spinner-btn"></span> Enviando enlace...';
+      }
+
       window.jvxEnviarCorreoReal(correo)
         .then(function () {
-          document.getElementById("jvx-paso-1").style.display = "none";
-          document.getElementById("jvx-paso-2").style.display = "none";
-          document.getElementById("jvx-paso-3").style.display = "block";
-          document.getElementById("jvx-rec-titulo").textContent = "Revisa tu correo";
-          document.getElementById("jvx-rec-subtitulo").style.display = "none";
-          document.querySelector("#jvx-paso-3 h4").textContent = "¡Enlace enviado a Gmail!";
-          document.querySelector("#jvx-paso-3 p").textContent = "Hemos enviado un enlace oficial a " + correo + " (revisa tu bandeja principal o Spam) para que escribas tu nueva contraseña.";
+          restaurarBotonRecuperarJVX();
+          mostrarVistaResultadoJVX(
+            "exito",
+            "¡Enlace enviado a Gmail!",
+            "Hemos enviado un enlace oficial a " + correo + " (revisa tu bandeja principal o Spam) para que escribas tu nueva contraseña."
+          );
         })
         .catch(function (error) {
-          if (error.code === "auth/user-not-found") {
-            alert("Este correo no está registrado en Jon Vxnts.");
+          restaurarBotonRecuperarJVX();
+          if (error.code === "auth/user-not-found" || error.code === "auth/invalid-email") {
+            mostrarVistaResultadoJVX(
+              "error",
+              "Correo no registrado",
+              "La cuenta " + correo + " no está registrada en Jon Vxnts. Verifica que esté bien escrito o crea una cuenta nueva."
+            );
           } else {
-            alert("No se pudo enviar el correo: " + error.message);
+            mostrarVistaResultadoJVX(
+              "error",
+              "No se pudo enviar",
+              "Ocurrió un problema al procesar la solicitud (" + error.code + "). Inténtalo de nuevo."
+            );
           }
         });
     } else {
@@ -8903,6 +8987,7 @@ window.jvxEnviarCorreoReal = function(correo) {
     }
   }
 </script>
+
 
 </body>
 </html>
