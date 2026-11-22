@@ -2565,12 +2565,30 @@ function toggleMenuSoporteGamer() {
         </div>
         <div class="product-info">
             <h3 class="product-title">CAJAS DE TOKENS</h3>
-            <p class="product-description" style="color: #888; font-size: 11px; margin: 4px 0;">EVO UNIVERSALES</p>
+            <p class="product-description" style="color: #888; font-size: 11px; margin: 4px 0;">COFRES EVOLUTIVOS</p>
             <p class="product-price">Consultar 👇🏻</p>
         </div>
       <button class="btn-comprar" onclick="document.getElementById('modal-cajas-tokens').style.display = 'flex';">
     <span style="color: #ffffff !important;">🛒 Agregar</span>
 </button>
+        <button class="btn-detalles" onclick="verDetalles('CUENTAS FREE FIRE')">ℹ️ Detalles</>
+        </button>
+    </div>
+
+      <!-- PRODUCTO 5: FRAGMENTOS-->
+    <div class="product-card">
+        <div class="product-image-container">
+            <img src="Fragmento.png" alt="Recargas Ilimitadas" class="product-image">
+        </div>
+        <div class="product-info">
+            <h3 class="product-title">FRAGMENTOS</h3>
+            <p class="product-description" style="color: #888; font-size: 11px; margin: 4px 0;">FRAGMENTOS EVO</p>
+            <p class="product-price">Consultar 👇🏻</p>
+        </div>
+<button class="btn-comprar" onclick="document.getElementById('modal-fragmentos').style.display = 'flex';">
+  <span style="color: #ffffff !important;">🛒 Agregar</span>
+</button>
+
         <button class="btn-detalles" onclick="verDetalles('CUENTAS FREE FIRE')">ℹ️ Detalles</>
         </button>
     </div>
@@ -2965,7 +2983,7 @@ function toggleMenuSoporteGamer() {
                 <p class="product-description" style="color: #888 !important; font-size: 11px !important; margin: 4px 0 !important; font-weight: normal !important; text-transform: uppercase !important;">NUMEROS NACIONALES E INTERNACIONALES</p>
                 <p class="product-price">Consultar 👇</p>
             </div>
-            <button class="btn-comprar" onclick="document.getElementById('modal-detalle-numeros').style.display = 'block';">
+            <button class="btn-comprar" onclick="document.getElementById('modal-numeros-virtuales').style.display = 'block';">
                 <span style="color: #ffffff !important;">🛒 Agregar</span>
             </button>
             <button class="btn-detalles" onclick="alert('Información de Números');">
@@ -3121,285 +3139,458 @@ function toggleMenuSoporteGamer() {
     </div>
 </div>
 
-     
-<!-- VENTANA MODAL COMPLETA: PRIMERA RECARGA (ESTILO CLONADO ILIMITADAS) -->
-<div id="modal-primera" class="modal-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; align-items: center; justify-content: center; z-index: 9999; font-family: sans-serif;">
-    <div class="modal-content" style="background-color: #0d0e12; padding: 20px; border-radius: 16px; width: 90%; max-width: 400px; display: flex; flex-direction: column; gap: 10px;">
-        
-        <!-- Cabecera Idéntica -->
-        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px;">
-            <h2 style="font-size: 18px !important; color: #ffffff; font-weight: bold; margin: 0; text-transform: uppercase;">PRIMERA RECARGA</h2>
-            <span class="close-modal" onclick="document.getElementById('modal-primera').style.setProperty('display', 'none', 'important')" style="color: #9ca3af; cursor: pointer; font-size: 22px; font-weight: bold;">&times;</span>
-        </div>
-
-        <!-- Cuadro de Información Importante Idéntico -->
-        <div class="info-container-mini" style="border: 1px solid #2a2b31; border-radius: 12px; padding: 12px; margin: 12px 0;">
-            <div class="info-title-mini" style="color: #f1b811; font-size: 11px; font-weight: bold; margin-bottom: 8px; text-transform: uppercase;">⚡ INFORMACIÓN IMPORTANTE</div>
-            <div class="info-content-mini" style="display: flex; flex-direction: column; gap: 6px; font-size: 11px;">
-                <div class="info-item-mini" style="color: #9ca3af;">🟢 <strong>REQUISITOS:</strong> Via ID de jugador (Previa Verificacion de ID).</div>
-                <div class="info-item-mini" style="color: #9ca3af;">🟢 <strong>ENTREGA:</strong> Recarga inmediata tras verificar el pago.</div>
-                <div class="info-item-mini" style="color: #9ca3af;">🟢 <strong>SOPORTE:</strong> Atencion directa y personalizada por WhatsApp.</div>
-            </div>
-        </div>
-
-                <!-- Lista de 6 Paquetes con Formato Vertical y Desplazamiento Interno (Parte 1) -->
-        <div class="packages-list scroll-compacto" style="display: flex; flex-direction: column; gap: 10px; max-height: 215px !important; overflow-y: auto !important; padding-right: 4px; margin-top: 5px;">
-            
-            <!-- Fila 1 (100 Diamantes) -->
-            <div class="package-row" style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 6px 0 !important; border: none !important;">
-                <div style="display: flex !important; flex-direction: column !important; gap: 2px !important;">
-                    <span style="font-size: 14px !important; color: #ffffff !important; font-weight: bold !important;">100 💎</span>
-                    <span style="font-size: 12px !important; color: #9ca3af !important;">Diamantes</span>
-                </div>
-                <span style="color: #2ecc71 !important; font-weight: bold !important; font-size: 14px !important;">S/ 3.00</span>
-                <div style="display: flex !important; align-items: center !important; background-color: #1a1b20 !important; border-radius: 8px !important; padding: 6px 12px !important; gap: 14px !important; border: 1px solid #2a2b31 !important;">
-                    <button onclick="operarFilaPrimera('primera1', -1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">-</button>
-                    <span id="primera1-qty" style="color: #ffffff !important; font-weight: bold !important; min-width: 14px !important; text-align: center !important; font-size: 14px !important;">0</span>
-                    <button onclick="operarFilaPrimera('primera1', 1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">+</button>
-                </div>
-            </div>
-
-            <!-- Fila 2 (310 Diamantes) -->
-            <div class="package-row" style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 6px 0 !important; border: none !important;">
-                <div style="display: flex !important; flex-direction: column !important; gap: 2px !important;">
-                    <span style="font-size: 14px !important; color: #ffffff !important; font-weight: bold !important;">310 💎</span>
-                    <span style="font-size: 12px !important; color: #9ca3af !important;">Diamantes</span>
-                </div>
-                <span style="color: #2ecc71 !important; font-weight: bold !important; font-size: 14px !important;">S/ 9.00</span>
-                <div style="display: flex !important; align-items: center !important; background-color: #1a1b20 !important; border-radius: 8px !important; padding: 6px 12px !important; gap: 14px !important; border: 1px solid #2a2b31 !important;">
-                    <button onclick="operarFilaPrimera('primera2', -1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">-</button>
-                    <span id="primera2-qty" style="color: #ffffff !important; font-weight: bold !important; min-width: 14px !important; text-align: center !important; font-size: 14px !important;">0</span>
-                    <button onclick="operarFilaPrimera('primera2', 1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">+</button>
-                </div>
-            </div>
-
-            <!-- Fila 3 (520 Diamantes) -->
-            <div class="package-row" style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 6px 0 !important; border: none !important;">
-                <div style="display: flex !important; flex-direction: column !important; gap: 2px !important;">
-                    <span style="font-size: 14px !important; color: #ffffff !important; font-weight: bold !important;">520 💎</span>
-                    <span style="font-size: 12px !important; color: #9ca3af !important;">Diamantes</span>
-                </div>
-                <span style="color: #2ecc71 !important; font-weight: bold !important; font-size: 14px !important;">S/ 15.00</span>
-                <div style="display: flex !important; align-items: center !important; background-color: #1a1b20 !important; border-radius: 8px !important; padding: 6px 12px !important; gap: 14px !important; border: 1px solid #2a2b31 !important;">
-                    <button onclick="operarFilaPrimera('primera3', -1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">-</button>
-                    <span id="primera3-qty" style="color: #ffffff !important; font-weight: bold !important; min-width: 14px !important; text-align: center !important; font-size: 14px !important;">0</span>
-                    <button onclick="operarFilaPrimera('primera3', 1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">+</button>
-                </div>
-            </div>
-                        <!-- Fila 4 (1060 Diamantes) -->
-            <div class="package-row" style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 6px 0 !important; border: none !important;">
-                <div style="display: flex !important; flex-direction: column !important; gap: 2px !important;">
-                    <span style="font-size: 14px !important; color: #ffffff !important; font-weight: bold !important;">1060 💎</span>
-                    <span style="font-size: 12px !important; color: #9ca3af !important;">Diamantes</span>
-                </div>
-                <span style="color: #2ecc71 !important; font-weight: bold !important; font-size: 14px !important;">S/ 25.00</span>
-                <div style="display: flex !important; align-items: center !important; background-color: #1a1b20 !important; border-radius: 8px !important; padding: 6px 12px !important; gap: 14px !important; border: 1px solid #2a2b31 !important;">
-                    <button onclick="operarFilaPrimera('primera4', -1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">-</button>
-                    <span id="primera4-qty" style="color: #ffffff !important; font-weight: bold !important; min-width: 14px !important; text-align: center !important; font-size: 14px !important;">0</span>
-                    <button onclick="operarFilaPrimera('primera4', 1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">+</button>
-                </div>
-            </div>
-
-            <!-- Fila 5 (2180 Diamantes) -->
-            <div class="package-row" style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 6px 0 !important; border: none !important;">
-                <div style="display: flex !important; flex-direction: column !important; gap: 2px !important;">
-                    <span style="font-size: 14px !important; color: #ffffff !important; font-weight: bold !important;">2180 💎</span>
-                    <span style="font-size: 12px !important; color: #9ca3af !important;">Diamantes</span>
-                </div>
-                <span style="color: #2ecc71 !important; font-weight: bold !important; font-size: 14px !important;">S/ 45.00</span>
-                <div style="display: flex !important; align-items: center !important; background-color: #1a1b20 !important; border-radius: 8px !important; padding: 6px 12px !important; gap: 14px !important; border: 1px solid #2a2b31 !important;">
-                    <button onclick="operarFilaPrimera('primera5', -1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">-</button>
-                    <span id="primera5-qty" style="color: #ffffff !important; font-weight: bold !important; min-width: 14px !important; text-align: center !important; font-size: 14px !important;">0</span>
-                    <button onclick="operarFilaPrimera('primera5', 1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">+</button>
-                </div>
-            </div>
-
-            <!-- Fila 6 (5600 Diamantes) -->
-            <div class="package-row" style="display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 6px 0 !important; border: none !important;">
-                <div style="display: flex !important; flex-direction: column !important; gap: 2px !important;">
-                    <span style="font-size: 14px !important; color: #ffffff !important; font-weight: bold !important;">5600 💎</span>
-                    <span style="font-size: 12px !important; color: #9ca3af !important;">Diamantes</span>
-                </div>
-                <span style="color: #2ecc71 !important; font-weight: bold !important; font-size: 14px !important;">S/ 115.00</span>
-                <div style="display: flex !important; align-items: center !important; background-color: #1a1b20 !important; border-radius: 8px !important; padding: 6px 12px !important; gap: 14px !important; border: 1px solid #2a2b31 !important;">
-                    <button onclick="operarFilaPrimera('primera6', -1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">-</button>
-                    <span id="primera6-qty" style="color: #ffffff !important; font-weight: bold !important; min-width: 14px !important; text-align: center !important; font-size: 14px !important;">0</span>
-                    <button onclick="operarFilaPrimera('primera6', 1)" style="background: none !important; border: none !important; color: #9ca3af !important; font-size: 16px !important; cursor: pointer !important; padding: 0 4px !important; font-weight: bold !important;">+</button>
-                </div>
-            </div>
-        </div>
-        
-                <!-- Footer del Total Fijo Inferior -->
-    <div class="modal-footer" style="margin-top: 10px !important; margin-bottom: 30px !important; display: flex !important; flex-direction: column !important; gap: 15px !important; font-family: sans-serif !important; width: 100% !important; box-sizing: border-box !important;">
-        <div class="total-row" style="display: flex !important; justify-content: space-between !important; align-items: center !important;">
-            <span style="color: #888888 !important; font-size: 13px !important;">Total</span>
-            <span id="totalPrimeraPantalla" style="color: #2ecc71 !important; font-weight: bold !important; font-size: 16px !important;">S/ 0.00</span>
-        </div>
-        
-        <button id="btnPrimeraContinuar" onclick="guardarPrimeraRecarga()" disabled style="width: 100% !important; font-weight: bold !important; font-size: 14px !important; text-align: center !important; border-radius: 8px !important; padding: 10px !important; background-color: #1a1e24 !important; color: #ffffff !important; border: 1px solid #2d3748 !important; cursor: not-allowed !important;">
-    🛒 Elige al menos un paquete
-</button>
+     <!-- MODAL CYBER-ESPORTS JON VXNTS: PRIMERA RECARGA (EDICIÓN ELITE) -->
+<style>
+  #modal-primera * { box-sizing: border-box; }
+  #modal-primera .jvx-grid-paquetes {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 12px; margin-bottom: 14px;
+  }
+  .jvx-card-pack {
+    background: linear-gradient(165deg, #17171e 0%, #0e0e13 100%);
+    border: 1.5px solid #262632; border-radius: 16px; padding: 14px 10px 12px;
+    text-align: center; position: relative; transition: all 0.22s ease;
+    display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+    cursor: pointer; user-select: none;
+  }
+  .jvx-card-pack:active { transform: scale(0.97); }
+  .jvx-card-pack.seleccionado {
+    border-color: #ef4444; background: linear-gradient(165deg, #291116 0%, #120c0e 100%);
+    box-shadow: 0 0 22px rgba(239, 68, 68, 0.45), inset 0 0 14px rgba(239, 68, 68, 0.16);
+  }
+  .jvx-card-pack.sin-cupo {
+    opacity: 0.35; filter: grayscale(1); border-color: #1c1c24; pointer-events: none; cursor: not-allowed;
+  }
+  .jvx-tag-top-ventas {
+    position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+    background: linear-gradient(90deg, #f59e0b, #d97706); color: #000000;
+    font-size: 9.5px; font-weight: 900; padding: 2px 10px; border-radius: 20px; white-space: nowrap;
+  }
+  .jvx-img-slot {
+    width: 64px; height: 64px; margin: 2px auto 8px auto;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .jvx-img-slot img { width: 100%; height: 100%; object-fit: contain; }
+  .jvx-cupo-pill {
+    margin-top: 7px; font-size: 10.5px; font-weight: 800;
+    display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 8px;
+  }
+  .jvx-cupo-neutro { color: #9ca3af; background: rgba(156, 163, 175, 0.08); }
+  .jvx-cupo-ok { color: #4ade80; background: rgba(34, 197, 94, 0.12); }
+  .jvx-cupo-no { color: #f87171; background: rgba(239, 68, 68, 0.12); }
+  @keyframes jvxRadarSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  .jvx-radar-loader {
+    width: 15px; height: 15px; border: 2px solid rgba(239, 68, 68, 0.25); border-top-color: #ef4444;
+    border-radius: 50%; animation: jvxRadarSpin 0.7s linear infinite; display: inline-block; flex-shrink: 0;
+  }
+</style>
+<div id="modal-primera" class="modal-container" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); backdrop-filter: blur(5px); z-index: 99999; align-items: center; justify-content: center; padding: 10px; font-family: sans-serif;">
+  <div class="modal-content" style="background: #0c0c10; border: 1px solid #262632; border-radius: 22px; width: 100%; max-width: 410px; max-height: 92vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 65px rgba(0,0,0,0.95); color: #ffffff;">
+    
+    <!-- Cabecera -->
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: linear-gradient(135deg, #191013 0%, #0f0f14 100%); border-bottom: 1px solid #22222c;">
+      <div>
+        <span style="display: block; font-size: 9.5px; font-weight: 800; letter-spacing: 1.8px; color: #ef4444; text-transform: uppercase;">⚡ BONO DOBLE · 1 VEZ POR CUPO</span>
+        <h2 style="margin: 2px 0 0 0; font-size: 17.5px; font-weight: 900; letter-spacing: 0.4px;">PRIMERA RECARGA</h2>
+      </div>
+      <span class="close-modal" onclick="document.getElementById('modal-primera').style.display='none'" style="width: 32px; height: 32px; border-radius: 50%; background: #1a1a22; border: 1px solid #2c2c38; color: #9ca3af; font-size: 15px; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;">✕</span>
     </div>
+
+    <!-- Cuerpo con Scroll -->
+    <div class="scroll-compras" style="padding: 14px; overflow-y: auto; flex: 1;">
+      
+      <!-- PASO 1: VERIFICADOR DE ID -->
+      <div style="background: #131319; border: 1px solid #262632; border-radius: 15px; padding: 12px; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 9px;">
+          <span style="font-size: 11px; font-weight: 800; color: #f3f4f6; display: flex; align-items: center; gap: 6px;">
+            <span style="background: #ef4444; color: #fff; width: 17px; height: 17px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900;">1</span>
+            VERIFICA TU ID DE JUGADOR
+          </span>
+          <span id="jvx-toggle-historial" onclick="toggleHistorialJVX()" style="font-size: 11px; color: #9ca3af; cursor: pointer; text-decoration: underline;">Historial (0)</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr auto; gap: 8px; width: 100%; align-items: stretch;">
+          <input type="number" id="jvx-input-id-ff" placeholder="Ej: 2161920749" style="width: 100%; min-width: 0; background: #09090d; border: 1.5px solid #2c2c3a; border-radius: 10px; padding: 10px 11px; color: #ffffff; font-size: 14px; font-weight: 700; outline: none;">
+          <button type="button" id="jvx-btn-verificar-id" onclick="verificarJugadorJVX()" style="background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%); border: none; border-radius: 10px; padding: 0 15px; color: #ffffff; font-weight: 800; font-size: 12.5px; cursor: pointer; white-space: nowrap;">
+            Verificar
+          </button>
+        </div>
+
+        <div id="jvx-resultado-jugador" style="display: none; margin-top: 10px; background: #0d1612; border: 1px solid rgba(34, 197, 94, 0.4); border-radius: 11px; padding: 10px 12px;"></div>
+
+        <div id="jvx-caja-historial" style="display: none; margin-top: 10px; border-top: 1px solid #22222c; padding-top: 8px;">
+          <span style="display: block; font-size: 10px; color: #6b7280; margin-bottom: 6px; text-transform: uppercase;">Últimos 5 IDs consultados</span>
+          <div id="jvx-lista-historial" style="display: flex; flex-direction: column; gap: 6px;"></div>
+        </div>
+      </div>
+      <!-- PASO 2: CUADRÍCULA LIMPIA (TOCA LA TARJETA PARA SELECCIONAR) -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+        <span style="font-size: 11px; font-weight: 800; color: #f3f4f6; display: flex; align-items: center; gap: 6px;">
+          <span style="background: #ef4444; color: #fff; width: 17px; height: 17px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 900;">2</span>
+          ELIGE TU PAQUETE
+        </span>
+        <span style="font-size: 10.5px; color: #9ca3af;">6 opciones</span>
+      </div>
+
+      <div class="jvx-grid-paquetes">
+        <!-- PAQUETE 1: 100 + 10 -->
+        <div class="jvx-card-pack" id="card-primera1" onclick="alternarPaquetePrimera('primera1')">
+          <div class="jvx-img-slot">
+            <!-- PEGA AQUÍ EL LINK DE TU IMAGEN 100 DIAMANTES -->
+            <img src="100d.png" alt="100 Diamantes">
+          </div>
+          <div style="font-size: 14.5px; font-weight: 900; color: #ffffff; line-height: 1.15;">100 + 10</div>
+          <div style="font-size: 11px; color: #9ca3af; margin-bottom: 4px;">Diamantes</div>
+          <div style="font-size: 10.5px; color: #ef4444; text-decoration: line-through; opacity: 0.75;">S/ 4.50</div>
+          <div style="font-size: 17px; font-weight: 900; color: #ffffff;">S/ 3.00</div>
+      </div>
+
+        <!-- PAQUETE 2: 310 + 31 -->
+        <div class="jvx-card-pack" id="card-primera2" onclick="alternarPaquetePrimera('primera2')">
+          <div class="jvx-img-slot">
+            <!-- PEGA AQUÍ EL LINK DE TU IMAGEN 310 DIAMANTES -->
+            <img src="300d.png" alt="310 Diamantes">
+          </div>
+          <div style="font-size: 14.5px; font-weight: 900; color: #ffffff; line-height: 1.15;">310 + 31</div>
+          <div style="font-size: 11px; color: #9ca3af; margin-bottom: 4px;">Diamantes</div>
+          <div style="font-size: 10.5px; color: #ef4444; text-decoration: line-through; opacity: 0.75;">S/ 12.50</div>
+          <div style="font-size: 17px; font-weight: 900; color: #ffffff;">S/ 9.00</div>
+          
+        </div>
+
+        <!-- PAQUETE 3: 520 + 52 -->
+        <div class="jvx-card-pack" id="card-primera3" onclick="alternarPaquetePrimera('primera3')">
+          <div class="jvx-img-slot">
+            <!-- PEGA AQUÍ EL LINK DE TU IMAGEN 520 DIAMANTES -->
+            <img src="500d.png" alt="520 Diamantes">
+          </div>
+          <div style="font-size: 14.5px; font-weight: 900; color: #ffffff; line-height: 1.15;">520 + 52</div>
+          <div style="font-size: 11px; color: #9ca3af; margin-bottom: 4px;">Diamantes</div>
+          <div style="font-size: 10.5px; color: #ef4444; text-decoration: line-through; opacity: 0.75;">S/ 18.00</div>
+          <div style="font-size: 17px; font-weight: 900; color: #ffffff;">S/ 15.00</div>
+       
+        </div>
+
+        <!-- PAQUETE 4: 1060 + 106 -->
+        <div class="jvx-card-pack" id="card-primera4" onclick="alternarPaquetePrimera('primera4')">
+        
+          <div class="jvx-img-slot">
+            <!-- PEGA AQUÍ EL LINK DE TU IMAGEN 1060 DIAMANTES -->
+            <img src="1kd.png" alt="1060 Diamantes">
+          </div>
+          <div style="font-size: 14.5px; font-weight: 900; color: #ffffff; line-height: 1.15;">1.060 + 106</div>
+          <div style="font-size: 11px; color: #9ca3af; margin-bottom: 4px;">Diamantes</div>
+          <div style="font-size: 10.5px; color: #ef4444; text-decoration: line-through; opacity: 0.75;">S/ 35.00</div>
+          <div style="font-size: 17px; font-weight: 900; color: #ffffff;">S/ 25.00</div>
+          
+        </div>
+
+        <!-- PAQUETE 5: 2180 + 218 -->
+        <div class="jvx-card-pack" id="card-primera5" onclick="alternarPaquetePrimera('primera5')">
+          <div class="jvx-img-slot">
+            <!-- PEGA AQUÍ EL LINK DE TU IMAGEN 2180 DIAMANTES -->
+            <img src="2kd.png" alt="2180 Diamantes">
+          </div>
+          <div style="font-size: 14.5px; font-weight: 900; color: #ffffff; line-height: 1.15;">2.180 + 218</div>
+          <div style="font-size: 11px; color: #9ca3af; margin-bottom: 4px;">Diamantes</div>
+          <div style="font-size: 10.5px; color: #ef4444; text-decoration: line-through; opacity: 0.75;">S/ 60.00</div>
+          <div style="font-size: 17px; font-weight: 900; color: #ffffff;">S/ 45.00</div>
+      </div>
+
+        <!-- PAQUETE 6: 5600 + 560 -->
+        <div class="jvx-card-pack" id="card-primera6" onclick="alternarPaquetePrimera('primera6')">
+          <div class="jvx-img-slot">
+            <!-- PEGA AQUÍ EL LINK DE TU IMAGEN 5600 DIAMANTES -->
+            <img src="6kd.png" alt="5600 Diamantes">
+          </div>
+          <div style="font-size: 14.5px; font-weight: 900; color: #ffffff; line-height: 1.15;">5.600 + 560</div>
+          <div style="font-size: 11px; color: #9ca3af; margin-bottom: 4px;">Diamantes</div>
+          <div style="font-size: 10.5px; color: #ef4444; text-decoration: line-through; opacity: 0.75;">S/ 135.00</div>
+          <div style="font-size: 17px; font-weight: 900; color: #ffffff;">S/ 115.00</div>
+          </div>
+      </div>
+
+      <div style="background: rgba(239, 68, 68, 0.07); border: 1px dashed rgba(239, 68, 68, 0.3); border-radius: 10px; padding: 9px 11px; font-size: 11px; color: #d1d5db; line-height: 1.4;">
+        🛡️ <strong style="color: #ffffff;">Toca una tarjeta para seleccionarla:</strong> Su borde brillará en rojo neón. Promo válida 1 vez por cupo.
+      </div>
     </div>
+
+    <div class="modal-footer" style="padding: 13px 16px; background: #111117; border-top: 1px solid #242430;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+        <span style="color: #9ca3af; font-size: 13px; font-weight: 600;">Total a pagar</span>
+        <span id="totalPrimeraPantalla" style="color: #2ecc71; font-size: 19px; font-weight: 900;">S/ 0.00</span>
+      </div>
+      <button id="btnPrimeraContinuar" onclick="guardarPrimeraRecarga()" disabled style="width: 100%; background: #1c1c24; border: 1px solid #2c2c38; color: #6b7280; padding: 12.5px; border-radius: 12px; font-weight: 800; font-size: 14px; cursor: not-allowed; transition: all 0.2s;">
+        🛒 Toca un paquete para elegir
+      </button>
+    </div>
+  </div>
 </div>
-<!-- Script Aislado para Primera Recarga -->
 <script>
-function guardarPrimeraRecarga() {
-    const infoProductosPrimera = {
-        primera1: { nom: '100 💎 Diamantes', pre: 3 },
-        primera2: { nom: '310 💎 Diamantes', pre: 9 },
-        primera3: { nom: '520 💎 Diamantes', pre: 15 },
-        primera4: { nom: '1060 💎 Diamantes', pre: 25 },
-        primera5: { nom: '2180 💎 Diamantes', pre: 45 },
-        primera6: { nom: '5600 💎 Diamantes', pre: 115 }
+  var cantidadesPrimera = { primera1: 0, primera2: 0, primera3: 0, primera4: 0, primera5: 0, primera6: 0 };
+  var preciosPrimera = { primera1: 3.00, primera2: 9.00, primera3: 15.00, primera4: 25.00, primera5: 45.00, primera6: 115.00 };
+  window.jvxJugadorVerificado = null;
+  const JVX_API_CUPOS_URL = "https://workers.dev";
+
+
+  // Tocar tarjeta = encender/apagar brillo rojo neón (máx. 1 por paquete)
+  function alternarPaquetePrimera(idFila) {
+    const card = document.getElementById("card-" + idFila);
+    if (!card || card.classList.contains("sin-cupo")) return;
+
+    cantidadesPrimera[idFila] = cantidadesPrimera[idFila] === 1 ? 0 : 1;
+    actualizarVistaSeleccionPrimera();
+  }
+
+  function actualizarVistaSeleccionPrimera() {
+    let sumaTotal = 0;
+    let totalItems = 0;
+
+    for (let clave in preciosPrimera) {
+      const activo = cantidadesPrimera[clave] === 1;
+      const card = document.getElementById("card-" + clave);
+
+      if (card) card.classList.toggle("seleccionado", activo);
+
+      if (activo) {
+        sumaTotal += preciosPrimera[clave];
+        totalItems++;
+      }
+    }
+
+    const txtTotal = document.getElementById("totalPrimeraPantalla");
+    if (txtTotal) txtTotal.innerText = "S/ " + sumaTotal.toFixed(2);
+
+    const btn = document.getElementById("btnPrimeraContinuar");
+    if (btn) {
+      if (totalItems > 0) {
+        btn.removeAttribute("disabled");
+        btn.style.cursor = "pointer";
+        btn.innerHTML = "🛒 Añadir al carrito (" + totalItems + ")";
+        btn.style.setProperty("background", "linear-gradient(90deg, #ef4444, #dc2626)", "important");
+        btn.style.setProperty("color", "#ffffff", "important");
+        btn.style.setProperty("border", "none", "important");
+      } else {
+        btn.setAttribute("disabled", "true");
+        btn.style.cursor = "not-allowed";
+        btn.innerHTML = "🛒 Toca un paquete para elegir";
+        btn.style.setProperty("background", "#1c1c24", "important");
+        btn.style.setProperty("color", "#6b7280", "important");
+        btn.style.setProperty("border", "1px solid #2c2c38", "important");
+      }
+    }
+  }
+
+  function guardarPrimeraRecarga() {
+    const infoProductos = {
+      primera1: { nom: "100 + 10 💎 Diamantes (Bono)", pre: 3.00 },
+      primera2: { nom: "310 + 31 💎 Diamantes (Bono)", pre: 9.00 },
+      primera3: { nom: "520 + 52 💎 Diamantes (Bono)", pre: 15.00 },
+      primera4: { nom: "1060 + 106 💎 Diamantes (Bono)", pre: 25.00 },
+      primera5: { nom: "2180 + 218 💎 Diamantes (Bono)", pre: 45.00 },
+      primera6: { nom: "5600 + 560 💎 Diamantes (Bono)", pre: 115.00 }
     };
 
-    let algunProductoAgregadoPrimera = false;
-    let acumuladoTotalPrimera = 0;
+    const tagJugador = window.jvxJugadorVerificado
+      ? ` [ID: ${window.jvxJugadorVerificado.id} - ${window.jvxJugadorVerificado.nickname}]`
+      : "";
 
-    for (let clave in infoProductosPrimera) {
-        let cant = cantidadesPrimera[clave] || 0;
-        if (cant > 0) {
-            let item = infoProductosPrimera[clave];
-            let subtotal = item.pre * cant;
-            acumuladoTotalPrimera += subtotal;
-
-            let textoCantidad = cant > 1 ? ' x' + cant : '';
-            let nombreProductoFinal = `${item.nom} (1ra)${textoCantidad}`;
-
-            if (typeof agregarAlCarrito === 'function') {
-                agregarAlCarrito(nombreProductoFinal, subtotal);
-                algunProductoAgregadoPrimera = true;
-            }
+    let agregado = false;
+    for (let clave in infoProductos) {
+      if (cantidadesPrimera[clave] === 1) {
+        const item = infoProductos[clave];
+        if (typeof agregarAlCarrito === "function") {
+          agregarAlCarrito(`${item.nom}${tagJugador}`, item.pre);
+          agregado = true;
         }
+      }
     }
 
-    if (algunProductoAgregadoPrimera) {
-        if (typeof totalPrimeraModal !== 'undefined') {
-            totalPrimeraModal = acumuladoTotalPrimera;
-        }
-        // FORZAMOS AL BOTÓN DE PRIMERA RECARGA A REGRESAR AL NEGRO MATE PREMIUM
-        var btnPrimeraFinal = document.getElementById('btnPrimeraContinuar');
-        if (btnPrimeraFinal) {
-            btnPrimeraFinal.setAttribute('disabled', 'true');
-            btnPrimeraFinal.style.setProperty('cursor', 'not-allowed', 'important');
-            btnPrimeraFinal.innerHTML = '🛒 Elige al menos un paquete';
-            btnPrimeraFinal.style.setProperty('background-color', '#1a1e24', 'important');
-            btnPrimeraFinal.style.setProperty('border', '1px solid #2d3748', 'important');
-            btnPrimeraFinal.style.setProperty('color', '#ffffff', 'important');
-        }
-        // 1. Esfumamos el modal gris de primera recarga
-        let modalPrimera = document.getElementById('modal-primera') || document.getElementById('btnPrimeraContinuar').closest('.modal');
-        if (modalPrimera) {
-            modalPrimera.style.setProperty('display', 'none', 'important');
-            modalPrimera.classList.remove('show');
-        }
+    if (agregado) {
+      for (let clave in cantidadesPrimera) cantidadesPrimera[clave] = 0;
+      actualizarVistaSeleccionPrimera();
 
-        // 2. Destruimos la capa negra transparente que bloqueaba la pantalla
-        document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
-            backdrop.remove();
-        });
+      const modalPrimera = document.getElementById("modal-primera");
+      if (modalPrimera) modalPrimera.style.display = "none";
 
-        // 3. Devolvemos el control de clics a la página principal
-        document.body.classList.remove('modal-open');
-        document.body.style.removeProperty('overflow');
-
-        // 4. Limpiamos los contadores del modal
-        for (let clave in infoProductosPrimera) {
-            cantidadesPrimera[clave] = 0;
-            let textElement = document.getElementById(clave + "-qty");
-            if (textElement) textElement.innerText = "0";
-        }
-        let txtTotalPantalla = document.getElementById('totalPrimeraPantalla');
-        if (txtTotalPantalla) txtTotalPantalla.innerText = "S/ 0.00";
-
-        // 5. Forzamos el despliegue automático del carrito lateral
-        setTimeout(() => {
-            if (typeof renderizarCarritoVisual === 'function') {
-                renderizarCarritoVisual();
-            }
-            let panelCarrito = document.getElementById('carrito') || document.querySelector('.cart-sidebar');
-            if (panelCarrito) {
-                panelCarrito.style.setProperty('display', 'block', 'important');
-                panelCarrito.classList.add('active', 'show', 'open');
-            }
-        }, 150);
+      setTimeout(() => {
+        if (typeof renderizarCarritoVisual === "function") renderizarCarritoVisual();
+        const panelCarrito = document.getElementById("modal-carrito");
+        if (panelCarrito) panelCarrito.style.display = "flex";
+      }, 120);
     }
-}
+  }
+  // --- ESCÁNER DE ID, CUPOS E HISTORIAL ---
+  function obtenerHistorialJVX() {
+    try { return JSON.parse(localStorage.getItem("jvx_historial_ids_ff") || "[]"); }
+    catch (e) { return []; }
+  }
 
+  function guardarEnHistorialJVX(jugador) {
+    let lista = obtenerHistorialJVX().filter(item => item.id !== jugador.id);
+    lista.unshift(jugador);
+    if (lista.length > 5) lista = lista.slice(0, 5);
+    localStorage.setItem("jvx_historial_ids_ff", JSON.stringify(lista));
+    renderizarHistorialJVX();
+  }
+
+  function eliminarDeHistorialJVX(idBorrar, e) {
+    if (e) e.stopPropagation();
+    let lista = obtenerHistorialJVX().filter(item => item.id !== idBorrar);
+    localStorage.setItem("jvx_historial_ids_ff", JSON.stringify(lista));
+    renderizarHistorialJVX();
+  }
+
+  function renderizarHistorialJVX() {
+    const lista = obtenerHistorialJVX();
+    const toggle = document.getElementById("jvx-toggle-historial");
+    const contenedor = document.getElementById("jvx-lista-historial");
+    if (toggle) toggle.textContent = `Historial (${lista.length})`;
+    if (!contenedor) return;
+
+    if (lista.length === 0) {
+      contenedor.innerHTML = '<span style="font-size:11px;color:#6b7280;">Aún no has verificado ningún ID.</span>';
+      return;
+    }
+
+    contenedor.innerHTML = lista.map(j => `
+      <div onclick="seleccionarIdHistorialJVX('${j.id}')" style="display:flex;align-items:center;justify-content:space-between;background:#0e0e13;border:1px solid #24242e;border-radius:8px;padding:7px 10px;cursor:pointer;">
+        <div>
+          <div style="font-size:12.5px;font-weight:700;color:#ffffff;">${j.nickname}</div>
+          <div style="font-size:10.5px;color:#9ca3af;">ID: ${j.id} · ${j.region || "LATAM"}</div>
+        </div>
+        <span onclick="eliminarDeHistorialJVX('${j.id}', event)" style="color:#ef4444;font-size:13px;padding:4px 6px;">🗑</span>
+      </div>
+    `).join("");
+  }
+
+  function toggleHistorialJVX() {
+    const caja = document.getElementById("jvx-caja-historial");
+    if (!caja) return;
+    renderizarHistorialJVX();
+    caja.style.display = caja.style.display === "none" ? "block" : "none";
+  }
+
+  function seleccionarIdHistorialJVX(id) {
+    const input = document.getElementById("jvx-input-id-ff");
+    if (input) input.value = id;
+    verificarJugadorJVX();
+  }
+
+  function aplicarEstadoCuposJVX(cuposObj) {
+    let disponibles = 0;
+    const claves = ["primera1", "primera2", "primera3", "primera4", "primera5", "primera6"];
+
+    claves.forEach(clave => {
+      const tiene = cuposObj[clave] !== false;
+      if (tiene) disponibles++;
+
+      const card = document.getElementById("card-" + clave);
+      const badge = document.getElementById("badge-" + clave);
+      if (!card || !badge) return;
+
+      card.classList.remove("sin-cupo", "seleccionado");
+      badge.classList.remove("jvx-cupo-neutro", "jvx-cupo-ok", "jvx-cupo-no");
+
+      if (tiene) {
+        badge.classList.add("jvx-cupo-ok");
+        badge.textContent = "✅ Cupo";
+      } else {
+        cantidadesPrimera[clave] = 0;
+        card.classList.add("sin-cupo");
+        badge.classList.add("jvx-cupo-no");
+        badge.textContent = "🔒 Sin cupo";
+      }
+    });
+
+    actualizarVistaSeleccionPrimera();
+    return disponibles;
+  }
+
+  async function verificarJugadorJVX() {
+    const input = document.getElementById("jvx-input-id-ff");
+    const boxRes = document.getElementById("jvx-resultado-jugador");
+    const btn = document.getElementById("jvx-btn-verificar-id");
+    const idLimpio = (input ? input.value : "").trim();
+
+    if (idLimpio.length < 6) {
+      alert("Por favor, ingresa un ID de Free Fire válido (mínimo 6 dígitos).");
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "Buscando...";
+    boxRes.style.display = "block";
+    boxRes.style.borderColor = "rgba(239, 68, 68, 0.35)";
+    boxRes.style.background = "#161214";
+    boxRes.innerHTML = `<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#e5e7eb;"><span class="jvx-radar-loader"></span> Buscando jugador en Garena...</div>`;
+
+    try {
+      let datosJugador = null;
+      if (JVX_API_CUPOS_URL) {
+        const resp = await fetch(`${JVX_API_CUPOS_URL}?id=${encodeURIComponent(idLimpio)}`);
+        datosJugador = await resp.json();
+      } else {
+        await new Promise(r => setTimeout(r, 650));
+        boxRes.innerHTML = `<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:#e5e7eb;"><span class="jvx-radar-loader"></span> Verificando cupos disponibles...</div>`;
+        await new Promise(r => setTimeout(r, 650));
+
+        const esEjemploAntonio = idLimpio === "2161920749";
+        datosJugador = {
+          nickname: esEjemploAntonio ? "¥Antonio+51¥" : "Jugador #" + idLimpio.slice(-4),
+          region: "LATAM",
+          cupos: {
+            primera1: true,
+            primera2: true,
+            primera3: true,
+            primera4: true,
+            primera5: true,
+            primera6: !esEjemploAntonio
+          }
+        };
+      }
+
+      const cuposActivos = aplicarEstadoCuposJVX(datosJugador.cupos);
+      window.jvxJugadorVerificado = { id: idLimpio, nickname: datosJugador.nickname, region: datosJugador.region };
+      guardarEnHistorialJVX(window.jvxJugadorVerificado);
+
+      boxRes.style.borderColor = "rgba(34, 197, 94, 0.4)";
+      boxRes.style.background = "#0d1612";
+      boxRes.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <div style="font-size:14px;font-weight:800;color:#ffffff;">${datosJugador.nickname}</div>
+            <div style="font-size:11px;color:#9ca3af;">ID: ${idLimpio} · ${datosJugador.region}</div>
+          </div>
+          <span onclick="document.getElementById('jvx-input-id-ff').focus()" style="font-size:11px;color:#ef4444;font-weight:700;cursor:pointer;text-decoration:underline;">Cambiar</span>
+        </div>
+        <div style="margin-top:8px;padding-top:7px;border-top:1px solid rgba(255,255,255,0.07);font-size:11.5px;color:#4ade80;font-weight:700;">
+          🎁 Tienes ${cuposActivos} de 6 cupos con bono disponibles
+        </div>
+      `;
+    } catch (err) {
+      boxRes.innerHTML = `<span style="color:#f87171;font-size:12px;">No se pudo verificar el ID. Revisa el número e inténtalo de nuevo.</span>`;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Verificar";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", renderizarHistorialJVX);
 </script>
-<!-- Lógica del Script Integrada para Primera Recarga -->
+
 <script>
-  
-    // Configuración limpia de variables para los 6 paquetes originales
-    var cantidadesPrimera = { primera1: 0, primera2: 0, primera3: 0, primera4: 0, primera5: 0, primera6: 0 };
-    var preciosPrimera = { primera1: 3.00, primera2: 9.00, primera3: 15.00, primera4: 25.00, primera5: 45.00, primera6: 115.00 };
 
-    function ajustarOperarFilaPrimera(idFila, cambio) {
-    // 1. Validamos que los objetos existan en la memoria de la tienda
-    if (typeof cantidadesPrimera === 'undefined') window.cantidadesPrimera = {};
-    if (typeof preciosPrimera === 'undefined') {
-        window.preciosPrimera = { primera1: 3.00, primera2: 9.00, primera3: 15.00, primera4: 25.00, primera5: 45.00, primera6: 115.00 };
-    }
 
-    // 2. Calculamos la nueva cantidad presionada (+ o -)
-    var valorActual = cantidadesPrimera[idFila] || 0;
-    var nuevoValor = valorActual + cambio;
+  document.addEventListener("DOMContentLoaded", renderizarHistorialJVX);
+</script>
 
-    if (nuevoValor >= 0) {
-        // Guardamos las unidades en la memoria nativa
-        cantidadesPrimera[idFila] = nuevoValor;
+<!-- ETIQUETA NECESARIA PARA REACTIVAR EL CÓDIGO GRIS DE ABAJO -->
+<script>
 
-        // Actualizamos la burbuja de la cantidad en la pantalla (0, 1, 2...)
-        var textElement = document.getElementById(idFila + '-qty');
-        if (textElement) {
-            textElement.innerText = nuevoValor;
-        }
 
-        // 3. MATEMÁTICA LIMPIA: Calculamos el total recorriendo tu objeto nativo preciosPrimera
-        var sumaTotal = 0;
-        var totalItems = 0;
 
-        for (var clave in preciosPrimera) {
-            var unidades = cantidadesPrimera[clave] || 0;
-            if (unidades > 0) {
-                sumaTotal += unidades * preciosPrimera[clave];
-                totalItems += unidades;
-            }
-        }
 
-        // 4. ACTUALIZAMOS EL PRECIO VERDE EN LA INTERFAZ
-        var txtTotalPantalla = document.getElementById('totalPrimeraPantalla');
-        if (txtTotalPantalla) {
-            txtTotalPantalla.innerText = 'S/ ' + sumaTotal.toFixed(2);
-        }
-
-        // 5. CONTROL MAESTRO DE COLORES DEL BOTÓN (Blindado contra el bug del 10)
-        var botonForm = document.getElementById('btnPrimeraContinuar');
-        if (botonForm) {
-            if (totalItems > 0) {
-                // ESTADO ACTIVO: Verde neón estable sin importar la cantidad (10, 20, 50, etc.)
-                botonForm.removeAttribute('disabled');
-                botonForm.style.cursor = 'pointer';
-                botonForm.innerHTML = '🛒 Añadir Al Carrito';
-                botonForm.style.setProperty('background-color', '#00a86b', 'important');
-                botonForm.style.setProperty('color', '#ffffff', 'important');
-                botonForm.style.setProperty('border', 'none', 'important');
-                botonForm.style.setProperty('box-shadow', 'none', 'important');
-            } else {
-                // ESTADO INACTIVO: Negro mate premium al estar en S/ 0.00
-                botonForm.setAttribute('disabled', 'true');
-                botonForm.style.cursor = 'not-allowed';
-                botonForm.innerHTML = '🛒 Elige al menos un paquete';
-                botonForm.style.setProperty('background-color', '#1a1e24', 'important');
-                botonForm.style.setProperty('color', '#ffffff', 'important');
-                botonForm.style.setProperty('border', '1px solid #2d3748', 'important');
-                botonForm.style.setProperty('box-shadow', 'none', 'important');
-            }
-        }
-    }
-}
-    window.operarFilaPrimera = ajustarOperarFilaPrimera;
+              
   window.corregirMonedaNativaCarrito = function() {
     try {
         const spanTotal = document.getElementById('total-carrito');
@@ -6168,41 +6359,6 @@ document.addEventListener("DOMContentLoaded", function() {
   </div>
 </div>
 
-<!-- 2. MODAL DE SELECCIÓN: NÚMEROS VIRTUALES (MEDIDAS ULTRA COMPACTAS FORZADAS) -->
-<div id="modal-detalle-numeros" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #0c0c0e; border: 2px solid #ff0044; border-radius: 16px; padding: 15px 20px !important; width: 75% !important; max-width: 280px !important; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.8); font-family: sans-serif; color: #fff; box-sizing: border-box !important;">
-    
-    <!-- Botón de cerrar alineado a la derecha -->
-    <div style="display: flex; justify-content: flex-end; align-items: center; margin-bottom: 12px;">
-        <span onclick="document.getElementById('modal-detalle-numeros').style.display = 'none';" style="color: #ff0044; font-size: 18px; cursor: pointer; font-weight: 900; padding: 0 5px; line-height: 1;">×</span>
-    </div>
-
-    <!-- Título Principal Centrado y Pequeño -->
-    <p style="font-size: 11px; margin: 0 0 16px 0; font-weight: 900; color: #888; text-transform: uppercase; letter-spacing: 1px; text-align: center; width: 100%;">SELECCIONA PLATAFORMA</p>
-    
-    <!-- Botón Opción WhatsApp con LOGO SVG COMPACTO -->
-    <button onclick="
-        document.getElementById('modal-detalle-numeros').style.display = 'none';
-        if(document.getElementById('modal-numeros-whatsapp')) document.getElementById('modal-numeros-whatsapp').style.display = 'block';
-        else alert('Próximamente precios de WhatsApp disponibles');
-    " style="width: 100%; background: transparent; border: 1px solid #ff0044; border-radius: 25px; padding: 10px !important; color: #fff; font-weight: 900; font-size: 11px !important; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; margin-bottom: 12px !important; display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; box-shadow: inset 0 0 10px rgba(255, 0, 68, 0.05);">
-        <svg style="width: 14px; height: 16px; fill: #25D366;" viewBox="0 0 24 24">
-            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.753-1.464L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.623-1.023-5.086-2.884-6.948C16.635 2.04 14.17 1.015 11.548 1.015c-5.442 0-9.866 4.372-9.87 9.802 0 1.63.463 3.224 1.34 4.625l-.943 3.445 3.574-.928zm11.375-7.464c-.325-.16-1.92-.938-2.21-.1.053-.292-.12-.434-.326-.523-.204-.088-.87-.36-1.656-.63-.33-.114-.627-.22-.863-.306-.827-.3-1.46-.3-1.993.42l-.46.613c-.156.208-.344.23-.556.126-.412-.202-.857-.45-1.286-.763-.44-.32-.83-.715-1.123-1.116-.14-.19-.13-.372.013-.53l.417-.5c.133-.16.177-.282.088-.454l-.452-.924c-.11-.225-.23-.42-.363-.564-.2-.218-.413-.243-.604-.243h-.414c-.36 0-.74.156-1.023.475-.283.318-1.084 1.045-1.084 2.547s1.107 2.946 1.26 3.16c.153.214 2.146 3.23 5.253 4.54.738.312 1.314.498 1.764.64 1.15.228 2.164.125 2.977.006.904-.132 1.92-.773 2.19-1.485.27-.712.27-1.32.19-1.445-.08-.127-.294-.188-.62-.35z"/>
-        </svg>
-        WHATSAPP
-    </button>
-    
-    <!-- Botón Opción Telegram con LOGO SVG COMPACTO -->
-    <button onclick="
-        document.getElementById('modal-detalle-numeros').style.display = 'none';
-        if(document.getElementById('modal-numeros-telegram')) document.getElementById('modal-numeros-telegram').style.display = 'block';
-        else alert('Próximamente precios de Telegram disponibles');
-    " style="width: 100%; background: transparent; border: 1px solid #ff0044; border-radius: 25px; padding: 10px !important; color: #fff; font-weight: 900; font-size: 11px !important; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; box-shadow: inset 0 0 10px rgba(255, 0, 68, 0.05);">
-        <svg style="width: 14px; height: 16px; fill: #0088cc;" viewBox="0 0 24 24">
-            <path d="M24 2.235c-.118.66-.462 2.532-1.922 8.795-1.343 5.753-2.052 8.818-2.128 9.195-.145.717-.557 1.258-1.196 1.258-.456 0-.853-.27-1.378-.667l-4.572-3.468-2.457 2.378c-.282.27-.58.41-.892.41-.533 0-.907-.425-.907-1.127l.012-3.447L2.484 12.25c-.71-.24-1.115-.653-1.115-1.196 0-.573.473-.996 1.258-1.285l19.167-7.39c.677-.247 1.222-.124 1.492.3.208.33.24.847.114 1.41.01 0 .01-.1.01-.1z"/>
-        </svg>
-        TELEGRAM
-    </button>
-</div>
 
 
 <!-- 3. MODAL INTERACTIVO: EVALUACIÓN DE TARJETA DE CRÉDITO (CORREGIDO Y MAXIMIZADO) -->
@@ -6340,145 +6496,240 @@ document.addEventListener("DOMContentLoaded", function() {
 <!-- ======================================================= -->
 <!-- MODALES INTERACTIVOS CON CONEXIÓN NATIVA AL CARRITO    -->
 <!-- ======================================================= -->
-
-<!-- A. MODAL INTERACTIVO: PRECIOS WHATSAPP -->
-<div id="modal-numeros-whatsapp" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #0c0c0e; border: 2px solid #ff0044; border-radius: 18px; padding: 25px 22px !important; width: 88%; max-width: 320px; z-index: 10001; box-shadow: 0 12px 35px rgba(0,0,0,0.9); font-family: sans-serif; color: #fff; box-sizing: border-box !important;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
-        <span style="color: #888; font-size: 10.5px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">💬 NÚMEROS WHATSAPP</span>
-        <span onclick="document.getElementById('modal-numeros-whatsapp').style.display = 'none'; document.body.style.overflow = 'auto';" style="color: #ff0044; font-size: 22px; cursor: pointer; font-weight: 900; padding: 0 5px; line-height: 1;">×</span>
+<!-- MODAL UNIFICADO: NÚMEROS VIRTUALES (WHATSAPP Y TELEGRAM) -->
+<div id="modal-numeros-virtuales" onclick="if(event.target===this) jvxCerrarNumeros()" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px); z-index: 999999; align-items: center; justify-content: center; padding: 15px;">
+  <div style="background: #121214; border: 1.5px solid #ff2a5f; border-radius: 18px; width: 100%; max-width: 400px; max-height: 88vh; overflow-y: auto; padding: 20px; position: relative; box-shadow: 0 10px 35px rgba(255, 42, 95, 0.25);">
+    
+    <!-- Encabezado -->
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+      <h2 style="color: #ffffff; font-size: 19px; margin: 0; font-weight: 900; letter-spacing: 0.5px;">NÚMEROS VIRTUALES</h2>
+      <button onclick="jvxCerrarNumeros()" style="background: none; border: none; color: #ff2a5f; font-size: 16px; font-weight: 900; cursor: pointer; padding: 4px;">✖</button>
     </div>
 
-    <!-- Lista Desplegable de Países -->
-    <div style="margin-bottom: 16px;">
-        <label for="jvx-pais-wa" style="display: block; font-size: 11px; color: #888; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">Selecciona el País:</label>
-        <select id="jvx-pais-wa" onchange="
-            let p = this.value;
-            let precio = p.includes('Perú') ? 'S/ 10.00' : p.includes('EEUU') ? 'S/ 12.00' : p.includes('Otro') ? 'Consultar' : 'S/ 9.00';
-            document.getElementById('jvx-precio-wa-text').innerText = precio;
-            if(p.includes('Otro')) { document.getElementById('jvx-otro-wa-div').style.display = 'block'; }
-            else { document.getElementById('jvx-otro-wa-div').style.display = 'none'; }
-        " style="width: 100%; padding: 12px; background-color: #1a1a22; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 12px; font-weight: bold; cursor: pointer; outline: none;">
-            <option value="Perú 🇵🇪">🇵🇪 Perú</option>
-            <option value="EEUU 🇺🇸">🇺🇸 EE.UU.</option>
-            <option value="Colombia 🇨🇴">🇨🇴 Colombia</option>
-            <option value="Canadá 🇨🇦">🇨🇦 Canadá</option>
-            <option value="Argentina 🇦🇷">🇦🇷 Argentina</option>
-            <option value="Bolivia 🇧🇴">🇧🇴 Bolivia</option>
-            <option value="Chile 🇨🇱">🇨🇱 Chile</option>
-            <option value="México 🇲🇽">🇲🇽 México</option>
-            <option value="Otro País 🌐">🌍 Otro País (De tu preferencia)</option>
-        </select>
+    <!-- Cuadro Informativo Estilo eSIM -->
+    <div style="background: #1c1c21; border-left: 3px solid #ff2a5f; border-radius: 10px; padding: 12px; margin-bottom: 16px;">
+      <div style="color: #ff2a5f; font-size: 12px; font-weight: 800; margin-bottom: 4px;">⚡ ¿CÓMO ACTIVAR?</div>
+      <p style="color: #a1a1aa; font-size: 12px; margin: 0; line-height: 1.4;">Elige la plataforma y el país de tu preferencia. Tras confirmar tu compra en el carrito, recibirás tu número y el código SMS de verificación al instante.</p>
     </div>
 
-    <!-- Campo oculto para otro país -->
-    <div id="jvx-otro-wa-div" style="display: none; margin-bottom: 16px;">
-        <input type="text" id="jvx-otro-wa-input" placeholder="¿Qué país deseas?" style="width: 100%; padding: 12px; background-color: #1a1a22; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 12px; box-sizing: border-box; outline: none;">
+    <!-- Selector de Plataforma -->
+    <div style="color: #a1a1aa; font-size: 11px; font-weight: 800; margin-bottom: 8px; letter-spacing: 0.5px;">📱 ELIGE LA PLATAFORMA:</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: #18181b; padding: 5px; border-radius: 12px; border: 1px solid #27272a; margin-bottom: 16px;">
+      <button id="tab-btn-wa" onclick="jvxCambiarTabNumeros('wa')" style="background: #ff0044; color: #ffffff; border: none; padding: 10px; border-radius: 9px; font-weight: 800; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.2s;">
+        💬 WHATSAPP
+      </button>
+      <button id="tab-btn-tg" onclick="jvxCambiarTabNumeros('tg')" style="background: transparent; color: #a1a1aa; border: none; padding: 10px; border-radius: 9px; font-weight: 800; font-size: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: 0.2s;">
+        ✈️ TELEGRAM
+      </button>
     </div>
 
-    <!-- Visor de Costo -->
-    <div style="text-align: center; margin-bottom: 20px; background: #1a1a22; padding: 12px; border-radius: 10px; box-sizing: border-box;">
-        <span style="font-size: 10.5px; color: #888; font-weight: 700; display: block; text-transform: uppercase; margin-bottom: 2px;">Costo del Número:</span>
-        <span id="jvx-precio-wa-text" style="font-size: 18px; font-weight: 900; color: #00e575;">S/ 10.00</span>
-    </div>
+    <!-- Título Dinámico de Lista -->
+    <div id="jvx-titulo-paises" style="color: #a1a1aa; font-size: 11px; font-weight: 800; margin-bottom: 10px; letter-spacing: 0.5px;">🌎 PAÍSES DISPONIBLES (WHATSAPP):</div>
+    <!-- LISTA WHATSAPP -->
+    <div id="lista-numeros-wa" style="display: flex; flex-direction: column; gap: 10px;">
+      
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇵🇪 Perú</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">💬 Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 10.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero WA (Perú)', 10.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
 
-    <!-- Botón Conectado al Carrito Nativo -->
-    <button onclick="
-        let pais = document.getElementById('jvx-pais-wa').value;
-        let precioTxt = document.getElementById('jvx-precio-wa-text').innerText;
-        
-        if(pais.includes('Otro')) {
-            let otro = document.getElementById('jvx-otro-wa-input').value.trim();
-            if(!otro) { alert('⚠️ Por favor, escribe el país de tu preferencia.'); return; }
-            pais = 'Numero WA (' + otro + ')';
-        } else {
-            pais = 'Numero WA (' + pais.split(' ')[0] + ')';
-        }
-        
-        let precioNum = precioTxt.includes('Consultar') ? 0 : parseFloat(precioTxt.replace(/[^0-9.]/g, '')) || 0;
-        
-        if (typeof window.agregarAlCarrito === 'function') {
-            window.agregarAlCarrito(pais, precioNum);
-        }
-        if (typeof window.mostrarAlertaGamerToast === 'function') {
-            window.mostrarAlertaGamerToast(pais + ' añadida.', '#00e575');
-        }
-        
-        document.getElementById('modal-numeros-whatsapp').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    " style="width: 100%; background: #00e575; border: none; border-radius: 25px; padding: 14px; color: #000; font-weight: 900; font-size: 12px; cursor: pointer; text-transform: uppercase; box-shadow: 0 5px 15px rgba(0,229,117,0.3);">
-        🛒 AGREGAR AL CARRITO
-    </button>
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇺🇸 EE.UU.</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">💬 Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 12.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero WA (EE.UU.)', 12.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇨🇴 Colombia</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">💬 Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 9.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero WA (Colombia)', 9.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇨🇦 Canadá</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">💬 Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 9.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero WA (Canadá)', 9.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇦🇷 Argentina</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">💬 Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 9.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero WA (Argentina)', 9.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇧🇴 Bolivia</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">💬 Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 9.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero WA (Bolivia)', 9.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇨🇱 Chile</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">💬 Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 9.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero WA (Chile)', 9.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇲🇽 México</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">💬 Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 9.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero WA (México)', 9.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+    </div>
+    <!-- LISTA TELEGRAM -->
+    <div id="lista-numeros-tg" style="display: none; flex-direction: column; gap: 10px;">
+      
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇵🇪 Perú</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">✈️ Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 4.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero TG (Perú)', 4.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇺🇸 EE.UU.</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">✈️ Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 4.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero TG (EE.UU.)', 4.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇨🇴 Colombia</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">✈️ Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 4.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero TG (Colombia)', 4.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇨🇦 Canadá</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">✈️ Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 4.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero TG (Canadá)', 4.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇦🇷 Argentina</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">✈️ Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 4.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero TG (Argentina)', 4.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇧🇴 Bolivia</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">✈️ Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 4.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero TG (Bolivia)', 4.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇨🇱 Chile</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">✈️ Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 4.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero TG (Chile)', 4.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="color: #ffffff; font-weight: 800; font-size: 15px;">🇲🇽 México</div>
+          <div style="color: #a1a1aa; font-size: 11px; margin-top: 2px;">✈️ Activación inmediata</div>
+          <div style="color: #00e575; font-weight: 900; font-size: 14px; margin-top: 3px;">S/ 4.00</div>
+        </div>
+        <button onclick="jvxAddNumeroCarrito('Numero TG (México)', 4.00)" style="background: rgba(0,229,117,0.1); border: 1.5px solid #00e575; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 800; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+    </div>
+  </div>
 </div>
-</div>
 
-<!-- B. MODAL INTERACTIVO: PRECIOS TELEGRAM -->
-<div id="modal-numeros-telegram" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #0c0c0e; border: 2px solid #ff0044; border-radius: 16px; padding: 25px 22px !important; width: 88%; max-width: 320px; z-index: 10001; box-shadow: 0 12px 35px rgba(0,0,0,0.9); font-family: sans-serif; color: #fff; box-sizing: border-box !important;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
-        <span style="color: #888; font-size: 10.5px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase;">✈️ NÚMEROS TELEGRAM</span>
-        <span onclick="document.getElementById('modal-numeros-telegram').style.display = 'none'; document.body.style.overflow = 'auto';" style="color: #ff0044; font-size: 22px; cursor: pointer; font-weight: 900; padding: 0 5px; line-height: 1;">×</span>
-    </div>
+<script>
+  function jvxAbrirNumeros(tab) {
+    document.getElementById('modal-numeros-virtuales').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    jvxCambiarTabNumeros(tab || 'wa');
+  }
 
-    <!-- Lista Desplegable de Países -->
-    <div style="margin-bottom: 16px;">
-        <label for="jvx-pais-tg" style="display: block; font-size: 11px; color: #888; font-weight: 900; text-transform: uppercase; margin-bottom: 6px; letter-spacing: 0.5px;">Selecciona el País:</label>
-        <select id="jvx-pais-tg" onchange="
-            let p = this.value;
-            let precio = p.includes('Perú') ? 'S/ 5.00' : p.includes('Otro') ? 'Consultar' : 'S/ 4.00';
-            document.getElementById('jvx-precio-tg-text').innerText = precio;
-            if(p.includes('Otro')) { document.getElementById('jvx-otro-tg-div').style.display = 'block'; }
-            else { document.getElementById('jvx-otro-tg-div').style.display = 'none'; }
-        " style="width: 100%; padding: 12px; background-color: #1a1a22; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 12px; font-weight: bold; cursor: pointer; outline: none;">
-            <option value="Perú 🇵🇪">🇵🇪 Perú</option>
-            <option value="EEUU 🇺🇸">🇺🇸 EE.UU.</option>
-            <option value="Colombia 🇨🇴">🇨🇴 Colombia</option>
-            <option value="Canadá 🇨🇦">🇨🇦 Canadá</option>
-            <option value="Argentina 🇦🇷">🇦🇷 Argentina</option>
-            <option value="Bolivia 🇧🇴">🇧🇴 Bolivia</option>
-            <option value="Chile 🇨🇱">🇨🇱 Chile</option>
-            <option value="México 🇲🇽">🇲🇽 México</option>
-            <option value="Otro País 🌐">🌍 Otro País (De tu preferencia)</option>
-        </select>
-    </div>
+  function jvxCerrarNumeros() {
+    document.getElementById('modal-numeros-virtuales').style.display = 'none';
+    document.body.style.overflow = 'auto';
+  }
 
-    <!-- Campo oculto para otro país -->
-    <div id="jvx-otro-tg-div" style="display: none; margin-bottom: 16px;">
-        <input type="text" id="jvx-otro-tg-input" placeholder="¿Qué país deseas?" style="width: 100%; padding: 12px; background-color: #1a1a22; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 12px; box-sizing: border-box; outline: none;">
-    </div>
+  function jvxCambiarTabNumeros(tab) {
+    const btnWa = document.getElementById('tab-btn-wa');
+    const btnTg = document.getElementById('tab-btn-tg');
+    const listaWa = document.getElementById('lista-numeros-wa');
+    const listaTg = document.getElementById('lista-numeros-tg');
+    const titulo = document.getElementById('jvx-titulo-paises');
 
-    <!-- Visor de Costo -->
-    <div style="text-align: center; margin-bottom: 20px; background: #1a1a22; padding: 12px; border-radius: 10px; box-sizing: border-box;">
-        <span style="font-size: 10.5px; color: #888; font-weight: 700; display: block; text-transform: uppercase; margin-bottom: 2px;">Costo del Número:</span>
-        <span id="jvx-precio-tg-text" style="font-size: 18px; font-weight: 900; color: #00e575;">S/ 5.00</span>
-    </div>
+    if (tab === 'wa') {
+      btnWa.style.background = '#ff0044';
+      btnWa.style.color = '#ffffff';
+      btnTg.style.background = 'transparent';
+      btnTg.style.color = '#a1a1aa';
+      listaWa.style.display = 'flex';
+      listaTg.style.display = 'none';
+      titulo.innerText = '🌎 PAÍSES DISPONIBLES (WHATSAPP):';
+    } else {
+      btnTg.style.background = '#ff0044';
+      btnTg.style.color = '#ffffff';
+      btnWa.style.background = 'transparent';
+      btnWa.style.color = '#a1a1aa';
+      listaTg.style.display = 'flex';
+      listaWa.style.display = 'none';
+      titulo.innerText = '🌎 PAÍSES DISPONIBLES (TELEGRAM):';
+    }
+  }
 
-    <!-- Botón Conectado al Carrito Nativo -->
-    <button onclick="
-        let pais = document.getElementById('jvx-pais-tg').value;
-        let precioTxt = document.getElementById('jvx-precio-tg-text').innerText;
-        
-        if(pais.includes('Otro')) {
-            let otro = document.getElementById('jvx-otro-tg-input').value.trim();
-            if(!otro) { alert('⚠️ Por favor, escribe el país de tu preferencia.'); return; }
-            pais = 'Numero TG (' + otro + ')';
-        } else {
-            pais = 'Numero TG (' + pais.split(' ')[0] + ')';
-        }
-        
-        let precioNum = precioTxt.includes('Consultar') ? 0 : parseFloat(precioTxt.replace(/[^0-9.]/g, '')) || 0;
-        
-        if (typeof window.agregarAlCarrito === 'function') {
-            window.agregarAlCarrito(pais, precioNum);
-        }
-        if (typeof window.mostrarAlertaGamerToast === 'function') {
-            window.mostrarAlertaGamerToast(pais + ' añadida.', '#00e575');
-        }
-        
-        document.getElementById('modal-numeros-telegram').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    " style="width: 100%; background: #00e575; border: none; border-radius: 25px; padding: 14px; color: #000; font-weight: 900; font-size: 12px; cursor: pointer; text-transform: uppercase; box-shadow: 0 5px 15px rgba(0,229,117,0.3); display: flex; align-items: center; justify-content: center; gap: 8px;">
-        🛒 AGREGAR AL CARRITO
-    </button>
-</div>
+  function jvxAddNumeroCarrito(nombre, precio) {
+    if (typeof window.agregarAlCarrito === 'function') {
+      window.agregarAlCarrito(nombre, precio);
+    }
+    if (typeof window.mostrarAlertaGamerToast === 'function') {
+      window.mostrarAlertaGamerToast(nombre + ' añadida.', '#00e575');
+    }
+  }
+</script>
+
+
+
 <!-- ======================================================== -->
 <!-- MODAL COMPLETO: CAJAS DE TOKENS CON IMÁGENES             -->
 <!-- ======================================================== -->
@@ -6516,8 +6767,8 @@ document.addEventListener("DOMContentLoaded", function() {
         <span style="font-size: 11px; color: #aaa; letter-spacing: 1px; text-transform: uppercase; font-weight: 600;">💎 EVO UNIVERSALES</span>
         <h3 style="margin: 0; font-size: 18px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase;">CAJAS DE TOKENS</h3>
       </div>
-      <span onclick="document.getElementById('modal-cajas-tokens').style.display = 'none'; document.body.style.overflow = 'auto';" style="color: #ff0044; font-size: 22px; cursor: pointer; font-weight: 900; padding: 0 5px; line-height: 1;">×</span>
-    
+      <button onclick="document.getElementById('modal-cajas-tokens').style.display='none'" style="background: none; border: none; color: #ff2a5f; font-size: 16px; font-weight: 900; cursor: pointer; padding: 4px;">✖</button>
+
     </div>
 
     <!-- Bloque Informativo -->
@@ -6537,36 +6788,29 @@ document.addEventListener("DOMContentLoaded", function() {
     <!-- LISTA DE TARJETAS CON IMÁGENES -->
     <div style="display: flex; flex-direction: column; gap: 12px;">
       
-      <!-- Paquete 1: 58 Cajas -->
+      <!-- Paquete 1: 50 Cajas -->
       <div style="background: #181818; border: 1px solid #282828; border-radius: 14px; padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
         <!-- Imagen de la Caja de Tokens -->
         <img src="Cajita.png" alt="Caja" style="width: 42px; height: 42px; object-fit: contain;">
         <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; margin-left: 4px;">
-          <strong style="font-size: 15px; color: #fff;">58 Cajas</strong>
-          <div style="display: flex; align-items: center; gap: 4px;">
-            <!-- Icono del Fragmento Morado -->
-            <img src="Token.png" alt="Fragmento" style="width: 12px; height: 12px; object-fit: contain;">
-            <span style="font-size: 11px; color: #888;">~294 Fragmentos Evo</span>
-          </div>
-          <span style="font-size: 13px; font-weight: 700; color: #00ffcc; margin-top: 4px;">S/ 45.00</span>
+          <strong style="font-size: 15px; color: #fff;">50 Cajas</strong>
+          
+          <span style="font-size: 13px; font-weight: 700; color: #00ffcc; margin-top: 4px;">S/ 40.00</span>
         </div>
-        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('58 Cajas de Tokens Evo', 45.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('58 Cajas de Tokens añadidas.', '#00e575');}">
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('50 Cajas de Tokens Evo', 40.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('50 Cajas de Tokens añadidas.', '#00e575');}">
           🛒 AÑADIR
         </button>
       </div>
 
-      <!-- Paquete 2: 116 Cajas -->
+      <!-- Paquete 2: 100 Cajas -->
       <div style="background: #181818; border: 1px solid #282828; border-radius: 14px; padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
         <img src="Cajita.png" alt="Caja" style="width: 42px; height: 42px; object-fit: contain;">
         <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; margin-left: 4px;">
-          <strong style="font-size: 15px; color: #fff;">116 Cajas</strong>
-          <div style="display: flex; align-items: center; gap: 4px;">
-            <img src="Token.png" alt="Fragmento" style="width: 12px; height: 12px; object-fit: contain;">
-            <span style="font-size: 11px; color: #888;">~588 Fragmentos Evo</span>
-          </div>
+          <strong style="font-size: 15px; color: #fff;">100 Cajas</strong>
+          
           <span style="font-size: 13px; font-weight: 700; color: #00ffcc; margin-top: 4px;">S/ 70.00</span>
         </div>
-        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('116 Cajas de Tokens Evo', 70.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('116 Cajas de Tokens añadidas.', '#00e575');}">
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('100 Cajas de Tokens Evo', 70.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('100 Cajas de Tokens añadidas.', '#00e575');}">
           🛒 AÑADIR
         </button>
       </div>
@@ -6575,14 +6819,11 @@ document.addEventListener("DOMContentLoaded", function() {
       <div style="background: #181818; border: 1px solid #282828; border-radius: 14px; padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
         <img src="Cajita.png" alt="Caja" style="width: 42px; height: 42px; object-fit: contain;">
         <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; margin-left: 4px;">
-          <strong style="font-size: 15px; color: #fff;">174 Cajas</strong>
-          <div style="display: flex; align-items: center; gap: 4px;">
-            <img src="Token.png" alt="Fragmento" style="width: 12px; height: 12px; object-fit: contain;">
-            <span style="font-size: 11px; color: #888;">~882 Fragmentos Evo</span>
-          </div>
+          <strong style="font-size: 15px; color: #fff;">150 Cajas</strong>
+          
           <span style="font-size: 13px; font-weight: 700; color: #00ffcc; margin-top: 4px;">S/ 95.00</span>
         </div>
-        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('174 Cajas de Tokens Evo', 95.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('174 Cajas de Tokens añadidas.', '#00e575');}">
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('150 Cajas de Tokens Evo', 95.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('150 Cajas de Tokens añadidas.', '#00e575');}">
           🛒 AÑADIR
         </button>
       </div>
@@ -6591,34 +6832,41 @@ document.addEventListener("DOMContentLoaded", function() {
       <div style="background: #181818; border: 1px solid #282828; border-radius: 14px; padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
         <img src="Cajita.png" alt="Caja" style="width: 42px; height: 42px; object-fit: contain;">
         <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; margin-left: 4px;">
-          <strong style="font-size: 15px; color: #fff;">232 Cajas</strong>
-          <div style="display: flex; align-items: center; gap: 4px;">
-            <img src="Token.png" alt="Fragmento" style="width: 12px; height: 12px; object-fit: contain;">
-            <span style="font-size: 11px; color: #888;">~1176 Fragmentos Evo</span>
-          </div>
+          <strong style="font-size: 15px; color: #fff;">200 Cajas</strong>
+          
           <span style="font-size: 13px; font-weight: 700; color: #00ffcc; margin-top: 4px;">S/ 125.00</span>
         </div>
-        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('232 Cajas de Tokens Evo', 125.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('232 Cajas de Tokens añadidas.', '#00e575');}">
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('232 Cajas de Tokens Evo', 125.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('200 Cajas de Tokens añadidas.', '#00e575');}">
           🛒 AÑADIR
         </button>
       </div>
 
-      <!-- Paquete 5: 290 Cajas TOP -->
+      <!-- Paquete 5: 250 Cajas TOP -->
       <div style="background: #1d1215; border: 1px solid #4a1222; border-radius: 14px; padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 4px 10px rgba(255,0,68,0.05);">
         <img src="Cajita.png" alt="Caja" style="width: 42px; height: 42px; object-fit: contain;">
         <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; margin-left: 4px;">
-          <strong style="font-size: 15px; color: #ff0044;">290 Cajas (TOP)</strong>
-          <div style="display: flex; align-items: center; gap: 4px;">
-            <img src="Token.png" alt="Fragmento" style="width: 12px; height: 12px; object-fit: contain;">
-            <span style="font-size: 11px; color: #aaa;">~1470 Fragmentos Evo</span>
-          </div>
-          <span style="font-size: 13px; font-weight: 700; color: #00ffcc; margin-top: 4px;">S/ 160.00</span>
+          <strong style="font-size: 15px; color: #ff0044;">250 Cajas </strong>
+          
+          <span style="font-size: 13px; font-weight: 700; color: #00ffcc; margin-top: 4px;">S/ 150.00</span>
         </div>
-        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('290 Cajas de Tokens Evo', 160.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('290 Cajas de Tokens añadidas.', '#00e575');}">
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('290 Cajas de Tokens Evo', 150.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('250 Cajas de Tokens añadidas.', '#00e575');}">
           🛒 AÑADIR
         </button>
       </div>
 
+      <!-- Paquete 5: 300 Cajas TOP -->
+      <div style="background: #1d1215; border: 1px solid #4a1222; border-radius: 14px; padding: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; box-shadow: 0 4px 10px rgba(255,0,68,0.05);">
+        <img src="Cajita.png" alt="Caja" style="width: 42px; height: 42px; object-fit: contain;">
+        <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; margin-left: 4px;">
+          <strong style="font-size: 15px; color: #ff0044;">300 Cajas </strong>
+          
+          <span style="font-size: 13px; font-weight: 700; color: #00ffcc; margin-top: 4px;">S/ 175.00</span>
+        </div>
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('300 Cajas de Tokens Evo', 175.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('300 Cajas de Tokens añadidas.', '#00e575');}">
+          🛒 AÑADIR
+        </button>
+      </div>
+      
     </div>
 
   </div>
@@ -7753,7 +8001,7 @@ document.addEventListener("DOMContentLoaded", () => {
     position: fixed;
     bottom: 18px;
     left: 16px;
-    z-index: 99998;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8987,6 +9235,105 @@ window.jvxEnviarCorreoReal = function(correo) {
     }
   }
 </script>
+
+<!-- MODAL FRAGMENTOS UNIVERSALES -->
+<div id="modal-fragmentos" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 999999; align-items: center; justify-content: center; padding: 15px;">
+  <div style="background: #121214; border: 2px solid #ff2a5f; border-radius: 18px; width: 100%; max-width: 420px; max-height: 88vh; overflow-y: auto; padding: 20px; position: relative; box-shadow: 0 0 25px rgba(255,42,95,0.25);">
+    
+    <!-- Encabezado -->
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px;">
+      <div>
+        <span style="color: #38bdf8; font-size: 11px; font-weight: 700; letter-spacing: 0.5px;">💎 EVO UNIVERSALES</span>
+        <h2 style="color: #ffffff; font-size: 20px; margin: 2px 0 0 0; font-weight: 800;">FRAGMENTOS EVO</h2>
+      </div>
+      <button onclick="document.getElementById('modal-fragmentos').style.display='none'" style="background: none; border: none; color: #ff2a5f; font-size: 16px; font-weight: 900; cursor: pointer; padding: 4px;">✖</button>
+    </div>
+
+    <!-- Aviso informativo -->
+    <div style="background: #1c1c21; border-left: 3px solid #ff2a5f; border-radius: 10px; padding: 12px; margin-bottom: 16px;">
+      <div style="color: #ff2a5f; font-size: 12px; font-weight: 700; margin-bottom: 4px;">🔥 EVOLUCIONA TUS ARMAS AL MÁXIMO</div>
+      <p style="color: #a1a1aa; font-size: 12px; margin: 0; line-height: 1.4;">Selecciona la cantidad de fragmentos universales que necesitas para subir de nivel tus armas. Se añaden directamente a tu ID de jugador de forma segura.</p>
+    </div>
+
+    <div style="color: #a1a1aa; font-size: 11px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.5px;">📦 SELECCIONA TU PAQUETE:</div>
+
+    <!-- Lista de 7 paquetes con alerta gamer y sin cerrar el modal -->
+    <div style="display: flex; flex-direction: column; gap: 10px;">
+      
+      <!-- Opción 1: 208 Fragmentos -->
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <img src="Token.png" alt="208 Fragmentos" style="width: 48px; height: 48px; object-fit: contain; border-radius: 8px;">
+        <div style="flex: 1;">
+          <div style="color: #ffffff; font-weight: 700; font-size: 15px;">208 Fragmentos</div>
+          <div style="color: #2dd4bf; font-weight: 800; font-size: 14px; margin-top: 4px;">S/ 25.00</div>
+        </div>
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('208 Fragmentos Evo', 25.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('208 Fragmentos Evo añadidos.', '#00e575');}" style="background: rgba(16,185,129,0.12); border: 1.5px solid #10b981; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <!-- Opción 2: 416 Fragmentos -->
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <img src="Token.png" alt="416 Fragmentos" style="width: 48px; height: 48px; object-fit: contain; border-radius: 8px;">
+        <div style="flex: 1;">
+          <div style="color: #ffffff; font-weight: 700; font-size: 15px;">416 Fragmentos</div>
+          <div style="color: #2dd4bf; font-weight: 800; font-size: 14px; margin-top: 4px;">S/ 45.00</div>
+        </div>
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('416 Fragmentos Evo', 45.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('416 Fragmentos Evo añadidos.', '#00e575');}" style="background: rgba(16,185,129,0.12); border: 1.5px solid #10b981; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <!-- Opción 3: 624 Fragmentos -->
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <img src="Token.png" alt="624 Fragmentos" style="width: 48px; height: 48px; object-fit: contain; border-radius: 8px;">
+        <div style="flex: 1;">
+          <div style="color: #ffffff; font-weight: 700; font-size: 15px;">624 Fragmentos</div>
+          <div style="color: #2dd4bf; font-weight: 800; font-size: 14px; margin-top: 4px;">S/ 62.00</div>
+        </div>
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('624 Fragmentos Evo', 62.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('624 Fragmentos Evo añadidos.', '#00e575');}" style="background: rgba(16,185,129,0.12); border: 1.5px solid #10b981; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <!-- Opción 4: 832 Fragmentos -->
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <img src="Token.png" alt="832 Fragmentos" style="width: 48px; height: 48px; object-fit: contain; border-radius: 8px;">
+        <div style="flex: 1;">
+          <div style="color: #ffffff; font-weight: 700; font-size: 15px;">832 Fragmentos</div>
+          <div style="color: #2dd4bf; font-weight: 800; font-size: 14px; margin-top: 4px;">S/ 75.00</div>
+        </div>
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('832 Fragmentos Evo', 75.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('832 Fragmentos Evo añadidos.', '#00e575');}" style="background: rgba(16,185,129,0.12); border: 1.5px solid #10b981; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <!-- Opción 5: 1040 Fragmentos -->
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <img src="Token.png" alt="1040 Fragmentos" style="width: 48px; height: 48px; object-fit: contain; border-radius: 8px;">
+        <div style="flex: 1;">
+          <div style="color: #ffffff; font-weight: 700; font-size: 15px;">1040 Fragmentos</div>
+          <div style="color: #2dd4bf; font-weight: 800; font-size: 14px; margin-top: 4px;">S/ 95.00</div>
+        </div>
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('1040 Fragmentos Evo', 95.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('1040 Fragmentos Evo añadidos.', '#00e575');}" style="background: rgba(16,185,129,0.12); border: 1.5px solid #10b981; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <!-- Opción 6: 1248 Fragmentos -->
+      <div style="background: #18181b; border: 1px solid #27272a; border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <img src="Token.png" alt="1248 Fragmentos" style="width: 48px; height: 48px; object-fit: contain; border-radius: 8px;">
+        <div style="flex: 1;">
+          <div style="color: #ffffff; font-weight: 700; font-size: 15px;">1248 Fragmentos</div>
+          <div style="color: #2dd4bf; font-weight: 800; font-size: 14px; margin-top: 4px;">S/ 110.00</div>
+        </div>
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('1248 Fragmentos Evo', 110.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('1248 Fragmentos Evo añadidos.', '#00e575');}" style="background: rgba(16,185,129,0.12); border: 1.5px solid #10b981; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+      <!-- Opción 7: 1456 Fragmentos (TOP) -->
+      <div style="background: rgba(255,42,95,0.08); border: 1px solid #ff2a5f; border-radius: 12px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+        <img src="Token.png" alt="1456 Fragmentos" style="width: 48px; height: 48px; object-fit: contain; border-radius: 8px;">
+        <div style="flex: 1;">
+          <div style="color: #ff2a5f; font-weight: 800; font-size: 15px;">1456 Fragmentos (TOP)</div>
+          <div style="color: #2dd4bf; font-weight: 800; font-size: 14px; margin-top: 4px;">S/ 135.00</div>
+        </div>
+        <button class="btn-tokens-add" onclick="if(typeof agregarAlCarrito==='function'){agregarAlCarrito('1456 Fragmentos Evo', 135.00);} if(typeof mostrarAlertaGamerToast==='function'){mostrarAlertaGamerToast('1456 Fragmentos Evo añadidos.', '#00e575');}" style="background: rgba(16,185,129,0.12); border: 1.5px solid #10b981; color: #ffffff; padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;">🛒 AÑADIR</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 
 
 </body>
