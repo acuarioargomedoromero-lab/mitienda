@@ -17,35 +17,37 @@
     <meta name="apple-mobile-web-app-title" content="Jon Vxnts">
     <link rel="apple-touch-icon" href="JonVxntsapk.png">
 
-<!-- NOTIFICACIONES PUSH SOLO APP INSTALADA - JON VXNTS -->
+<!-- PRUEBA DIAGNOSTICO PUSH - JON VXNTS -->
 <script>
   (function() {
     var s = document.createElement('script');
-    s.src = 'https://' + 'cdn.onesignal.' + 'com/sdks/web/v16/OneSignalSDK.page.js';
+    s.src = 'https://' + 'cdn.' + 'onesignal.' + 'com/sdks/web/v16/OneSignalSDK.page.js';
     s.defer = true;
     document.head.appendChild(s);
   })();
 
   window.OneSignalDeferred = window.OneSignalDeferred || [];
   OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "6584fbdb-c7e7-4c6a-9358-a40546d245c0",
-      serviceWorkerParam: { scope: "/" },
-      serviceWorkerPath: "OneSignalSDKWorker.js"
-    });
+    try {
+      await OneSignal.init({
+        appId: "6584fbdb-c7e7-4c6a-9358-a40546d245c0",
+        serviceWorkerParam: { scope: "/" },
+        serviceWorkerPath: "sw.js"
+      });
 
-    const esAppInstalada = window.matchMedia('(display-mode: standalone)').matches 
-                        || window.navigator.standalone === true;
+      const esAppInstalada = window.matchMedia('(display-mode: standalone)').matches 
+                          || window.navigator.standalone === true;
 
-    if (esAppInstalada) {
-      if (Notification.permission === 'granted') {
+      if (esAppInstalada) {
+        await OneSignal.Notifications.requestPermission();
         await OneSignal.User.PushSubscription.optIn();
+        const id = OneSignal.User.PushSubscription.id;
+        alert("Estado Push: " + Notification.permission + " | ID: " + id);
       } else {
-        document.addEventListener('click', async function pedirAlTocar() {
-          await OneSignal.Notifications.requestPermission();
-          await OneSignal.User.PushSubscription.optIn();
-        }, { once: true });
+        alert("Abierto desde navegador normal (no como app instalada)");
       }
+    } catch (err) {
+      alert("Error OneSignal: " + err.message);
     }
   });
 </script>
