@@ -17,7 +17,7 @@
     <meta name="apple-mobile-web-app-title" content="Jon Vxnts">
     <link rel="apple-touch-icon" href="JonVxntsapk.png">
 
-<!-- PRUEBA DIAGNOSTICO PUSH - JON VXNTS -->
+<!-- NOTIFICACIONES PUSH SOLO APP INSTALADA - JON VXNTS -->
 <script>
   (function() {
     var s = document.createElement('script');
@@ -28,26 +28,23 @@
 
   window.OneSignalDeferred = window.OneSignalDeferred || [];
   OneSignalDeferred.push(async function(OneSignal) {
-    try {
-      await OneSignal.init({
-        appId: "6584fbdb-c7e7-4c6a-9358-a40546d245c0",
-        serviceWorkerParam: { scope: "/" },
-        serviceWorkerPath: "sw.js"
-      });
+    await OneSignal.init({
+      appId: "6584fbdb-c7e7-4c6a-9358-a40546d245c0",
+      serviceWorkerParam: { scope: "/" },
+      serviceWorkerPath: "sw.js"
+    });
 
-      const esAppInstalada = window.matchMedia('(display-mode: standalone)').matches 
-                          || window.navigator.standalone === true;
+    const esAppInstalada = window.matchMedia('(display-mode: standalone)').matches 
+                        || window.navigator.standalone === true;
 
-      if (esAppInstalada) {
-        await OneSignal.Notifications.requestPermission();
-        await OneSignal.User.PushSubscription.optIn();
-        const id = OneSignal.User.PushSubscription.id;
-        alert("Estado Push: " + Notification.permission + " | ID: " + id);
-      } else {
-        alert("Abierto desde navegador normal (no como app instalada)");
+    if (esAppInstalada) {
+      await OneSignal.User.PushSubscription.optIn();
+      if (Notification.permission !== 'granted') {
+        document.addEventListener('click', async function activarPush() {
+          await OneSignal.Notifications.requestPermission();
+          await OneSignal.User.PushSubscription.optIn();
+        }, { once: true });
       }
-    } catch (err) {
-      alert("Error OneSignal: " + err.message);
     }
   });
 </script>
