@@ -17,9 +17,15 @@
     <meta name="apple-mobile-web-app-title" content="Jon Vxnts">
     <link rel="apple-touch-icon" href="JonVxntsapk.png">
 
-<!-- NOTIFICACIONES PUSH SOLO PARA APP INSTALADA - JON VXNTS -->
-<script src="https://onesignal.com" defer></script>
+<!-- NOTIFICACIONES PUSH SOLO APP INSTALADA - JON VXNTS -->
 <script>
+  (function() {
+    var s = document.createElement('script');
+    s.src = 'https://' + 'cdn.onesignal.' + 'com/sdks/web/v16/OneSignalSDK.page.js';
+    s.defer = true;
+    document.head.appendChild(s);
+  })();
+
   window.OneSignalDeferred = window.OneSignalDeferred || [];
   OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
@@ -28,13 +34,20 @@
       serviceWorkerPath: "OneSignalSDKWorker.js"
     });
 
-    // Detecta si el usuario abrió la tienda desde la App instalada (PWA)
     const esAppInstalada = window.matchMedia('(display-mode: standalone)').matches 
                         || window.navigator.standalone === true;
 
-    // Solo pide permiso de notificaciones si tiene la App instalada
     if (esAppInstalada) {
-      await OneSignal.Slidedown.promptPush();
+      try {
+        await OneSignal.Notifications.requestPermission();
+      } catch (e) {}
+
+      document.addEventListener('click', async function pedirAlTocar() {
+        if (Notification.permission === 'default') {
+          await OneSignal.Notifications.requestPermission();
+        }
+        document.removeEventListener('click', pedirAlTocar);
+      }, { once: true });
     }
   });
 </script>
