@@ -38,16 +38,14 @@
                         || window.navigator.standalone === true;
 
     if (esAppInstalada) {
-      try {
-        await OneSignal.Notifications.requestPermission();
-      } catch (e) {}
-
-      document.addEventListener('click', async function pedirAlTocar() {
-        if (Notification.permission === 'default') {
+      if (Notification.permission === 'granted') {
+        await OneSignal.User.PushSubscription.optIn();
+      } else {
+        document.addEventListener('click', async function pedirAlTocar() {
           await OneSignal.Notifications.requestPermission();
-        }
-        document.removeEventListener('click', pedirAlTocar);
-      }, { once: true });
+          await OneSignal.User.PushSubscription.optIn();
+        }, { once: true });
+      }
     }
   });
 </script>
