@@ -75,230 +75,185 @@
             <span class="badge" id="cart-count" style="position: absolute !important; top: -5px !important; right: -7px !important; background-color: #00ff77 !important; color: #000000 !important; font-size: 9px !important; font-weight: 900 !important; padding: 2px 4px !important; border-radius: 50% !important; line-height: 1 !important; box-shadow: 0 0 6px rgba(0, 255, 119, 0.4) !important; display: inline-block !important; margin: 0 !important; transform: none !important; pointer-events: none !important;">0</span>
 
         </div>
-                <!-- BOTÓN DE USUARIO Y SALDO (SOLO CON SESIÓN ACTIVA) -->
-        <div id="jvx-header-user-box" style="display: none; align-items: center; margin-left: 8px; position: relative;">
-          <button type="button" onclick="jvxToggleMenuUsuario()" style="display: flex; align-items: center; gap: 6px; background: rgba(255, 42, 42, 0.14); border: 1px solid rgba(255, 42, 42, 0.45); border-radius: 999px; padding: 4px 10px 4px 6px; color: #ffffff; cursor: pointer; font-size: 12px; font-weight: 700;">
-            <span id="jvx-header-inicial" style="width: 22px; height: 22px; border-radius: 50%; background: #ff2a2a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900;">U</span>
-            <span id="jvx-header-saldo" style="color: #4ade80;">S/ 0.00</span>
+                
+                
+                            <!-- BOTÓN 3: Ícono de Usuario (Conectado y protegido contra scripts viejos) -->
+        <div id="jvx-caja-icono-top" style="margin-left: -6px !important; display: flex !important; align-items: center !important; position: relative !important; z-index: 10 !important;">
+          <button type="button" id="jvx-boton-perfil-solo-ui" onclick="jvxAccionIconoUsuario()" title="Mi cuenta" style="width: 28px !important; height: 28px !important; border-radius: 50% !important; background: rgba(255, 255, 255, 0.08) !important; border: 1.5px solid #9ca3af !important; padding: 0 !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; overflow: hidden !important;">
+            <svg id="jvx-header-svg-invitado" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e5e7eb" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <img id="jvx-header-avatar-img" src="" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+            <span id="jvx-header-inicial" style="display: none; font-size: 12px; font-weight: 900; color: #ffffff;">U</span>
           </button>
-
-          <!-- MENÚ DESPLEGABLE DEL USUARIO -->
-          <div id="jvx-dropdown-usuario" style="display: none; position: absolute; top: 40px; right: 0; width: 245px; background: #141418; border: 1px solid rgba(255, 42, 42, 0.35); border-radius: 14px; padding: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.85); z-index: 9999; text-align: left;">
-            <div style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px; margin-bottom: 10px;">
-              <div style="font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Cuenta activa</div>
-              <div id="jvx-drop-nombre" style="font-size: 14px; font-weight: 800; color: #ffffff; margin-top: 2px;">Usuario</div>
-              <div id="jvx-drop-email" style="font-size: 11px; color: #9ca3af; word-break: break-all;">correo@ejemplo.com</div>
-            </div>
-
-            <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 10px; margin-bottom: 10px;">
-              <div style="font-size: 10.5px; color: #86efac; font-weight: 700;">SALDO DISPONIBLE</div>
-              <div id="jvx-drop-saldo" style="font-size: 20px; font-weight: 900; color: #4ade80; margin-top: 2px;">S/ 0.00</div>
-            </div>
-
-            <div style="background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px; margin-bottom: 10px; font-size: 11px; color: #cbd5e1;">
-              <div style="color: #9ca3af; font-size: 10px;">TU CÓDIGO DE REFERIDO:</div>
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 3px;">
-                <strong id="jvx-drop-codigo" style="color: #ff2a2a; letter-spacing: 0.5px;">JVX-000</strong>
-                <button type="button" onclick="jvxCopiarLinkReferido()" style="background: #27272f; border: none; color: #fff; font-size: 10px; padding: 4px 8px; border-radius: 6px; cursor: pointer;">Copiar link</button>
-              </div>
-            </div>
-
-            <button type="button" onclick="jvxCerrarSesion()" style="width: 100%; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #f87171; padding: 8px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;">Cerrar sesión</button>
-          </div>
         </div>
-
-                <!-- ======================================================= -->
-                <!-- ⚙️ BOTÓN 2: La Tuerca Original (CORREGIDA: MÁS CERCA Y COMPACTA) -->
-        <div style="margin-left: 6px !important; display: flex !important; align-items: center !important; position: relative !important; z-index: 10 !important;">
-            <button id="btnTuercaMaestraJon" onclick="let m=document.getElementById('panelFlotantePaseBatallaVert'); if(m){ m.style.display=m.style.display==='none'?'block':'none'; }" style="background: transparent !important; border: none !important; color: #737373 !important; font-size: 20px !important; cursor: pointer !important; padding: 0 !important; outline: none !important; box-shadow: none !important; line-height: 1 !important;">
-                ⚙️
-            </button>
-        </div>
-            <!-- 🏆 PANEL VERTICAL FLOTANTE PREMIUM PASE DE BATALLA (IDÉNTICO A TU FOTO) -->
-            <div id="panelFlotantePaseBatallaVert" style="display: none; background: #0d0d11 !important; border: 2px solid #ff0044 !important; border-radius: 14px; padding: 18px 14px; box-shadow: 0 4px 25px rgba(255, 0, 68, 0.3), inset 0 0 15px rgba(0,0,0,0.9); position: absolute; top: 46px; right: 0; width: 260px; z-index: 10000000 !important; box-sizing: border-box; text-align: center;">
-                
-                
-                <!-- 6. BOTONES DE ACCESOS Y CIERRE DINÁMICOS -->
-                <div style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
-                    <!-- BOTÓN INICIAR SESIÓN CON EL MISMO COLOR EXACTO -->
-<button type="button" onclick="jvxAbrirAuthModal('login')" style="width: 100%; background: #141418; border: 1px solid #222228; border-radius: 8px; padding: 10px 12px; color: #a1a1aa; font-family: inherit; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; text-align: left;">
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
-    <polyline points="10 17 15 12 10 7"></polyline>
-    <line x1="15" y1="12" x2="3" y2="12"></line>
-  </svg>
-  <span>Iniciar Sesión / Registro</span>
-</button>
-
-                    <a href="#" style="text-decoration: none; color: #bbb; padding: 8px; font-size: 12px; font-weight: bold; font-family: sans-serif; text-align: left; background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid #1c1c22;" onclick="event.preventDefault(); document.getElementById('panelFlotantePaseBatallaVert').style.display='none'; document.getElementById('modalSoporte').style.setProperty('display', 'flex', 'important');">🎧 Soporte al Cliente</a>
-                    <a href="#" style="text-decoration: none; color: #bbb; padding: 8px; font-size: 12px; font-weight: bold; font-family: sans-serif; text-align: left; background: rgba(255,255,255,0.02); border-radius: 6px; border: 1px solid #1c1c22;" onclick="event.preventDefault(); document.getElementById('panelFlotantePaseBatallaVert').style.display='none'; document.getElementById('modalTerminos').style.setProperty('display', 'flex', 'important');">📄 Términos y Condiciones</a>
-                    
-                    <button id="btnCerrarSesionPerfil" style="display: none; width: 100%; background: #27272a; color: #ff3333; border: 1px solid #331115; padding: 10px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; font-family: sans-serif; text-transform: uppercase; margin-top: 5px;" onclick="if(window.motorGamer && typeof window.motorGamer.cerrarSesionGamer==='function') window.motorGamer.cerrarSesionGamer();">Cerrar Sesión</button>
-                </div>
-            </div>
-            </div>
-        </div>
-                      <!-- RELOJ AUTOMÁTICO EN CALIENTE: SINCRONIZADOR INTEGRAL VERTICAL JON VXNTS -->
-        <script>
-        setInterval(function() {
-            let user = (typeof window.motorGamer !== 'undefined' && window.motorGamer.usuarioActivo) ? window.motorGamer.usuarioActivo : localStorage.getItem('usuario_actual_sesion') || 'Invitado';
-            let base = (typeof window.motorGamer !== 'undefined' && window.motorGamer.usuariosBD) ? window.motorGamer.usuariosBD : JSON.parse(localStorage.getItem('usuariosGamerBD')) || {};
-            
-            const txtNombre = document.getElementById("perfilNombre");
-            const txtLeyenda = document.getElementById("perfilLeyendaRango");
-            const txtPuntos = document.getElementById("perfilPuntos");
-            const txtPorcentaje = document.getElementById("perfilPorcentajeTxt");
-            const barFina = document.getElementById("barraProgresoPerfilFina");
-            const txtRangoCompleto = document.getElementById("perfilRangoTextoCompleto");
-            const txtBeneficio = document.getElementById("perfilBeneficioTxt");
-            const txtCodigoRef = document.getElementById("perfilCodigoReferidoTxt");
-            
-            const btnAccesoInvitado = document.getElementById("btnAccesoInvitadoPerfil");
-            const btnLogout = document.getElementById("btnCerrarSesionPerfil");
-
-            // EVALUACIÓN CONDICIONAL DINÁMICA SEGÚN ESTADO DE SESIÓN
-            if (!user || user === 'Invitado' || !base[user]) {
-                // ESTADO INVITADO ANÓNIMO
-                if(txtNombre) txtNombre.innerText = "Invitado";
-                if(txtLeyenda) txtLeyenda.innerText = "Modo Anónimo";
-                if(txtPuntos) txtPuntos.innerText = "0 Hongos";
-                if(txtPorcentaje) txtPorcentaje.innerText = "0%";
-                if(barFina) barFina.style.width = "0%";
-                if(txtRangoCompleto) txtRangoCompleto.innerHTML = 'SIN CLASIFICACIÓN <span style="color:#ffcc00;">➔</span> BRONCE I 🛡️';
-                if(txtBeneficio) txtBeneficio.innerText = "Ninguno (¡Llega a 300 PTS!)";
-                if(txtCodigoRef) txtCodigoRef.innerText = "JVX-INVITADO";
-                
-                if(btnAccesoInvitado) btnAccesoInvitado.style.display = "block";
-                if(btnLogout) btnLogout.style.display = "none";
-            } else {
-                // ESTADO USUARIO REGISTRADO LOGUEADO (Ej: Jhon Rambito)
-                let data = base[user];
-                if(txtNombre) txtNombre.innerText = data.nombre || "Gamer Crack";
-                if(txtLeyenda) txtLeyenda.innerText = "Cliente VIP JON VXNTS";
-                
-                let hg = data.puntos !== undefined ? parseInt(data.puntos) : 0;
-                if(txtPuntos) txtPuntos.innerText = hg + " Hongos";
-                
-                // Cálculo matemático real del progreso con tope en 300 puntos para los beneficios
-                let maxMeta = 300;
-                let pctCalculado = Math.floor((hg / maxMeta) * 100);
-                if(pctCalculado > 100) pctCalculado = 100;
-                if(txtPorcentaje) txtPorcentaje.innerText = pctCalculado + "%";
-                if(barFina) barFina.style.width = pctCalculado + "%";
-                
-                // Niveles de Rangos Dinámicos competitivos según balance real
-                if(txtRangoCompleto) {
-                    if(hg >= 1000) txtRangoCompleto.innerHTML = '✨ RANGO LIGA <span style="color:#ff3366;">HEROICO VIP</span> 👑';
-                    else if(hg >= 500) txtRangoCompleto.innerHTML = ' LIGA ACCESO <span style="color:#00e575;">DIAMANTE MASTER</span> 💎';
-                    else if(hg >= 300) txtRangoCompleto.innerHTML = '⚡ RANGO ACTUAL <span style="color:#ffcc00;">BRONCE ORO</span> I 🥇';
-                    else if(hg >= 100) txtRangoCompleto.innerHTML = '🔥 RANGO CLASIFICADO <span style="color:#ff0044;">BRONCE I</span> 🛡️';
-                    else txtRangoCompleto.innerHTML = 'SIN CLASIFICACIÓN <span style="color:#ffcc00;">➔</span> BRONCE I 🛡️';
-                }
-                
-                // Caja de Beneficios Reactiva
-                if(txtBeneficio) {
-                    if(hg >= 300) txtBeneficio.innerHTML = "<span style='color:#00e575;'>🔓 ¡Soporte prioritario + Giros VIP habilitados!</span>";
-                    else txtBeneficio.innerText = "Ninguno (¡Llega a " + (maxMeta - hg) + " PTS más!)";
-                }
-                
-                // Código de Referido Dinámico
-                if(txtCodigoRef) txtCodigoRef.innerText = data.codigoReferido || "JVX-GAMER" + user.substring(user.length - 4);
-                
-                // Esconder botón de acceso para evitar ruidos visuales y mostrar el cierre de sesión
-                if(btnAccesoInvitado) btnAccesoInvitado.style.display = "none";
-                if(btnLogout) btnLogout.style.display = "block";
-            }
-        }, 400);
-        </script>
   
+
+            
+                
 </div>
     </div>
           
-        <!-- ======================================================= -->
-        <!-- VENTANA FLOTANTE PREMIUM DE TÉRMINOS Y CONDICIONES       -->
-        <!-- ======================================================= -->
-        <div id="modalTerminos" style="display: none; position: fixed !important; top: 0; left: 0; width: 100vw !important; height: 100vh !important; background: rgba(0, 0, 0, 0.94) !important; justify-content: center; align-items: center; z-index: 9999999999 !important; padding: 10px; box-sizing: border-box; overflow-y: auto !important;">
-            
-            <div style="background: #0d0d11 !important; border: 2px solid #ff3333 !important; border-radius: 12px; padding: 15px 12px; box-shadow: 0 0 25px rgba(255, 68, 68, 0.2); box-sizing: border-box; width: 100%; max-width: 380px; position: relative; margin: auto; text-align: center; overflow: visible;">
-                
-                <style>
-                    @keyframes levitarRapido {
-                        0% { transform: translateY(0px); }
-                        50% { transform: translateY(-6px); }
-                        100% { transform: translateY(0px); }
-                    }
-                    .bloque-levitante-dk {
-                        animation: levitarRapido 1.2s ease-in-out infinite;
-                    }
-                </style>
+<!-- ========================================== -->
+<!-- 1. MODAL CORPORATIVO: TÉRMINOS Y CONDICIONES -->
+<!-- ========================================== -->
+<div id="modalTerminos" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(6px); z-index: 999999; align-items: center; justify-content: center; padding: 16px; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif;">
+  <div style="width: 100%; max-width: 460px; max-height: 86vh; background: #111116; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);">
 
-                <!-- 1. ENCABEZADO LEVITANDO EN EL AIRE -->
-                <div class="bloque-levitante-dk" style="margin-bottom: 12px; margin-top: 2px;">
-                    <h2 style="color: #ff0055; margin: 0 0 1px 0; font-size: 18px; font-weight: bold; text-transform: uppercase; font-family: sans-serif; letter-spacing: 0.5px; filter: drop-shadow(0 0 5px #ff0055);">Términos y Condiciones</h2>
-                    <span style="color: #ffffff; font-size: 9.5px; font-weight: 900; letter-spacing: 1px; font-family: sans-serif;">JON VXNTS CONTRACT</span>
-                </div>
-
-                <!-- 2. CONTRATO INTERMEDIO SIN ALTURA FIJA (TEXTO COMPLETO VISIBLE) -->
-                <div style="text-align: left !important; background: rgba(22, 22, 30, 0.6); padding: 8px 12px; border-radius: 8px; font-size: 12.5px;">
-    <!-- 1. ENTREGAS Y SERVICIOS -->
-    <div style="margin-bottom: 3px;">
-        <h3 style="color: #ffcc00; font-weight: bold; margin: 0 0 1px 0; font-size: 13.5px;">🎮 1. ENTREGAS Y SERVICIOS</h3>
-        <p style="color: #bbb; margin: 0; line-height: 1.25;">
-            • Recargas a tu <b>ID de Free Fire</b>, cuentas y <b>streaming</b> se entregan de <b>10 min a 24 hrs</b> vía WhatsApp.<br>
-            • <b>Números virtuales</b> se envían al instante según disponibilidad.
-        </p>
+    <!-- Cabecera Fija -->
+    <div style="padding: 18px 20px 14px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: space-between; align-items: center; background: #15151c;">
+      <div>
+        <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px;">TÉRMINOS Y CONDICIONES</h3>
+        <span style="font-size: 10.5px; color: #9ca3af; letter-spacing: 0.8px; text-transform: uppercase;">Acuerdo Comercial Oficial • Jon Vxnts</span>
+      </div>
+      <button type="button" onclick="cerrarModalTerminos()" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; width: 30px; height: 30px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
     </div>
 
-    <!-- 2. MIGRACIÓN DE CUENTAS -->
-    <div style="margin-bottom: 3px;">
-        <h3 style="color: #ffcc00; font-weight: bold; margin: 0 0 1px 0; font-size: 13.5px;">🔄 2. MIGRACIÓN DE CUENTAS</h3>
-        <p style="color: #bbb; margin: 0; line-height: 1.25;">
-            • Traspaso de datos (<b>Google, FB o VK</b>) es definitivo.<br>
-            • Completado el proceso, <b>la seguridad es tu total responsabilidad</b>. No cubrimos pérdidas o bloqueos.
+    <!-- Cuerpo con Scroll -->
+    <div style="padding: 18px 20px; overflow-y: auto; color: #d4d4d8; font-size: 12.5px; line-height: 1.55; text-align: left;">
+      <p style="margin: 0 0 14px 0; color: #a1a1aa; font-size: 12px;">
+        Al registrarse, abonar saldo o adquirir cualquier producto digital o físico en <strong>Jon Vxnts</strong>, el usuario declara haber leído y aceptado íntegramente las siguientes disposiciones:
+      </p>
+
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">1. Naturaleza Digital y Política de No Reembolso</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          Toda entrega de recargas directas por ID, códigos digitales, números virtuales, cuentas de videojuegos o credenciales de streaming tiene carácter <strong>definitivo, irrevocable y no reembolsable</strong>. Una vez procesada la orden o despachado el acceso vía WhatsApp o plataforma, no proceden cancelaciones, devoluciones de dinero ni cambios por error de digitación atribuible al cliente.
         </p>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">2. Condiciones de Streaming y Renovación</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          El acceso contratado es de uso estrictamente personal según la modalidad adquirida (limitado a 1 dispositivo simultáneo por perfil). Queda prohibido modificar correos, contraseñas, PIN de seguridad o compartir el acceso; cualquier infracción ocasiona la baja inmediata del servicio sin derecho a reclamo. Al concluir el periodo contratado, las cuentas expiran por seguridad y, en caso de nueva compra, se asignará una credencial completamente nueva sin conservar historiales previos.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">3. Traspaso de Cuentas de Videojuegos</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          Una vez efectuado y verificado el traspaso de vinculación (Google, Facebook, VK u otro medio), la custodia y seguridad de la cuenta recaen exclusivamente en el comprador. Jon Vxnts no asume responsabilidad posterior por extravío de credenciales, préstamos a terceros ni suspensiones aplicadas por el desarrollador del juego debido al uso de software no autorizado.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">4. Crédito Interno (Saldo) y Programa de Referidos</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          Los fondos abonados en la billetera del usuario constituyen <strong>crédito virtual de uso exclusivo para adquisiciones dentro del catálogo de Jon Vxnts</strong>; bajo ninguna modalidad representan dinero retirable, transferible ni canjeable por efectivo en cuentas bancarias o billeteras externas. El importe mínimo de recarga de saldo es de <strong>S/ 10.00 (Diez con 00/100 Soles)</strong> y todo abono realizado es final y sin derecho a extorno. Las recompensas por referidos se acreditan únicamente cuando el invitado completa su primera compra o recarga válida igual o superior a <strong>S/ 10.00</strong>, quedando anuladas ante detección de multicuentas o auto-referidos.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">5. Equipos Físicos, Envíos y Garantía Operativa</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          Todo dispositivo físico (celulares, tablets, computadoras o consolas) pasa por verificación técnica integral antes de su despacho y cuenta con una <strong>garantía de operatividad de siete (7) días calendario</strong> desde su recepción. Para validar cualquier cobertura en envíos locales o nacionales (vía couriers o aplicativos), es requisito indispensable presentar un video continuo y sin cortes de la apertura del paquete. La garantía no cubre daños por golpes, humedad, caídas, sobrecargas eléctricas ni manipulación de software.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 4px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">6. Soporte Técnico, Comprobante de Garantía y Medios de Pago</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          Al concluir toda compra, el sistema remite un <strong>comprobante digital al correo electrónico del cliente</strong> con un código único de operación que respalda su garantía. La atención comercial y el soporte técnico operan de lunes a domingo de <strong>8:00 AM a 11:00 PM</strong>; para gestionar cualquier reclamo o asistencia, es <strong>requisito obligatorio adjuntar captura completa (sin recortes) de la falla junto con el código de su comprobante de compra</strong> para verificar la vigencia y días activos de su servicio. Las órdenes mediante PagoEfectivo aplican únicamente para montos mayores a <strong>S/ 50.00</strong>. Todo comprobante adulterado o contracargo fraudulento conlleva el bloqueo permanente del usuario.
+        </p>
+      </div>
     </div>
 
-    <!-- 3. REGLAS DE USO ESTRICTAS -->
-    <div style="margin-bottom: 3px;">
-        <h3 style="color: #ffcc00; font-weight: bold; margin: 0 0 1px 0; font-size: 13.5px;">⚠️ 3. REGLAS DE USO ESTRICTAS</h3>
-        <p style="color: #bbb; margin: 0; line-height: 1.25;">
-            • Prohibido <b>cambiar datos o compartir accesos</b> en streaming.<br>
-            • Uso limitado a <b>1 solo dispositivo</b>. El incumplimiento causa la <b>baja inmediata sin reclamo</b>.
-        </p>
+    <!-- Pie Fijo -->
+    <div style="padding: 14px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); background: #15151c;">
+      <button type="button" onclick="cerrarModalTerminos()" style="width: 100%; padding: 11px; border-radius: 10px; border: none; background: #ff2a55; color: #ffffff; font-size: 13px; font-weight: 800; letter-spacing: 0.5px; cursor: pointer;">
+        HE LEÍDO Y ACEPTO LOS TÉRMINOS
+      </button>
     </div>
 
-    <!-- 4. GARANTÍAS Y REEMBOLSOS -->
-    <div style="margin-bottom: 3px;">
-        <h3 style="color: #ffcc00; font-weight: bold; margin: 0 0 1px 0; font-size: 13.5px;">💸 4. GARANTÍAS Y REEMBOLSOS</h3>
-        <p style="color: #bbb; margin: 0; line-height: 1.25;">
-            • Al ser productos digitales, <b>NO existen devoluciones de dinero</b>.<br>
-            • Todo soporte requiere obligatoriamente <b>capturas claras del error</b>.
-        </p>
+  </div>
+</div>
+<!-- ========================================== -->
+<!-- 2. MODAL CORPORATIVO: POLÍTICA DE PRIVACIDAD Y USO -->
+<!-- ========================================== -->
+<div id="modalPrivacidad" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(6px); z-index: 999999; align-items: center; justify-content: center; padding: 16px; box-sizing: border-box; font-family: system-ui, -apple-system, sans-serif;">
+  <div style="width: 100%; max-width: 460px; max-height: 86vh; background: #111116; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 16px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);">
+
+    <!-- Cabecera Fija -->
+    <div style="padding: 18px 20px 14px 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.08); display: flex; justify-content: space-between; align-items: center; background: #15151c;">
+      <div>
+        <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #ffffff; letter-spacing: 0.5px;">POLÍTICA DE PRIVACIDAD</h3>
+        <span style="font-size: 10.5px; color: #9ca3af; letter-spacing: 0.8px; text-transform: uppercase;">Protección de Datos y Uso • Jon Vxnts</span>
+      </div>
+      <button type="button" onclick="cerrarModalPrivacidad()" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1; width: 30px; height: 30px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center;">✕</button>
     </div>
 
-    <!-- 5. SERVICIOS DE INVESTIGACIÓN -->
-    <div style="margin-bottom: 0px;">
-        <h3 style="color: #ffcc00; font-weight: bold; margin: 0 0 1px 0; font-size: 13.5px;">👁️ 5. SERVICIOS DE INVESTIGACIÓN</h3>
-        <p style="color: #bbb; margin: 0; line-height: 1.25;">
-            • El <b>doxeo</b> es confidencial. Iniciado el proceso <b>no hay cancelaciones</b>.<br>
-            • El cliente asume la responsabilidad total del uso de los datos.
+    <!-- Cuerpo con Scroll -->
+    <div style="padding: 18px 20px; overflow-y: auto; color: #d4d4d8; font-size: 12.5px; line-height: 1.55; text-align: left;">
+      <p style="margin: 0 0 14px 0; color: #a1a1aa; font-size: 12px;">
+        En cumplimiento con la normativa vigente de Protección de Datos Personales en el Perú (Ley N.° 29733 y su Reglamento), <strong>Jon Vxnts</strong> informa a sus usuarios sobre el tratamiento transparente y seguro de su información:
+      </p>
+
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">1. Información Recopilada</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          Recopilamos únicamente los datos estrictamente necesarios para operar nuestros servicios: nombre o alias de perfil, dirección de correo electrónico, número de contacto vía WhatsApp, identificadores de juego (ID) para recargas, y datos de destinatario/ubicación exclusivamente cuando el cliente solicita el despacho de equipos físicos.
         </p>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">2. Finalidad y Uso de los Datos</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          La información proporcionada se utiliza exclusivamente para: (a) gestionar su cuenta, saldo interno y código de referidos; (b) emitir y enviar a su correo electrónico el <strong>comprobante de compra con código único de garantía</strong>; (c) entregar productos digitales y brindar soporte vía WhatsApp; y (d) enviar notificaciones push de stock u ofertas únicamente a los usuarios que instalen nuestro aplicativo oficial y autoricen dicho permiso.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">3. Seguridad de Pagos e Infraestructura</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          <strong>Jon Vxnts jamás almacena números completos de tarjetas de crédito/débito, códigos CVV ni claves bancarias.</strong> Todas las transacciones electrónicas se procesan a través de pasarelas externas certificadas y billeteras oficiales. La autenticación de cuentas, saldos y verificación anti-bots se resguardan mediante encriptación SSL e infraestructura segura en la nube (Google Firebase y Cloudflare).
+        </p>
+      </div>
+
+      <div style="margin-bottom: 14px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">4. Confidencialidad y No Cesión a Terceros</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          No vendemos, alquilamos ni comercializamos datos personales con terceros. La información de despacho solo se comparte con empresas de mensajería o transporte (Shalom, Olva, Marvisur o aplicativos locales) cuando resulta indispensable para entregar un producto físico adquirido por el titular.
+        </p>
+      </div>
+
+      <div style="margin-bottom: 4px;">
+        <h4 style="margin: 0 0 5px 0; color: #ffffff; font-size: 13px; font-weight: 700;">5. Derechos del Titular (ARCO) y Uso Aceptable</h4>
+        <p style="margin: 0; color: #b4b4bc;">
+          El usuario es responsable de mantener la confidencialidad de su contraseña de acceso en la tienda y puede solicitar en cualquier momento la actualización, rectificación o baja de sus datos registrados contactando a nuestro canal oficial de soporte dentro del horario de atención establecido (8:00 AM a 11:00 PM).
+        </p>
+      </div>
     </div>
+
+    <!-- Pie Fijo -->
+    <div style="padding: 14px 20px; border-top: 1px solid rgba(255, 255, 255, 0.08); background: #15151c;">
+      <button type="button" onclick="cerrarModalPrivacidad()" style="width: 100%; padding: 11px; border-radius: 10px; border: none; background: #ff2a55; color: #ffffff; font-size: 13px; font-weight: 800; letter-spacing: 0.5px; cursor: pointer;">
+        ENTENDIDO Y ACEPTAR
+      </button>
+    </div>
+
+  </div>
 </div>
 
-                <!-- 3. DONKEY KONG AJUSTADO ABAJO -->
-                <div style="width: 100%; display: flex; justify-content: center; margin-top: 8px; margin-bottom: -2px;">
-                    <img src="Dk.png" style="width: 95px; height: auto; object-fit: contain; filter: drop-shadow(0 0 8px rgba(255,204,0,0.25));" alt="Donkey Kong" />
-                </div>
+<script>
+  window.abrirModalTerminos = function() {
+    const m = document.getElementById('modalTerminos');
+    if (m) m.style.display = 'flex';
+  };
+  window.cerrarModalTerminos = function() {
+    const m = document.getElementById('modalTerminos');
+    if (m) m.style.display = 'none';
+  };
+  window.abrirModalPrivacidad = function() {
+    const m = document.getElementById('modalPrivacidad');
+    if (m) m.style.display = 'flex';
+  };
+  window.cerrarModalPrivacidad = function() {
+    const m = document.getElementById('modalPrivacidad');
+    if (m) m.style.display = 'none';
+  };
+</script>
 
-                <!-- 4. BOTÓN DE ACEPTAR AL FINAL -->
-                <button onclick="document.getElementById('modalTerminos').style.setProperty('display', 'none', 'important');" style="margin-top: 10px; width: 100%; background: #ff0055; color: #fff; border: none; padding: 10px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-family: sans-serif; letter-spacing: 0.5px; box-shadow: 0 4px 10px rgba(255,0,85,0.3);">
-                    Entendido y Acepto
-                </button>
-
-            </div>
-        </div>
-        <!-- ======================================================= -->
                 <!-- ======================================================= -->
         <!-- VENTANA FLOTANTE PREMIUM DE CENTRO DE SOPORTE (TOAD)    -->
         <!-- ======================================================= -->
@@ -6023,6 +5978,35 @@ document.addEventListener("DOMContentLoaded", function() {
                 <p style="color: #737373 !important; font-size: 11px !important; font-family: Arial, sans-serif !important; margin: 0 auto !important; max-width: 320px !important; line-height: 1.4 !important; display: block !important;">
                     Esta página está protegida por encriptación SSL y pasarela de pago segura.
                 </p>
+                      <div style="margin-top: 28px; padding: 10px 16px 80px 16px; text-align: center; font-family: system-ui, -apple-system, sans-serif;">
+        <!-- Separador sutil degradado en gris (sin línea roja) -->
+        <div style="width: 120px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.14), transparent); margin: 0 auto 22px auto;"></div>
+
+        <!-- Marca discreta y elegante -->
+        <div style="font-size: 13px; font-weight: 800; letter-spacing: 3px; color: #ffffff; opacity: 0.9; margin-bottom: 6px;">
+          JON VXNTS
+        </div>
+
+        <div style="font-size: 10.5px; color: #71717a; letter-spacing: 0.4px; margin-bottom: 16px;">
+          Streaming • Recargas Free Fire • Equipos Móviles
+        </div>
+
+        <!-- Enlaces legales limpios tipo corporativo -->
+        <div style="display: flex; justify-content: center; align-items: center; gap: 16px; margin-bottom: 14px; font-size: 11.5px;">
+          <a href="javascript:void(0)" onclick="abrirModalTerminos()" style="color: #a1a1aa; text-decoration: none; font-weight: 500; border-bottom: 1px solid rgba(161, 161, 170, 0.35); padding-bottom: 2px;">
+            Términos y Condiciones
+          </a>
+          <span style="color: #3f3f46; font-size: 10px;">|</span>
+          <a href="javascript:void(0)" onclick="abrirModalPrivacidad()" style="color: #a1a1aa; text-decoration: none; font-weight: 500; border-bottom: 1px solid rgba(161, 161, 170, 0.35); padding-bottom: 2px;">
+            Política de Privacidad
+          </a>
+        </div>
+
+        <div style="font-size: 10px; color: #52525b; letter-spacing: 0.3px;">
+          © 2026 Jon Vxnts. Todos los derechos reservados.
+        </div>
+      </div>
+
             `;
 
             document.body.appendChild(footerElement);
@@ -6037,6 +6021,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     })();
 </script>
+      
 <!-- SECCIÓN CONTENEDORA DE OTROS (SÓLO PARA TUS CELULARES) -->
 <div id="caja-otros" class="bloque-categoria" style="display: none; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%; box-sizing: border-box; padding: 10px;">
 
@@ -9641,6 +9626,54 @@ onAuthStateChanged(auth, (user) => {
   </div>
 </div>
 
+<!-- MENÚ DESPLEGABLE DEL USUARIO Y CONEXIÓN DE CLIC -->
+<div id="jvx-dropdown-usuario" style="display: none; position: fixed; top: 52px; right: 12px; width: 245px; background: #141418; border: 1px solid rgba(255, 42, 42, 0.4); border-radius: 14px; padding: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.92); z-index: 999999; text-align: left; font-family: system-ui, sans-serif;">
+  <div style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px; margin-bottom: 10px;">
+    <div style="font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Cuenta activa</div>
+    <div id="jvx-drop-nombre" style="font-size: 14px; font-weight: 800; color: #ffffff; margin-top: 2px;">Usuario</div>
+    <div id="jvx-drop-email" style="font-size: 11px; color: #9ca3af; word-break: break-all;">correo@ejemplo.com</div>
+  </div>
+
+  <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 10px; margin-bottom: 10px;">
+    <div style="font-size: 10.5px; color: #86efac; font-weight: 700;">SALDO DISPONIBLE</div>
+    <div id="jvx-drop-saldo" style="font-size: 20px; font-weight: 900; color: #4ade80; margin-top: 2px;">S/ 0.00</div>
+  </div>
+
+  <div style="background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px; margin-bottom: 10px; font-size: 11px; color: #cbd5e1;">
+    <div style="color: #9ca3af; font-size: 10px;">TU CÓDIGO DE REFERIDO:</div>
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 3px;">
+      <strong id="jvx-drop-codigo" style="color: #ff2a2a; letter-spacing: 0.5px;">JVX-USER</strong>
+      <button type="button" onclick="jvxCopiarCodigoReferido()" style="background: #27272f; border: none; color: #fff; font-size: 10px; padding: 4px 8px; border-radius: 6px; cursor: pointer;">Copiar código</button>
+    </div>
+  </div>
+
+  <button type="button" onclick="jvxCerrarSesion()" style="width: 100%; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #f87171; padding: 8px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;">Cerrar sesión</button>
+</div>
+
+<script>
+  window.jvxAccionIconoUsuario = function() {
+    const spanIni = document.getElementById('jvx-header-inicial');
+    const imgAva = document.getElementById('jvx-header-avatar-img');
+    const logueado = (spanIni && getComputedStyle(spanIni).display !== 'none') || (imgAva && getComputedStyle(imgAva).display !== 'none');
+
+    if (!logueado) {
+      if (typeof window.jvxAbrirAuthModal === 'function') {
+        window.jvxAbrirAuthModal('login');
+      }
+      return;
+    }
+    const drop = document.getElementById('jvx-dropdown-usuario');
+    if (drop) drop.style.display = drop.style.display === 'block' ? 'none' : 'block';
+  };
+
+  document.addEventListener('click', function(e) {
+    const btn = document.getElementById('jvx-boton-perfil-solo-ui');
+    const drop = document.getElementById('jvx-dropdown-usuario');
+    if (btn && drop && !btn.contains(e.target) && !drop.contains(e.target)) {
+      drop.style.display = 'none';
+    }
+  });
+</script>
 
 
 </body>
