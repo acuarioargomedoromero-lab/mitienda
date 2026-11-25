@@ -75,7 +75,38 @@
             <span class="badge" id="cart-count" style="position: absolute !important; top: -5px !important; right: -7px !important; background-color: #00ff77 !important; color: #000000 !important; font-size: 9px !important; font-weight: 900 !important; padding: 2px 4px !important; border-radius: 50% !important; line-height: 1 !important; box-shadow: 0 0 6px rgba(0, 255, 119, 0.4) !important; display: inline-block !important; margin: 0 !important; transform: none !important; pointer-events: none !important;">0</span>
 
         </div>
-        
+                <!-- BOTÓN DE USUARIO Y SALDO (SOLO CON SESIÓN ACTIVA) -->
+        <div id="jvx-header-user-box" style="display: none; align-items: center; margin-left: 8px; position: relative;">
+          <button type="button" onclick="jvxToggleMenuUsuario()" style="display: flex; align-items: center; gap: 6px; background: rgba(255, 42, 42, 0.14); border: 1px solid rgba(255, 42, 42, 0.45); border-radius: 999px; padding: 4px 10px 4px 6px; color: #ffffff; cursor: pointer; font-size: 12px; font-weight: 700;">
+            <span id="jvx-header-inicial" style="width: 22px; height: 22px; border-radius: 50%; background: #ff2a2a; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900;">U</span>
+            <span id="jvx-header-saldo" style="color: #4ade80;">S/ 0.00</span>
+          </button>
+
+          <!-- MENÚ DESPLEGABLE DEL USUARIO -->
+          <div id="jvx-dropdown-usuario" style="display: none; position: absolute; top: 40px; right: 0; width: 245px; background: #141418; border: 1px solid rgba(255, 42, 42, 0.35); border-radius: 14px; padding: 14px; box-shadow: 0 12px 30px rgba(0,0,0,0.85); z-index: 9999; text-align: left;">
+            <div style="border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 10px; margin-bottom: 10px;">
+              <div style="font-size: 10px; color: #9ca3af; text-transform: uppercase; letter-spacing: 0.5px;">Cuenta activa</div>
+              <div id="jvx-drop-nombre" style="font-size: 14px; font-weight: 800; color: #ffffff; margin-top: 2px;">Usuario</div>
+              <div id="jvx-drop-email" style="font-size: 11px; color: #9ca3af; word-break: break-all;">correo@ejemplo.com</div>
+            </div>
+
+            <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 10px; padding: 10px; margin-bottom: 10px;">
+              <div style="font-size: 10.5px; color: #86efac; font-weight: 700;">SALDO DISPONIBLE</div>
+              <div id="jvx-drop-saldo" style="font-size: 20px; font-weight: 900; color: #4ade80; margin-top: 2px;">S/ 0.00</div>
+            </div>
+
+            <div style="background: rgba(255,255,255,0.04); border-radius: 8px; padding: 8px; margin-bottom: 10px; font-size: 11px; color: #cbd5e1;">
+              <div style="color: #9ca3af; font-size: 10px;">TU CÓDIGO DE REFERIDO:</div>
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 3px;">
+                <strong id="jvx-drop-codigo" style="color: #ff2a2a; letter-spacing: 0.5px;">JVX-000</strong>
+                <button type="button" onclick="jvxCopiarLinkReferido()" style="background: #27272f; border: none; color: #fff; font-size: 10px; padding: 4px 8px; border-radius: 6px; cursor: pointer;">Copiar link</button>
+              </div>
+            </div>
+
+            <button type="button" onclick="jvxCerrarSesion()" style="width: 100%; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #f87171; padding: 8px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer;">Cerrar sesión</button>
+          </div>
+        </div>
+
                 <!-- ======================================================= -->
                 <!-- ⚙️ BOTÓN 2: La Tuerca Original (CORREGIDA: MÁS CERCA Y COMPACTA) -->
         <div style="margin-left: 6px !important; display: flex !important; align-items: center !important; position: relative !important; z-index: 10 !important;">
@@ -8358,28 +8389,29 @@ document.addEventListener("DOMContentLoaded", () => {
       <img src="JonVxntsapk.png" alt="Jon Vxnts App">
     </div>
 
-    <h3 style="color: #ffffff; margin: 0 0 4px 0; font-size: 18px; font-weight: 900; letter-spacing: 0.5px;">JON VXNTS APP</h3>
-    <span style="color: #ff2a55; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Acceso VIP • Sin anuncios • Ultra Rápida</span>
+      <h3 style="color: #ffffff; margin: 0 0 4px 0; font-size: 18px; font-weight: 900; letter-spacing: 0.5px;">JON VXNTS OFICIAL</h3>
+      <span style="color: #ff2a55; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Catálogo exclusivo • Alertas en vivo • Compra segura</span>
 
-    <p style="color: #cbd5e1; font-size: 12.5px; margin: 12px 0 0 0; line-height: 1.4;">
-      Instala nuestro aplicativo oficial en tu pantalla de inicio para comprar y revisar pedidos al instante.
-    </p>
+      <p style="color: #cbd5e1; font-size: 12.5px; margin: 12px 0 0 0; line-height: 1.4;">
+        Descarga nuestro aplicativo oficial para gestionar tus compras de forma directa y recibir notificaciones de stock y ofertas en tiempo real.
+      </p>
 
-    <div class="jvx-os-buttons">
-      <button type="button" class="jvx-btn-os jvx-btn-android" onclick="jvxInstalarAndroid()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.2439 13.8533 7.8508 12 7.8508s-3.5902.3931-5.1367 1.0989L4.841 5.4467a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3435-4.1021-2.6892-7.5743-6.1185-9.4396"/>
-        </svg>
-        <span>Instalar en Android</span>
-      </button>
+      <div class="jvx-os-buttons">
+        <button type="button" class="jvx-btn-os jvx-btn-android" onclick="jvxInstalarAndroid()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17.523 15.3414c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993.0001.5511-.4482.9997-.9993.9997m-11.046 0c-.5511 0-.9993-.4486-.9993-.9997s.4482-.9993.9993-.9993c.5511 0 .9993.4482.9993.9993 0 .5511-.4482.9997-.9993.9997m11.4045-6.02l1.9973-3.4592a.416.416 0 00-.1521-.5676.416.416 0 00-.5676.1521l-2.0223 3.503C15.5902 8.2439 13.8533 7.8508 12 7.8508s-3.5902.3931-5.1367 1.0989L4.841 5.4467a.4161.4161 0 00-.5677-.1521.4157.4157 0 00-.1521.5676l1.9973 3.4592C2.6889 11.1867.3432 14.6589 0 18.761h24c-.3432-4.1021-2.6889-7.5743-6.1185-9.4396"/>
+          </svg>
+          <span>Instalar aplicativo en Android</span>
+        </button>
 
-      <button type="button" class="jvx-btn-os jvx-btn-ios" onclick="jvxMostrarGuiaIOS()">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.14 1.85-1.01 2.96 1.08.08 2.16-.53 2.83-1.34"/>
-        </svg>
-        <span>Instalar en iPhone (iOS)</span>
-      </button>
-    </div>
+        <button type="button" class="jvx-btn-os jvx-btn-ios" onclick="jvxMostrarGuiaIOS()">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94.99-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.17-.53 2.84-1.34"/>
+          </svg>
+          <span>Instalar aplicativo en iPhone (iOS)</span>
+        </button>
+      </div>
+
 
     <div id="jvx-ios-instrucciones"></div>
   </div>
@@ -8779,6 +8811,26 @@ document.addEventListener("DOMContentLoaded", () => {
           </span>
         </div>
       </div>
+                      <!-- CAMPO CÓDIGO DE REFERIDO Y ACEPTACIÓN LEGAL (SOLO REGISTRO) -->
+        <div id="jvx-bloque-registro-extra" style="display: none;">
+          <div style="margin-bottom: 10px;">
+            <label style="display: block; font-size: 10.5px; font-weight: 700; color: #9ca3af; margin-bottom: 4px;">CÓDIGO DE REFERIDO (OPCIONAL)</label>
+            <input type="text" id="jvx-input-referido" oninput="this.value = this.value.toUpperCase()" placeholder="Ej: JVX-CARLOS" style="width: 100%; padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); background: #1c1c22; color: #ffffff; font-size: 13px; box-sizing: border-box;">
+          </div>
+
+          <label style="display: flex; align-items: flex-start; gap: 8px; margin: 4px 0 14px 0; font-size: 11.5px; color: #cbd5e1; cursor: pointer; line-height: 1.4;">
+            <input type="checkbox" id="jvx-check-terminos" style="accent-color: #ff2a2a; width: 15px; height: 15px; margin-top: 2px; cursor: pointer; flex-shrink: 0;">
+            <span>
+              He leído y acepto los 
+              <a href="javascript:void(0)" onclick="event.stopPropagation(); abrirModalTerminos();" style="color: #ff2a2a; text-decoration: underline; font-weight: 700;">Términos y Condiciones</a> 
+              y la 
+              <a href="javascript:void(0)" onclick="event.stopPropagation(); abrirModalPrivacidad();" style="color: #ff2a2a; text-decoration: underline; font-weight: 700;">Política de Privacidad</a> 
+              de Jon Vxnts.
+            </span>
+          </label>
+        </div>
+
+
 <div id="jvx-fila-recuperar" style="display: flex; justify-content: space-between; align-items: center; margin: -4px 0 14px 0; font-size: 13px;">
   <label style="display: flex; align-items: center; gap: 6px; color: #9ca3af; cursor: pointer;">
     <input type="checkbox" id="jvx-recordarme" checked style="accent-color: #ff2a2a; width: 15px; height: 15px; cursor: pointer;">
@@ -8788,29 +8840,40 @@ document.addEventListener("DOMContentLoaded", () => {
     ¿Olvidaste tu contraseña?
   </a>
 </div>
-<script>
-  (function () {
-    const campoAlias = document.getElementById("jvx-campo-alias-reg");
-    const filaRecuperar = document.getElementById("jvx-fila-recuperar");
+        <script>
+          (function () {
+            const campoAlias = document.getElementById("jvx-campo-alias-reg");
+            const filaRecuperar = document.getElementById("jvx-fila-recuperar");
+            const bloqueRegistroExtra = document.getElementById("jvx-bloque-registro-extra");
+            const inputReferido = document.getElementById("jvx-input-referido");
 
-    if (!campoAlias || !filaRecuperar) return;
+            if (!campoAlias || !filaRecuperar) return;
 
-    function actualizarFilaRecuperar() {
-      const enRegistro = getComputedStyle(campoAlias).display !== "none";
-      filaRecuperar.style.display = enRegistro ? "none" : "flex";
-    }
+            const refUrl = new URLSearchParams(window.location.search).get("ref");
+            if (refUrl && inputReferido) {
+              inputReferido.value = refUrl.trim().toUpperCase();
+            }
 
-    // Ejecuta al cargar la página
-    actualizarFilaRecuperar();
+            function actualizarFilaRecuperar() {
+              const enRegistro = getComputedStyle(campoAlias).display !== "none";
+              filaRecuperar.style.display = enRegistro ? "none" : "flex";
+              if (bloqueRegistroExtra) {
+                bloqueRegistroExtra.style.display = enRegistro ? "block" : "none";
+              }
+            }
 
-    // Detecta automáticamente cuando cambias entre "Iniciar sesión" y "Registrarme"
-    const observador = new MutationObserver(actualizarFilaRecuperar);
-    observador.observe(campoAlias, {
-      attributes: true,
-      attributeFilter: ["style", "class"]
-    });
-  })();
-</script>
+            // Ejecuta al cargar la página
+            actualizarFilaRecuperar();
+
+            // Detecta automáticamente cuando cambias entre "Iniciar sesión" y "Registrarme"
+            const observador = new MutationObserver(actualizarFilaRecuperar);
+            observador.observe(campoAlias, {
+              attributes: true,
+              attributeFilter: ["style", "class"]
+            });
+          })();
+        </script>
+
 
 <!-- CONTENEDOR OFICIAL DE VERIFICACIÓN CLOUDFLARE TURNSTILE -->
 <div id="jvx-turnstile-box" style="display: flex; justify-content: center; align-items: center; min-height: 65px; width: 100%; margin: 14px 0;"></div>
@@ -8951,6 +9014,13 @@ document.addEventListener("DOMContentLoaded", () => {
     signOut,
     sendPasswordResetEmail
   } = await import(rutaFb + 'firebase-auth.js');
+const {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  onSnapshot
+} = await import(rutaFb + 'firebase-firestore.js');
 
   const firebaseConfig = {
     apiKey: "AIzaSyCXu6AZBFX8T15gYxQTgGMSub96_3yc_OE",
@@ -8971,32 +9041,61 @@ document.addEventListener("DOMContentLoaded", () => {
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
+  const db = getFirestore(app);
+window.jvxGuardarBilleteraFirebase = async function(uid, datos) {
+  await setDoc(doc(db, 'usuarios', uid), datos, { merge: true });
+};
+
 window.jvxEnviarCorreoReal = function(correo) {
   return sendPasswordResetEmail(auth, correo);
 };
 
   window.jvxProcesarCorreo = async function() {
-    const email = document.getElementById('jvx-email')?.value.trim();
-    const pass = document.getElementById('jvx-pass')?.value;
-    const aliasReg = document.getElementById('jvx-alias-reg')?.value.trim();
+  const email = document.getElementById('jvx-input-email')?.value.trim() || document.getElementById('jvx-email')?.value.trim();
+  const pass = document.getElementById('jvx-input-pass')?.value || document.getElementById('jvx-pass')?.value;
+  const aliasReg = document.getElementById('jvx-input-alias-reg')?.value.trim() || document.getElementById('jvx-alias-reg')?.value.trim();
+  const codigoRefIngresado = document.getElementById('jvx-input-referido')?.value.trim().toUpperCase() || '';
+  const aceptoTerminos = document.getElementById('jvx-check-terminos')?.checked;
 
-    if (!window.jvxCaptchaVerificado) { mostrarError('Completa el captcha primero.'); return; }
-    if (!email || !pass) { mostrarError('Completa correo y contraseña.'); return; }
+  if (!window.jvxCaptchaVerificado) { mostrarError('Completa el captcha primero.'); return; }
+  if (!email || !pass) { mostrarError('Completa correo y contraseña.'); return; }
+  if (window.jvxModoReg && !aceptoTerminos) {
+    mostrarError('Debes aceptar los Términos y Condiciones y la Política de Privacidad.');
+    return;
+  }
 
-    try {
-      if (window.jvxModoReg) {
-        const cred = await createUserWithEmailAndPassword(auth, email, pass);
-        const nombreFinal = aliasReg || email.split('@');
-        await updateProfile(cred.user, { displayName: nombreFinal });
-        localStorage.setItem('jvx_alias_' + cred.user.uid, nombreFinal);
-      } else {
-        await signInWithEmailAndPassword(auth, email, pass);
+  try {
+    if (window.jvxModoReg) {
+      const cred = await createUserWithEmailAndPassword(auth, email, pass);
+      const nombreFinal = aliasReg || email.split('@')[0];
+      await updateProfile(cred.user, { displayName: nombreFinal });
+      localStorage.setItem('jvx_alias_' + cred.user.uid, nombreFinal);
+
+      // Genera su código único y crea su billetera inicial en Firebase/Local
+      const miCodigoUnico = 'JVX-' + nombreFinal.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 6) + Math.floor(10 + Math.random() * 90);
+      const datosBilletera = {
+        uid: cred.user.uid,
+        alias: nombreFinal,
+        email: email,
+        saldo: 0.00,
+        codigoReferido: miCodigoUnico,
+        referidoPor: codigoRefIngresado || null,
+        bonoReferidoEntregado: false,
+        fechaRegistro: new Date().toISOString()
+      };
+      localStorage.setItem('jvx_wallet_' + cred.user.uid, JSON.stringify(datosBilletera));
+      if (typeof window.jvxGuardarBilleteraFirebase === 'function') {
+        await window.jvxGuardarBilleteraFirebase(cred.user.uid, datosBilletera);
       }
-      if (typeof window.jvxCerrarAuth === 'function') window.jvxCerrarAuth();
-    } catch (e) {
-      mostrarError('Error: ' + e.message);
+    } else {
+      await signInWithEmailAndPassword(auth, email, pass);
     }
-  };
+    if (typeof window.jvxCerrarAuth === 'function') window.jvxCerrarAuth();
+  } catch (e) {
+    mostrarError('Error: ' + e.message);
+  }
+};
+
 
   window.jvxLoginGoogle = async function() {
     try {
@@ -9039,36 +9138,90 @@ window.jvxEnviarCorreoReal = function(correo) {
     await signOut(auth);
   };
 
-  function actualizarVistaUsuario(user) {
-    const vistaForm = document.getElementById('jvx-vista-formulario');
-    const vistaPerfil = document.getElementById('jvx-vista-perfil');
-    const btnAbrir = document.getElementById('jvx-btn-abrir-auth');
-    const perfilBox = document.getElementById('jvx-perfil-usuario');
+window.jvxToggleMenuUsuario = function() {
+  const drop = document.getElementById('jvx-dropdown-usuario');
+  if (!drop) return;
+  drop.style.display = drop.style.display === 'block' ? 'none' : 'block';
+};
 
-    if (user) {
-      const alias = localStorage.getItem('jvx_alias_' + user.uid) || user.displayName || user.email.split('@');
-      const foto = user.photoURL || 'https://ui-avatars.com' + encodeURIComponent(alias);
+window.jvxCopiarLinkReferido = function() {
+  const cod = document.getElementById('jvx-drop-codigo')?.innerText || '';
+  const url = 'https://jonvxnts.com' + cod;
+  navigator.clipboard.writeText(url);
+  alert('¡Enlace de invitación copiado!\n' + url);
+};
 
-      if (vistaForm) vistaForm.style.display = 'none';
-      if (vistaPerfil) vistaPerfil.style.display = 'block';
-      if (document.getElementById('jvx-perfil-alias')) document.getElementById('jvx-perfil-alias').innerText = alias;
-      if (document.getElementById('jvx-perfil-correo')) document.getElementById('jvx-perfil-correo').innerText = user.email;
-      if (document.getElementById('jvx-perfil-foto')) document.getElementById('jvx-perfil-foto').src = foto;
+let jvxUnsubscribeWallet = null;
 
-      if (btnAbrir) btnAbrir.style.display = 'none';
-      if (perfilBox) perfilBox.style.display = 'flex';
-      if (document.getElementById('jvx-perfil-nombre')) document.getElementById('jvx-perfil-nombre').innerText = alias;
-    } else {
-      if (vistaForm) vistaForm.style.display = 'block';
-      if (vistaPerfil) vistaPerfil.style.display = 'none';
-      if (btnAbrir) btnAbrir.style.display = 'flex';
-      if (perfilBox) perfilBox.style.display = 'none';
+async function actualizarVistaUsuario(user) {
+  const vistaForm = document.getElementById('jvx-vista-formulario');
+  const vistaPerfil = document.getElementById('jvx-vista-perfil');
+  const btnAbrir = document.getElementById('jvx-btn-abrir-auth');
+  const perfilBox = document.getElementById('jvx-perfil-usuario');
+  const headerUserBox = document.getElementById('jvx-header-user-box');
+
+  if (jvxUnsubscribeWallet) { jvxUnsubscribeWallet(); jvxUnsubscribeWallet = null; }
+
+  if (user) {
+    const alias = localStorage.getItem('jvx_alias_' + user.uid) || user.displayName || user.email.split('@');
+    const foto = user.photoURL || 'https://ui-avatars.com' + encodeURIComponent(alias) + '&background=ff2a2a&color=fff';
+
+    if (vistaForm) vistaForm.style.display = 'none';
+    if (vistaPerfil) vistaPerfil.style.display = 'block';
+    if (document.getElementById('jvx-perfil-alias')) document.getElementById('jvx-perfil-alias').innerText = alias;
+    if (document.getElementById('jvx-perfil-correo')) document.getElementById('jvx-perfil-correo').innerText = user.email;
+    if (document.getElementById('jvx-perfil-foto')) document.getElementById('jvx-perfil-foto').src = foto;
+
+    if (btnAbrir) btnAbrir.style.display = 'none';
+    if (perfilBox) perfilBox.style.display = 'flex';
+    if (document.getElementById('jvx-perfil-nombre')) document.getElementById('jvx-perfil-nombre').innerText = alias;
+
+    // Muestra el ícono junto a la tuerca y llena nombre/correo
+    if (headerUserBox) headerUserBox.style.display = 'flex';
+    if (document.getElementById('jvx-header-inicial')) document.getElementById('jvx-header-inicial').innerText = alias.charAt(0).toUpperCase();
+    if (document.getElementById('jvx-drop-nombre')) document.getElementById('jvx-drop-nombre').innerText = alias;
+    if (document.getElementById('jvx-drop-email')) document.getElementById('jvx-drop-email').innerText = user.email;
+
+    // Verifica o crea billetera en Firestore (sirve también para Login con Google)
+    const userRef = doc(db, 'usuarios', user.uid);
+    const snap = await getDoc(userRef);
+    if (!snap.exists()) {
+      const miCodigo = 'JVX-' + alias.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 6) + Math.floor(10 + Math.random() * 90);
+      await setDoc(userRef, {
+        uid: user.uid,
+        alias: alias,
+        email: user.email,
+        saldo: 0.00,
+        codigoReferido: miCodigo,
+        referidoPor: null,
+        bonoReferidoEntregado: false,
+        fechaRegistro: new Date().toISOString()
+      });
     }
-  }
 
-  onAuthStateChanged(auth, (user) => {
-    actualizarVistaUsuario(user);
-  });
+    // Escucha el saldo en tiempo real desde Firestore
+    jvxUnsubscribeWallet = onSnapshot(userRef, (docSnap) => {
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const saldoFmt = 'S/ ' + Number(data.saldo || 0).toFixed(2);
+        if (document.getElementById('jvx-header-saldo')) document.getElementById('jvx-header-saldo').innerText = saldoFmt;
+        if (document.getElementById('jvx-drop-saldo')) document.getElementById('jvx-drop-saldo').innerText = saldoFmt;
+        if (document.getElementById('jvx-drop-codigo')) document.getElementById('jvx-drop-codigo').innerText = data.codigoReferido || 'JVX-USER';
+      }
+    });
+  } else {
+    if (vistaForm) vistaForm.style.display = 'block';
+    if (vistaPerfil) vistaPerfil.style.display = 'none';
+    if (btnAbrir) btnAbrir.style.display = 'flex';
+    if (perfilBox) perfilBox.style.display = 'none';
+    if (headerUserBox) headerUserBox.style.display = 'none';
+  }
+}
+
+onAuthStateChanged(auth, (user) => {
+  actualizarVistaUsuario(user);
+});
+
 </script>
 <!-- BLOQUE AUTOMÁTICO PARA BLOQUEAR EL SCROLL DE FONDO EN MODALES -->
 <style>
