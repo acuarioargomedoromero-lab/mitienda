@@ -8910,28 +8910,98 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 </div>
 
-<!-- VENTANA RÁPIDA OPCIONAL PARA ELEGIR ALIAS TRAS ENTRAR CON GOOGLE -->
+<!-- VENTANA RÁPIDA OPCIONAL PARA ELEGIR ALIAS Y AVATAR TRAS ENTRAR CON GOOGLE -->
 <div id="jvx-modal-alias" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(8px); z-index: 100000; align-items: center; justify-content: center; padding: 16px; font-family: 'Segoe UI', Roboto, sans-serif;">
-  <div style="width: 100%; max-width: 360px; background: #131318; border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 20px; padding: 24px 20px; text-align: center; color: #ffffff; box-shadow: 0 20px 50px rgba(0,0,0,0.9);">
+    <div style="width: 100%; max-width: 360px; background: #131318; border: 1px solid rgba(59, 130, 246, 0.4); border-radius: 20px; padding: 24px 20px; text-align: center; color: #ffffff; box-shadow: 0 20px 50px rgba(0,0,0,0.9);">
+        
         <div style="margin-bottom: 16px; text-align: center;">
-      <span style="display: block; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #3b82f6; font-weight: 700; margin-bottom: 6px;">
-        IDENTIDAD DE USUARIO
-      </span>
-      <h3 style="margin: 0 0 8px 0; font-size: 20px; font-weight: 700; color: #ffffff; letter-spacing: 0.4px;">
-        ¡Bienvenido a Jon Vxnts!
-      </h3>
-      <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #9ca3af; font-weight: 400;">
-        Personaliza tu <strong style="color: #e5e7eb; font-weight: 600;">Alias o Gamertag</strong> para identificarte en tus compras <span style="color: #6b7280;">(opcional)</span>
-      </p>
-    </div>
+            <span style="display: block; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #3b82f6; font-weight: 700; margin-bottom: 6px;">
+                IDENTIDAD DE USUARIO
+            </span>
+            <h3 style="margin: 0 0 8px 0; font-size: 20px; font-weight: 700; color: #ffffff; letter-spacing: 0.4px;">
+                ¡Bienvenido a Jon Vxnts!
+            </h3>
+            <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #9ca3af; font-weight: 400;">
+                Personaliza tu <strong style="color: #e5e7eb; font-weight: 600;">Alias o Gamertag</strong> para identificarte en tus compras <span style="color: #6b7280;">(opcional)</span>
+            </p>
+        </div>
 
-    <input type="text" id="jvx-nuevo-alias-input" placeholder="Ej: CarlosFF_51" maxlength="24" style="width: 100%; box-sizing: border-box; background: #1e1e26; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 12px; padding: 12px; color: #ffffff; font-size: 14px; text-align: center; font-weight: 700; outline: none; margin-bottom: 14px;">
-    
-    <button type="button" onclick="jvxGuardarAlias()" style="width: 100%; background: linear-gradient(90deg, #2563eb, #3b82f6); color: #ffffff; border: none; border-radius: 12px; padding: 11px; font-size: 13.5px; font-weight: 800; cursor: pointer; margin-bottom: 8px;">Guardar mi Alias</button>
-    
-    <button type="button" onclick="jvxOmitirAlias()" style="width: 100%; background: transparent; color: #9ca3af; border: none; padding: 6px; font-size: 12px; cursor: pointer; text-decoration: underline;">Omitir por ahora</button>
-  </div>
+        <input type="text" id="jvx-nuevo-alias-input" placeholder="Ej: CarlosFF_51" maxlength="24" style="width: 100%; box-sizing: border-box; background: #1e1e26; border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 12px; padding: 12px; color: #ffffff; text-align: center; font-size: 14px; margin-bottom: 16px; outline: none;">
+
+        <!-- NUEVO APARTADO: SELECCIÓN DE AVATAR -->
+        <div style="margin-bottom: 18px;">
+            <span style="display: block; font-size: 12px; color: #9ca3af; margin-bottom: 10px; font-weight: 600;">
+                Selecciona tu avatar
+            </span>
+            <div id="jvx-avatar-selector" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                <!-- CAMBIA LAS RUTAS "avatar1.png", etc. POR TUS ARCHIVOS REALES -->
+                <img src="Avatar1.jpeg" onclick="jvxSeleccionarAvatar(this, 'avatar1.png')" class="jvx-avatar-opt" style="width: 54px; height: 54px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: 0.2s;">
+                <img src="Avatar2.jpg" onclick="jvxSeleccionarAvatar(this, 'avatar2.png')" class="jvx-avatar-opt" style="width: 54px; height: 54px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: 0.2s;">
+                <img src="Avatar3.jpg" onclick="jvxSeleccionarAvatar(this, 'avatar3.png')" class="jvx-avatar-opt" style="width: 54px; height: 54px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: 0.2s;">
+                <img src="Avatar4.jpg" onclick="jvxSeleccionarAvatar(this, 'avatar4.png')" class="jvx-avatar-opt" style="width: 54px; height: 54px; border-radius: 50%; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: 0.2s;">
+            </div>
+            <input type="hidden" id="jvx-avatar-seleccionado" value="">
+        </div>
+
+        <button type="button" onclick="jvxGuardarAlias()" style="width: 100%; background: linear-gradient(90deg, #2563eb, #3b82f6); color: #ffffff; border: none; border-radius: 12px; padding: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-bottom: 10px;">
+            Guardar mi Alias
+        </button>
+
+        <button type="button" onclick="jvxOmitirAlias()" style="width: 100%; background: transparent; color: #9ca3af; border: none; padding: 6px; font-size: 12px; cursor: pointer; text-decoration: underline;">
+            Omitir por ahora
+        </button>
+    </div>
 </div>
+<script>
+// 1. Guarda el avatar al seleccionarlo en el modal de bienvenida
+window.jvxSeleccionarAvatar = function(elemento, rutaAvatar) {
+    document.querySelectorAll('.jvx-avatar-opt').forEach(img => {
+        img.style.borderColor = 'transparent';
+        img.style.transform = 'scale(1)';
+        img.style.boxShadow = 'none';
+    });
+
+    elemento.style.borderColor = '#3b82f6';
+    elemento.style.transform = 'scale(1.12)';
+    elemento.style.boxShadow = '0 0 12px rgba(59, 130, 246, 0.75)';
+
+    const inputOculto = document.getElementById('jvx-avatar-seleccionado');
+    if (inputOculto) inputOculto.value = rutaAvatar;
+
+    localStorage.setItem('jvx_user_avatar', rutaAvatar);
+    jvxAplicarAvatarEnPerfil();
+};
+
+// 2. Busca el círculo verde con la inicial en el perfil y le pone la foto circular
+window.jvxAplicarAvatarEnPerfil = function() {
+    const avatarGuardado = localStorage.getItem('jvx_user_avatar');
+    if (!avatarGuardado) return;
+
+    const modalPerfil = document.getElementById('jvx-modal-auth');
+    if (!modalPerfil) return;
+
+    // Detecta el contenedor circular de la inicial (ej. la "C" verde)
+    const elementos = modalPerfil.querySelectorAll('div, span, img');
+    elementos.forEach(el => {
+        const estilo = window.getComputedStyle(el);
+        const esCirculo = estilo.borderRadius === '50%' || parseInt(estilo.borderRadius) >= 30;
+        const tieneTamanoAvatar = el.offsetWidth >= 45 && el.offsetWidth <= 95;
+
+        if (esCirculo && tieneTamanoAvatar && el.id !== 'jvx-btn-cerrar-auth') {
+            el.style.backgroundImage = `url('${avatarGuardado}')`;
+            el.style.backgroundSize = 'cover';
+            el.style.backgroundPosition = 'center';
+            el.style.color = 'transparent'; // Oculta la letra inicial sin borrarla
+            el.style.overflow = 'hidden';
+        }
+    });
+};
+
+// 3. Aplica el avatar automáticamente al cargar la página o al abrir el perfil
+document.addEventListener('DOMContentLoaded', jvxAplicarAvatarEnPerfil);
+setInterval(jvxAplicarAvatarEnPerfil, 800);
+</script>
+
 <!-- =========================================================
      PARTE 3 DE 3: MOTOR FIREBASE Y OJO ANIMADO - JON VXNTS
      ========================================================= -->
