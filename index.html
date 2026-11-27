@@ -8977,6 +8977,18 @@ document.addEventListener("DOMContentLoaded", () => {
   bloquear();
 })();
       </script>
+      <script>
+(function () {
+  var modal = document.getElementById('jvx-modal-alias');
+  if (!modal) return;
+  modal.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button') : null;
+    if (!b) return;
+    if ((b.getAttribute('onclick') || '').indexOf('jvxOmitirAlias') === -1) return;
+    setTimeout(function () { modal.style.display = 'none'; }, 0);
+  }, true);
+})();
+      </script>
         <button type="button" onclick="jvxGuardarAlias()" style="width: 100%; background: linear-gradient(90deg, #2563eb, #3b82f6); color: #ffffff; border: none; border-radius: 12px; padding: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-bottom: 10px;">
             Guardar mi Alias
         </button>
