@@ -8953,15 +8953,16 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
 </div>
 
-<script type="module">
+<script>
 (function () {
-  function claveAvatar() {
+  var pendiente = null;
+
+  function clave() {
     var c = document.getElementById('jvx-perfil-correo');
     var mail = c ? c.textContent.trim() : '';
     return mail ? 'jvx_avatar_' + mail : null;
   }
 
-  // Al tocar un avatar: lo marca y cambia el texto del botón
   window.jvxSeleccionarAvatar = function (el) {
     document.querySelectorAll('#jvx-avatar-selector img').forEach(function (i) {
       i.style.border = '3px solid transparent';
@@ -8975,35 +8976,33 @@ document.addEventListener("DOMContentLoaded", () => {
     if (btn) btn.textContent = 'Guardar alias y avatar';
   };
 
-  // Pone el avatar guardado en el perfil, en lugar de la letra/foto de Google
   function aplicarAvatar() {
     try {
-      var k = claveAvatar();
-      var av = k ? localStorage.getItem(k) : null;
+      var k = clave();
+      if (!k) return;
+      if (pendiente) { localStorage.setItem(k, pendiente); pendiente = null; }
+      var av = localStorage.getItem(k);
       var foto = document.getElementById('jvx-perfil-foto');
       if (av && foto && foto.getAttribute('src') !== av) foto.setAttribute('src', av);
     } catch (e) {}
   }
 
-  // Si tu código vuelve a poner la foto de Google, se corrige solo
+  // Al presionar "Guardar": toma el avatar elegido y lo aplica en cuanto el perfil se actualiza
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('#jvx-modal-alias button') : null;
+    if (!b) return;
+    if ((b.getAttribute('onclick') || '').indexOf('jvxGuardarAlias') === -1) return;
+    var hid = document.getElementById('jvx-avatar-seleccionado');
+    if (hid && hid.value) pendiente = hid.value;
+    var n = 0;
+    var t = setInterval(function () { aplicarAvatar(); if (++n > 20) clearInterval(t); }, 250);
+  }, true);
+
+  // Si tu código vuelve a poner la foto de Google o cambia el correo, se corrige solo
   var foto = document.getElementById('jvx-perfil-foto');
   var correo = document.getElementById('jvx-perfil-correo');
   if (foto) new MutationObserver(aplicarAvatar).observe(foto, { attributes: true, attributeFilter: ['src'] });
   if (correo) new MutationObserver(aplicarAvatar).observe(correo, { childList: true, characterData: true, subtree: true });
-
-  // Al guardar: primero guarda el avatar y luego corre tu función original
-  var original = window.jvxGuardarAlias;
-  if (typeof original === 'function') {
-    window.jvxGuardarAlias = async function () {
-      try {
-        var hid = document.getElementById('jvx-avatar-seleccionado');
-        var k = claveAvatar();
-        if (hid && hid.value && k) localStorage.setItem(k, hid.value);
-      } catch (e) {}
-      await original.apply(this, arguments);
-      aplicarAvatar();
-    };
-  }
 
   aplicarAvatar();
 })();
