@@ -8942,7 +8942,13 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
             <input type="hidden" id="jvx-avatar-seleccionado" value="">
         </div>
-
+<!-- CONFIRMACIÓN OBLIGATORIA -->
+<label style="display:flex; gap:10px; align-items:flex-start; text-align:left; margin-bottom:16px; padding:12px; background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:12px; cursor:pointer;">
+  <input type="checkbox" id="jvx-confirmar-check" style="width:20px; height:20px; margin-top:2px; flex-shrink:0; accent-color:#ef4444;">
+  <span style="font-size:12px; line-height:1.5; color:#d4d4d8;">
+    <strong style="color:#ffffff;">Confirmo mi elección.</strong> Entiendo que mi alias y avatar serán permanentes en mi cuenta de Jon Vxnts y que no usaré nombres ofensivos ni que suplanten a otras personas.
+  </span>
+</label>
         <button type="button" onclick="jvxGuardarAlias()" style="width: 100%; background: linear-gradient(90deg, #2563eb, #3b82f6); color: #ffffff; border: none; border-radius: 12px; padding: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-bottom: 10px;">
             Guardar mi Alias
         </button>
@@ -9007,7 +9013,25 @@ document.addEventListener("DOMContentLoaded", () => {
   aplicarAvatar();
 })();
 </script>
+<script>
+(function () {
+  var chk = document.getElementById('jvx-confirmar-check');
+  var modal = document.getElementById('jvx-modal-alias');
+  var btn = modal ? modal.querySelector('button[onclick*="jvxGuardarAlias"]') : null;
+  if (!chk || !btn) return;
 
+  function estado() {
+    btn.disabled = !chk.checked;
+    btn.style.opacity = chk.checked ? '1' : '0.4';
+    btn.style.cursor = chk.checked ? 'pointer' : 'not-allowed';
+  }
+  chk.addEventListener('change', estado);
+  new MutationObserver(function () {
+    if (modal.style.display !== 'none') { chk.checked = false; estado(); }
+  }).observe(modal, { attributes: true, attributeFilter: ['style'] });
+  estado();
+})();
+</script>
 <!-- =========================================================
      PARTE 3 DE 3: MOTOR FIREBASE Y OJO ANIMADO - JON VXNTS
      ========================================================= -->
