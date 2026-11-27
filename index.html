@@ -8952,69 +8952,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </button>
     </div>
 </div>
-<script>
-window.jvxSeleccionarAvatar = function(elemento, rutaAvatar) {
-    document.querySelectorAll('.jvx-avatar-opt').forEach(img => {
-        img.style.borderColor = 'transparent';
-        img.style.transform = 'scale(1)';
-        img.style.boxShadow = 'none';
-    });
 
-    elemento.style.borderColor = '#3b82f6';
-    elemento.style.transform = 'scale(1.12)';
-    elemento.style.boxShadow = '0 0 12px rgba(59, 130, 246, 0.75)';
-
-    const inputOculto = document.getElementById('jvx-avatar-seleccionado');
-    if (inputOculto) inputOculto.value = rutaAvatar;
-
-    // Guardamos tanto la ruta relativa como la URL completa por seguridad
-    const urlCompleta = elemento.src || rutaAvatar;
-    localStorage.setItem('jvx_user_avatar', urlCompleta);
-    jvxAplicarAvatarEnPerfil();
-};
-
-window.jvxAplicarAvatarEnPerfil = function() {
-    const avatarGuardado = localStorage.getItem('jvx_user_avatar');
-    if (!avatarGuardado) return;
-
-    // 1. Busca el título "JON VXNTS" dentro del modal de perfil
-    const todos = document.querySelectorAll('h1, h2, h3, h4, div, span, p');
-    todos.forEach(el => {
-        if (el.children.length === 0 && el.textContent.trim().toUpperCase() === 'JON VXNTS') {
-            const tarjeta = el.parentElement;
-            if (!tarjeta) return;
-
-            // Busca la imagen o el círculo que está justo debajo de "JON VXNTS"
-            const imgPerfil = tarjeta.querySelector('img');
-            if (imgPerfil && !imgPerfil.classList.contains('jvx-avatar-opt')) {
-                if (imgPerfil.src !== avatarGuardado) {
-                    imgPerfil.src = avatarGuardado;
-                    imgPerfil.style.setProperty('object-fit', 'cover', 'important');
-                    imgPerfil.style.setProperty('border-radius', '50%', 'important');
-                }
-            }
-
-            // Si en vez de <img> es un <div> o <span> con la inicial ("B", "C", "M")
-            tarjeta.querySelectorAll('div, span').forEach(caja => {
-                if (caja === el) return;
-                const estilo = window.getComputedStyle(caja);
-                const esRedondo = estilo.borderRadius === '50%' || parseInt(estilo.borderRadius) >= 20;
-                if (esRedondo && caja.offsetWidth >= 40 && caja.offsetHeight >= 40) {
-                    caja.style.setProperty('background-image', `url("${avatarGuardado}")`, 'important');
-                    caja.style.setProperty('background-size', 'cover', 'important');
-                    caja.style.setProperty('background-position', 'center', 'important');
-                    caja.style.setProperty('color', 'transparent', 'important');
-                }
-            });
-        }
-    });
-};
-
-document.addEventListener('DOMContentLoaded', jvxAplicarAvatarEnPerfil);
-const jvxObserver = new MutationObserver(jvxAplicarAvatarEnPerfil);
-jvxObserver.observe(document.body, { childList: true, subtree: true, attributes: true });
-setInterval(jvxAplicarAvatarEnPerfil, 400);
-</script>
 
 
 <!-- =========================================================
