@@ -8953,11 +8953,66 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
 </div>
 
+<script type="module">
+(function () {
+  function claveAvatar() {
+    var c = document.getElementById('jvx-perfil-correo');
+    var mail = c ? c.textContent.trim() : '';
+    return mail ? 'jvx_avatar_' + mail : null;
+  }
 
+  // Al tocar un avatar: lo marca y cambia el texto del botón
+  window.jvxSeleccionarAvatar = function (el) {
+    document.querySelectorAll('#jvx-avatar-selector img').forEach(function (i) {
+      i.style.border = '3px solid transparent';
+      i.style.transform = 'scale(1)';
+    });
+    el.style.border = '3px solid #ef4444';
+    el.style.transform = 'scale(1.12)';
+    var hid = document.getElementById('jvx-avatar-seleccionado');
+    if (hid) hid.value = el.getAttribute('src');
+    var btn = document.querySelector('#jvx-modal-alias button[onclick*="jvxGuardarAlias"]');
+    if (btn) btn.textContent = 'Guardar alias y avatar';
+  };
+
+  // Pone el avatar guardado en el perfil, en lugar de la letra/foto de Google
+  function aplicarAvatar() {
+    try {
+      var k = claveAvatar();
+      var av = k ? localStorage.getItem(k) : null;
+      var foto = document.getElementById('jvx-perfil-foto');
+      if (av && foto && foto.getAttribute('src') !== av) foto.setAttribute('src', av);
+    } catch (e) {}
+  }
+
+  // Si tu código vuelve a poner la foto de Google, se corrige solo
+  var foto = document.getElementById('jvx-perfil-foto');
+  var correo = document.getElementById('jvx-perfil-correo');
+  if (foto) new MutationObserver(aplicarAvatar).observe(foto, { attributes: true, attributeFilter: ['src'] });
+  if (correo) new MutationObserver(aplicarAvatar).observe(correo, { childList: true, characterData: true, subtree: true });
+
+  // Al guardar: primero guarda el avatar y luego corre tu función original
+  var original = window.jvxGuardarAlias;
+  if (typeof original === 'function') {
+    window.jvxGuardarAlias = async function () {
+      try {
+        var hid = document.getElementById('jvx-avatar-seleccionado');
+        var k = claveAvatar();
+        if (hid && hid.value && k) localStorage.setItem(k, hid.value);
+      } catch (e) {}
+      await original.apply(this, arguments);
+      aplicarAvatar();
+    };
+  }
+
+  aplicarAvatar();
+})();
+</script>
 
 <!-- =========================================================
      PARTE 3 DE 3: MOTOR FIREBASE Y OJO ANIMADO - JON VXNTS
      ========================================================= -->
+
 <script>
   window.jvxAbrirAuth = function() {
     const modal = document.getElementById('jvx-modal-auth');
@@ -9251,6 +9306,7 @@ onAuthStateChanged(auth, (user) => {
 </style>
 
 <script>
+  
   document.addEventListener("DOMContentLoaded", function () {
     let posicionScroll = 0;
 
