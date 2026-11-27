@@ -8949,6 +8949,34 @@ document.addEventListener("DOMContentLoaded", () => {
     <strong style="color:#ffffff;">Confirmo mi elección.</strong> Entiendo que mi alias y avatar quedarán guardados de forma permanente en mi cuenta de Jon Vxnts y que con ellos me identificaré en todas mis compras.
   </span>
 </label>
+      <script>
+(function () {
+  function bloquear() {
+    try {
+      var c = document.getElementById('jvx-perfil-correo');
+      var mail = c ? c.textContent.trim() : '';
+      if (!mail || !localStorage.getItem('jvx_avatar_' + mail)) return;
+      document.querySelectorAll('#jvx-vista-perfil button[title="Editar alias"]').forEach(function (b) {
+        b.style.display = 'none';
+      });
+    } catch (e) {}
+  }
+  window.jvxBloquearEdicion = bloquear;
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('#jvx-modal-alias button') : null;
+    if (!b || (b.getAttribute('onclick') || '').indexOf('jvxGuardarAlias') === -1) return;
+    var n = 0;
+    var t = setInterval(function () { bloquear(); if (++n > 20) clearInterval(t); }, 250);
+  }, true);
+
+  var correo = document.getElementById('jvx-perfil-correo');
+  var vista = document.getElementById('jvx-vista-perfil');
+  if (correo) new MutationObserver(bloquear).observe(correo, { childList: true, characterData: true, subtree: true });
+  if (vista) new MutationObserver(bloquear).observe(vista, { attributes: true, attributeFilter: ['style'] });
+  bloquear();
+})();
+      </script>
         <button type="button" onclick="jvxGuardarAlias()" style="width: 100%; background: linear-gradient(90deg, #2563eb, #3b82f6); color: #ffffff; border: none; border-radius: 12px; padding: 12px; font-size: 14px; font-weight: 800; cursor: pointer; margin-bottom: 10px;">
             Guardar mi Alias
         </button>
