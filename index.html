@@ -8953,7 +8953,6 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
 </div>
 <script>
-// 1. Guarda el avatar al seleccionarlo en el modal de bienvenida
 window.jvxSeleccionarAvatar = function(elemento, rutaAvatar) {
     document.querySelectorAll('.jvx-avatar-opt').forEach(img => {
         img.style.borderColor = 'transparent';
@@ -8968,39 +8967,55 @@ window.jvxSeleccionarAvatar = function(elemento, rutaAvatar) {
     const inputOculto = document.getElementById('jvx-avatar-seleccionado');
     if (inputOculto) inputOculto.value = rutaAvatar;
 
-    localStorage.setItem('jvx_user_avatar', rutaAvatar);
+    // Guardamos tanto la ruta relativa como la URL completa por seguridad
+    const urlCompleta = elemento.src || rutaAvatar;
+    localStorage.setItem('jvx_user_avatar', urlCompleta);
     jvxAplicarAvatarEnPerfil();
 };
 
-// 2. Busca el círculo verde con la inicial en el perfil y le pone la foto circular
 window.jvxAplicarAvatarEnPerfil = function() {
     const avatarGuardado = localStorage.getItem('jvx_user_avatar');
     if (!avatarGuardado) return;
 
-    const modalPerfil = document.getElementById('jvx-modal-auth');
-    if (!modalPerfil) return;
+    // 1. Busca el título "JON VXNTS" dentro del modal de perfil
+    const todos = document.querySelectorAll('h1, h2, h3, h4, div, span, p');
+    todos.forEach(el => {
+        if (el.children.length === 0 && el.textContent.trim().toUpperCase() === 'JON VXNTS') {
+            const tarjeta = el.parentElement;
+            if (!tarjeta) return;
 
-    // Detecta el contenedor circular de la inicial (ej. la "C" verde)
-    const elementos = modalPerfil.querySelectorAll('div, span, img');
-    elementos.forEach(el => {
-        const estilo = window.getComputedStyle(el);
-        const esCirculo = estilo.borderRadius === '50%' || parseInt(estilo.borderRadius) >= 30;
-        const tieneTamanoAvatar = el.offsetWidth >= 45 && el.offsetWidth <= 95;
+            // Busca la imagen o el círculo que está justo debajo de "JON VXNTS"
+            const imgPerfil = tarjeta.querySelector('img');
+            if (imgPerfil && !imgPerfil.classList.contains('jvx-avatar-opt')) {
+                if (imgPerfil.src !== avatarGuardado) {
+                    imgPerfil.src = avatarGuardado;
+                    imgPerfil.style.setProperty('object-fit', 'cover', 'important');
+                    imgPerfil.style.setProperty('border-radius', '50%', 'important');
+                }
+            }
 
-        if (esCirculo && tieneTamanoAvatar && el.id !== 'jvx-btn-cerrar-auth') {
-            el.style.backgroundImage = `url('${avatarGuardado}')`;
-            el.style.backgroundSize = 'cover';
-            el.style.backgroundPosition = 'center';
-            el.style.color = 'transparent'; // Oculta la letra inicial sin borrarla
-            el.style.overflow = 'hidden';
+            // Si en vez de <img> es un <div> o <span> con la inicial ("B", "C", "M")
+            tarjeta.querySelectorAll('div, span').forEach(caja => {
+                if (caja === el) return;
+                const estilo = window.getComputedStyle(caja);
+                const esRedondo = estilo.borderRadius === '50%' || parseInt(estilo.borderRadius) >= 20;
+                if (esRedondo && caja.offsetWidth >= 40 && caja.offsetHeight >= 40) {
+                    caja.style.setProperty('background-image', `url("${avatarGuardado}")`, 'important');
+                    caja.style.setProperty('background-size', 'cover', 'important');
+                    caja.style.setProperty('background-position', 'center', 'important');
+                    caja.style.setProperty('color', 'transparent', 'important');
+                }
+            });
         }
     });
 };
 
-// 3. Aplica el avatar automáticamente al cargar la página o al abrir el perfil
 document.addEventListener('DOMContentLoaded', jvxAplicarAvatarEnPerfil);
-setInterval(jvxAplicarAvatarEnPerfil, 800);
+const jvxObserver = new MutationObserver(jvxAplicarAvatarEnPerfil);
+jvxObserver.observe(document.body, { childList: true, subtree: true, attributes: true });
+setInterval(jvxAplicarAvatarEnPerfil, 400);
 </script>
+
 
 <!-- =========================================================
      PARTE 3 DE 3: MOTOR FIREBASE Y OJO ANIMADO - JON VXNTS
