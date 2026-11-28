@@ -8949,8 +8949,8 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 <script>
 (function() {
-  var autoCerradoHecho = false;
   var sesionCerradaManual = false;
+  var bienvenidaMostradaPara = '';
   var estiloOrigFondo = null;
   var estiloOrigCaja = null;
 
@@ -8961,7 +8961,6 @@ document.addEventListener("DOMContentLoaded", () => {
     var fondoOverlay = cajaModal ? cajaModal.parentElement : null;
     if (!cajaModal || !fondoOverlay) return null;
 
-    // Guardar copia intacta de los estilos originales la primera vez
     if (estiloOrigFondo === null) estiloOrigFondo = fondoOverlay.getAttribute('style') || '';
     if (estiloOrigCaja === null) estiloOrigCaja = cajaModal.getAttribute('style') || '';
 
@@ -8978,6 +8977,29 @@ document.addEventListener("DOMContentLoaded", () => {
       btnX: btnX,
       titulo: titulo
     };
+  }
+
+  // Aviso flotante elegante de bienvenida para cuentas ya registradas
+  function mostrarToastBienvenida(nombre) {
+    var anterior = document.getElementById('jvx-toast-bienvenida');
+    if (anterior) anterior.remove();
+
+    var toast = document.createElement('div');
+    toast.id = 'jvx-toast-bienvenida';
+    toast.style.cssText = 'position: fixed; top: 66px; right: 14px; z-index: 999999; background: rgba(20, 20, 26, 0.96); border: 1px solid rgba(34, 197, 94, 0.45); color: #ffffff; padding: 10px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; box-shadow: 0 10px 25px rgba(0,0,0,0.75); display: flex; align-items: center; gap: 8px; opacity: 0; transform: translateY(-8px); transition: all 0.25s ease;';
+    toast.innerHTML = '<span style="color:#4ade80; font-size:15px;">✓</span><span>¡Bienvenido de nuevo, <strong style="color:#4ade80;">' + nombre + '</strong>!</span>';
+    document.body.appendChild(toast);
+
+    requestAnimationFrame(function() {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0)';
+    });
+
+    setTimeout(function() {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(-8px)';
+      setTimeout(function() { if (toast.parentNode) toast.remove(); }, 300);
+    }, 3200);
   }
 
   function abrirMenuPerfil() {
@@ -9013,7 +9035,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     var estabaVisible = m.fondoOverlay.style.display !== 'none';
 
-    // Devolver exactamente el atributo style original intacto
     if (estiloOrigFondo !== null) m.fondoOverlay.setAttribute('style', estiloOrigFondo);
     if (estiloOrigCaja !== null) m.cajaModal.setAttribute('style', estiloOrigCaja);
     m.fondoOverlay.style.display = estabaVisible ? 'flex' : 'none';
@@ -9043,15 +9064,48 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Capturar estilos originales apenas carga la página
   obtenerElementosModal();
+
+  // Interceptar jvxCerrarAuth / apertura automática para evitar el parpadeo de 1 segundo
+  var vistaPerfilInit = document.getElementById('jvx-vista-perfil');
+  if (vistaPerfilInit) {
+    var obsModal = new MutationObserver(function() {
+      var correoEl = document.getElementById('jvx-perfil-correo');
+      var mail = correoEl ? correoEl.textContent.trim() : '';
+      var estaLogueado = !sesionCerradaManual && mail && mail !== 'correo@gmail.com' && mail.indexOf('@') !== -1;
+      var m = obtenerElementosModal();
+      if (!estaLogueado || !m) return;
+
+      // Si el script original intenta abrir el modal grande automáticamente tras iniciar sesión:
+      var modalAlias = document.getElementById('jvx-modal-alias');
+      var eligiendoAlias = modalAlias && modalAlias.style.display !== 'none';
+
+      if (m.vistaPerfil.style.display !== 'none' && !m.vistaPerfil.dataset.abiertoManual) {
+        // Ocultar al instante (0ms, sin parpadeo)
+        m.fondoOverlay.style.display = 'none';
+        m.vistaPerfil.style.display = 'none';
+
+        // Si NO es cuenta nueva eligiendo alias, lanzar toast de bienvenida
+        if (!eligiendoAlias && bienvenidaMostradaPara !== mail) {
+          bienvenidaMostradaPara = mail;
+          var aliasGuardado = localStorage.getItem('jvx_alias_' + mail);
+          var aliasEl = document.getElementById('jvx-perfil-alias');
+          var nombre = aliasGuardado || (aliasEl && aliasEl.textContent.trim() !== 'Usuario' ? aliasEl.textContent.trim() : mail.split('@')[0]);
+          mostrarToastBienvenida(nombre);
+        }
+      }
+    });
+    obsModal.observe(vistaPerfilInit, { attributes: true, attributeFilter: ['style'] });
+  }
 
   document.addEventListener('click', function(e) {
     // 1. Al tocar "Cerrar sesión"
     var btnCerrar = e.target.closest ? e.target.closest('button[onclick*="jvxCerrarSesion"]') : null;
     if (btnCerrar) {
       sesionCerradaManual = true;
-      autoCerradoHecho = false;
+      bienvenidaMostradaPara = '';
+      var m = obtenerElementosModal();
+      if (m) delete m.vistaPerfil.dataset.abiertoManual;
       var correoEl = document.getElementById('jvx-perfil-correo');
       var aliasEl = document.getElementById('jvx-perfil-alias');
       if (correoEl) correoEl.textContent = 'correo@gmail.com';
@@ -9074,8 +9128,10 @@ document.addEventListener("DOMContentLoaded", () => {
         var m = obtenerElementosModal();
         var yaAbierto = m && m.fondoOverlay.style.display !== 'none' && m.vistaPerfil.style.display !== 'none';
         if (yaAbierto) {
+          delete m.vistaPerfil.dataset.abiertoManual;
           if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
-        } else {
+        } else if (m) {
+          m.vistaPerfil.dataset.abiertoManual = '1';
           abrirMenuPerfil();
         }
       } else {
@@ -9090,10 +9146,22 @@ document.addEventListener("DOMContentLoaded", () => {
       sesionCerradaManual = false;
     }
 
-    // 4. Cerrar menú pequeño al tocar fuera
+    // 4. Si termina de guardar alias u omitir en cuenta nueva, asegurar que el modal de perfil quede cerrado
+    if (btnLogin && (btnLogin.textContent.indexOf('Guardar') !== -1 || btnLogin.textContent.indexOf('Omitir') !== -1)) {
+      setTimeout(function() {
+        var m = obtenerElementosModal();
+        if (m && !m.vistaPerfil.dataset.abiertoManual) {
+          m.fondoOverlay.style.display = 'none';
+          m.vistaPerfil.style.display = 'none';
+        }
+      }, 150);
+    }
+
+    // 5. Cerrar menú pequeño al tocar fuera
     var m = obtenerElementosModal();
     if (estaLogueado && m && m.fondoOverlay.style.display !== 'none' && m.vistaPerfil.style.display !== 'none') {
       if (!m.cajaModal.contains(e.target)) {
+        delete m.vistaPerfil.dataset.abiertoManual;
         if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
       }
     }
@@ -9114,14 +9182,17 @@ document.addEventListener("DOMContentLoaded", () => {
     var estaLogueado = !sesionCerradaManual && mail && mail !== 'correo@gmail.com' && mail.indexOf('@') !== -1;
 
     if (estaLogueado) {
-      var m = obtenerElementosModal();
-      if (!autoCerradoHecho && m && m.fondoOverlay.style.display !== 'none' && m.vistaPerfil.style.display !== 'none') {
-        autoCerradoHecho = true;
-        if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
-      }
-
       var aliasGuardado = localStorage.getItem('jvx_alias_' + mail);
       var avatarGuardado = localStorage.getItem('jvx_avatar_' + mail);
+      var modalAlias = document.getElementById('jvx-modal-alias');
+      var eligiendoAlias = modalAlias && modalAlias.style.display !== 'none';
+
+      // Si ya tiene cuenta (alias o avatar guardado) y no está eligiendo alias, lanzar toast si aún no se mostró
+      if ((aliasGuardado || avatarGuardado) && !eligiendoAlias && bienvenidaMostradaPara !== mail) {
+        bienvenidaMostradaPara = mail;
+        var nombreToast = aliasGuardado || (aliasEl && aliasEl.textContent.trim() !== 'Usuario' ? aliasEl.textContent.trim() : mail.split('@')[0]);
+        mostrarToastBienvenida(nombreToast);
+      }
 
       var alias = (aliasEl && aliasEl.textContent.trim() !== 'Usuario' ? aliasEl.textContent.trim() : '') || aliasGuardado || mail.split('@')[0];
       var fotoSrc = avatarGuardado || (fotoEl ? fotoEl.getAttribute('src') : '');
