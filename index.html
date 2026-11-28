@@ -78,16 +78,18 @@
                 
                 
                             <!-- BOTÓN 3: Ícono de Usuario (Conectado y protegido contra scripts viejos) -->
-        <div id="jvx-caja-icono-top" style="margin-left: -6px !important; display: flex !important; align-items: center !important; position: relative !important; z-index: 10 !important;">
-          <button type="button" id="jvx-boton-perfil-solo-ui" onclick="jvxAccionIconoUsuario()" title="Mi cuenta" style="width: 28px !important; height: 28px !important; border-radius: 50% !important; background: rgba(255, 255, 255, 0.08) !important; border: 1.5px solid #9ca3af !important; padding: 0 !important; display: flex !important; align-items: center !important; justify-content: center !important; cursor: pointer !important; overflow: hidden !important;">
-            <svg id="jvx-header-svg-invitado" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e5e7eb" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <img id="jvx-header-avatar-img" src="" style="display: none; width: 100%; height: 100%; object-fit: cover;">
-            <span id="jvx-header-inicial" style="display: none; font-size: 12px; font-weight: 900; color: #ffffff;">U</span>
-          </button>
-        </div>
+        <div id="jvx-caja-icono-top" style="margin-left: -6px !important; display: flex !important; align-items: center; position: relative !important; z-index: 10;">
+  <button type="button" id="jvx-boton-perfil-solo-ui" onclick="jvxAccionIconoUsuario()" title="Mi cuenta" 
+          style="display: flex; align-items: center; justify-content: center; gap: 6px; min-width: 28px; height: 28px; padding: 0 6px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); cursor: pointer; overflow: hidden;">
+    <svg id="jvx-header-svg-invitado" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e5e7eb" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+      <circle cx="12" cy="7" r="4"></circle>
+    </svg>
+    <img id="jvx-header-avatar-img" src="" style="display: none; width: 22px; height: 22px; border-radius: 50%; object-fit: cover; border: 1px solid #ef4444; flex-shrink: 0;">
+    <span id="jvx-header-inicial" style="display: none; font-size: 11px; font-weight: 800; color: #ffffff; max-width: 75px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"></span>
+  </button>
+</div>
+
   
 
             
@@ -8888,27 +8890,118 @@ document.addEventListener("DOMContentLoaded", () => {
 <!-- =========================================================
      PARTE 2 DE 3: PERFIL DEL CLIENTE Y VENTANA DE ALIAS
      ========================================================= -->
-    <div id="jvx-vista-perfil" style="display: none; text-align: center;">
-      <img id="jvx-perfil-foto" src="https://ui-avatars.com" style="width: 68px; height: 68px; border-radius: 50%; border: 2px solid #ff2a2a; object-fit: cover; margin: 0 auto 10px; display: block;">
-      
-      <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255, 255, 255, 0.06); padding: 4px 12px; border-radius: 20px; margin-bottom: 4px;">
-        <span id="jvx-perfil-alias" style="font-size: 16px; font-weight: 800; color: #ffffff;">Usuario</span>
+<div id="jvx-vista-perfil" style="display: none; text-align: left;">
+  
+  <!-- ENCABEZADO: AVATAR + ALIAS + CORREO -->
+  <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+    <img id="jvx-perfil-foto" src="https://ui-avatars.com/api/?name=U&background=1f1f26&color=fff" 
+         style="width: 54px; height: 54px; border-radius: 50%; border: 2px solid #ef4444; object-fit: cover; flex-shrink: 0;">
+    <div style="overflow: hidden;">
+      <span style="display: block; font-size: 10px; font-weight: 700; color: #9ca3af; letter-spacing: 0.8px;">CUENTA ACTIVA</span>
+      <div style="display: flex; align-items: center; gap: 6px;">
+        <span id="jvx-perfil-alias" style="font-size: 16px; font-weight: 800; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Usuario</span>
         <button type="button" onclick="jvxAbrirModalAlias()" title="Editar alias" style="background: none; border: none; color: #60a5fa; cursor: pointer; font-size: 13px; padding: 0;">✏️</button>
       </div>
-      
-      <div id="jvx-perfil-correo" style="font-size: 12px; color: #9ca3af; margin-bottom: 16px;">correo@gmail.com</div>
-
-      <div style="background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 10px; font-size: 12px; color: #86efac; margin-bottom: 16px;">
-        ✓ Sesión activa y verificada en Jon Vxnts
-      </div>
-
-      <button type="button" onclick="jvxCerrarAuth()" style="width: 100%; background: #1f1f26; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 11px; font-size: 13.5px; font-weight: 700; cursor: pointer; margin-bottom: 8px;">Volver a la tienda</button>
-      
-      <button type="button" onclick="jvxCerrarSesion()" style="width: 100%; background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 12px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">Cerrar sesión</button>
+      <div id="jvx-perfil-correo" style="font-size: 12px; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">correo@gmail.com</div>
     </div>
-
   </div>
+
+  <!-- CAJA DE SALDO DISPONIBLE + BOTÓN RECARGAR -->
+  <div style="background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 12px; padding: 12px 14px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 10px;">
+    <div>
+      <span style="display: block; font-size: 10px; font-weight: 700; color: #86efac; letter-spacing: 0.5px; margin-bottom: 2px;">SALDO DISPONIBLE</span>
+      <span id="jvx-perfil-saldo" style="font-size: 20px; font-weight: 800; color: #4ade80;">S/ 0.00</span>
+    </div>
+    <button type="button" onclick="jvxAbrirRecarga()" style="background: #22c55e; color: #052e16; border: none; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 2px 10px rgba(34, 197, 94, 0.3);">
+      + Recargar
+    </button>
+  </div>
+
+  <!-- CAJA DE CÓDIGO DE REFERIDO -->
+  <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 10px 14px; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+    <div>
+      <span style="display: block; font-size: 10px; font-weight: 700; color: #9ca3af; letter-spacing: 0.5px; margin-bottom: 2px;">TU CÓDIGO DE REFERIDO:</span>
+      <span id="jvx-codigo-referido" style="font-size: 14px; font-weight: 800; color: #f87171;">JVX-000</span>
+    </div>
+    <button type="button" onclick="jvxCopiarReferido()" id="jvx-btn-copiar-ref" style="background: #27272a; color: #e4e4e7; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 600; cursor: pointer;">
+      Copiar link
+    </button>
+  </div>
+
+  <!-- ACCESOS RÁPIDOS EXTRA (MIS PEDIDOS Y SOPORTE) -->
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+    <button type="button" onclick="jvxAbrirPedidos()" style="background: #1f1f26; color: #e4e4e7; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 9px 8px; font-size: 12px; font-weight: 600; cursor: pointer;">
+      📦 Mis pedidos
+    </button>
+    <button type="button" onclick="window.open('https://wa.me/51999999999?text=Hola%20Jon%20Vxnts,%20necesito%20ayuda%20con%20mi%20cuenta', '_blank')" style="background: #1f1f26; color: #e4e4e7; border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 9px 8px; font-size: 12px; font-weight: 600; cursor: pointer;">
+      💬 Soporte
+    </button>
+  </div>
+
+  <!-- BOTONES PRINCIPALES -->
+  <button type="button" onclick="jvxCerrarAuth()" style="width: 100%; background: #1f1f26; color: #ffffff; border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; margin-bottom: 8px;">
+    Volver a la tienda
+  </button>
+
+  <button type="button" onclick="jvxCerrarSesion()" style="width: 100%; background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 12px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">
+    Cerrar sesión
+  </button>
 </div>
+<script>
+(function() {
+  // Generar código de referido único basado en el correo y permitir copiar link
+  function actualizarReferido() {
+    var correoEl = document.getElementById('jvx-perfil-correo');
+    var refEl = document.getElementById('jvx-codigo-referido');
+    if (!correoEl || !refEl) return;
+
+    var mail = correoEl.textContent.trim();
+    if (mail && mail !== 'correo@gmail.com') {
+      var prefijo = mail.split('@')[0].replace(/[^a-zA-Z0-9]/g, '').substring(0, 4).toUpperCase();
+      var hash = 0;
+      for (var i = 0; i < mail.length; i++) {
+        hash = ((hash << 5) - hash) + mail.charCodeAt(i);
+        hash |= 0;
+      }
+      var num = Math.abs(hash % 900) + 100;
+      refEl.textContent = 'JVX-' + prefijo + num;
+    }
+  }
+
+  window.jvxCopiarReferido = function() {
+    var codigo = document.getElementById('jvx-codigo-referido').textContent.trim();
+    var link = window.location.origin + '/?ref=' + codigo;
+    navigator.clipboard.writeText(link).then(function() {
+      var btn = document.getElementById('jvx-btn-copiar-ref');
+      var orig = btn.textContent;
+      btn.textContent = '¡Copiado!';
+      btn.style.background = '#22c55e';
+      btn.style.color = '#052e16';
+      setTimeout(function() {
+        btn.textContent = orig;
+        btn.style.background = '#27272a';
+        btn.style.color = '#e4e4e7';
+      }, 2000);
+    });
+  };
+
+  window.jvxAbrirRecarga = function() {
+    // Aquí puedes conectar tu modal de recargas (Yape/Plin/Binance)
+    alert('Próximamente: Módulo de recarga de saldo');
+  };
+
+  window.jvxAbrirPedidos = function() {
+    alert('Próximamente: Historial de tus compras');
+  };
+
+  var obsRef = new MutationObserver(actualizarReferido);
+  var targetCorreo = document.getElementById('jvx-perfil-correo');
+  if (targetCorreo) {
+    obsRef.observe(targetCorreo, { childList: true, characterData: true, subtree: true });
+    actualizarReferido();
+  }
+})();
+</script>
 
 <!-- VENTANA RÁPIDA OPCIONAL PARA ELEGIR ALIAS Y AVATAR TRAS ENTRAR CON GOOGLE -->
 <div id="jvx-modal-alias" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(8px); z-index: 100000; align-items: center; justify-content: center; padding: 16px; font-family: 'Segoe UI', Roboto, sans-serif;">
