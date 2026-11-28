@@ -9861,7 +9861,38 @@ onAuthStateChanged(auth, (user) => {
   });
 })();
 </script>
+<script>
+window.addEventListener('load', function () {
+  function logueado() {
+    var b = document.getElementById('jvx-header-user-box');
+    return !!b && getComputedStyle(b).display !== 'none';
+  }
 
+  function alternarMenu() {
+    var d = document.getElementById('jvx-dropdown-usuario');
+    if (d) d.style.display = d.style.display === 'block' ? 'none' : 'block';
+  }
+
+  // Con sesión iniciada, estos botones abren el menú nuevo en vez de la ventana grande
+  ['jvxAbrirAuth', 'jvxAbrirAuthModal', 'jvxAccionIconoUsuario'].forEach(function (nombre) {
+    var original = window[nombre];
+    window[nombre] = function () {
+      if (logueado()) { alternarMenu(); return; }
+      if (typeof original === 'function') return original.apply(this, arguments);
+    };
+  });
+
+  // Al iniciar sesión, la ventana de perfil grande se cierra sola
+  var perfil = document.getElementById('jvx-vista-perfil');
+  if (perfil) {
+    new MutationObserver(function () {
+      if (perfil.style.display !== 'none' && typeof window.jvxCerrarAuth === 'function') {
+        window.jvxCerrarAuth();
+      }
+    }).observe(perfil, { attributes: true, attributeFilter: ['style'] });
+  }
+});
+</script>
 <script>
   window.jvxAccionIconoUsuario = function() {
     const spanIni = document.getElementById('jvx-header-inicial');
