@@ -9861,6 +9861,13 @@ onAuthStateChanged(auth, (user) => {
   });
 })();
 </script>
+<style>
+  /* Oculta la ventana grande en cuanto el perfil aparece, sin parpadeo */
+  #jvx-modal-auth:has(#jvx-vista-perfil[style*="display: block"]) {
+    display: none !important;
+  }
+</style>
+
 <script>
 (function () {
   function logueado() {
@@ -9873,7 +9880,7 @@ onAuthStateChanged(auth, (user) => {
     if (d) d.style.display = d.style.display === 'block' ? 'none' : 'block';
   }
 
-  // 1) Con sesión iniciada, tocar el ícono del encabezado abre el menú nuevo
+  // Con sesión iniciada, el ícono del encabezado abre el menú nuevo
   document.addEventListener('click', function (e) {
     if (!logueado()) return;
     if (e.target.closest('#jvx-dropdown-usuario, #jvx-modal-auth, #jvx-modal-alias')) return;
@@ -9886,15 +9893,15 @@ onAuthStateChanged(auth, (user) => {
     alternarMenu();
   }, true);
 
-  // 2) La ventana grande de perfil se cierra sola apenas aparece
-  setInterval(function () {
-    var modal = document.getElementById('jvx-modal-auth');
-    var perfil = document.getElementById('jvx-vista-perfil');
-    if (!modal || !perfil) return;
-    if (getComputedStyle(modal).display !== 'none' && getComputedStyle(perfil).display !== 'none') {
-      modal.style.display = 'none';
-    }
-  }, 250);
+  // Cuando el perfil aparece, cierra el modal de forma ordenada (libera el scroll)
+  var perfil = document.getElementById('jvx-vista-perfil');
+  if (perfil) {
+    new MutationObserver(function () {
+      if (perfil.style.display === 'block' && typeof window.jvxCerrarAuth === 'function') {
+        window.jvxCerrarAuth();
+      }
+    }).observe(perfil, { attributes: true, attributeFilter: ['style'] });
+  }
 })();
 </script>
 <script>
