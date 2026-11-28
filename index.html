@@ -9861,49 +9861,7 @@ onAuthStateChanged(auth, (user) => {
   });
 })();
 </script>
-<style>
-  #jvx-modal-auth:has(#jvx-vista-perfil[style*="display: block"]) {
-    display: none !important;
-  }
-</style>
 
-<script>
-(function () {
-  if (window.__jvxMenuNuevo) return;
-  window.__jvxMenuNuevo = true;
-
-  function logueado() {
-    var b = document.getElementById('jvx-header-user-box');
-    return !!b && getComputedStyle(b).display !== 'none';
-  }
-
-  function alternarMenu() {
-    var d = document.getElementById('jvx-dropdown-usuario');
-    if (d) d.style.display = d.style.display === 'block' ? 'none' : 'block';
-  }
-
-  document.addEventListener('click', function (e) {
-    if (!logueado()) return;
-    if (e.target.closest('#jvx-dropdown-usuario, #jvx-modal-auth, #jvx-modal-alias')) return;
-    var icono = e.target.closest(
-      '#jvx-header-user-box, #jvx-btn-abrir-auth, [onclick*="jvxAccionIconoUsuario"], [onclick*="jvxAbrirAuth"], [onclick*="jvxToggleMenuUsuario"]'
-    );
-    if (!icono) return;
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    alternarMenu();
-  }, true);
-
-  var perfil = document.getElementById('jvx-vista-perfil');
-  if (perfil) {
-    new MutationObserver(function () {
-      if (perfil.style.display === 'block' && typeof window.jvxCerrarAuth === 'function') {
-        window.jvxCerrarAuth();
-      }
-    }).observe(perfil, { attributes: true, attributeFilter: ['style'] });
-  }
-})();
-</script>
 <script>
   window.jvxAccionIconoUsuario = function() {
     const spanIni = document.getElementById('jvx-header-inicial');
