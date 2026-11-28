@@ -8950,6 +8950,7 @@ document.addEventListener("DOMContentLoaded", () => {
 <script>
 (function() {
   var autoCerradoHecho = false;
+  var sesionCerradaManual = false;
 
   function abrirMenuPerfil() {
     var vistaPerfil = document.getElementById('jvx-vista-perfil');
@@ -8958,22 +8959,18 @@ document.addEventListener("DOMContentLoaded", () => {
     var fondoOverlay = cajaModal ? cajaModal.parentElement : null;
     if (!cajaModal || !fondoOverlay) return;
 
-    // Mostrar tanto el fondo como la vista de perfil
     fondoOverlay.style.setProperty('display', 'flex', 'important');
     vistaPerfil.style.setProperty('display', 'block', 'important');
 
-    // Ocultar título gigante "JON VXNTS" y la "X"
     Array.from(cajaModal.children).forEach(function(hijo) {
       if (hijo.id === 'jvx-vista-perfil') return;
       if (!hijo.dataset.origDisplay) hijo.dataset.origDisplay = hijo.style.display || 'block';
       hijo.style.setProperty('display', 'none', 'important');
     });
 
-    // Ocultar botón "Volver a la tienda"
     var btnVolver = vistaPerfil.querySelector('button[onclick="jvxCerrarAuth()"]');
     if (btnVolver) btnVolver.style.display = 'none';
 
-    // Posicionar como cuadrito flotante en la esquina superior derecha
     fondoOverlay.style.setProperty('background', 'rgba(0, 0, 0, 0.25)', 'important');
     fondoOverlay.style.setProperty('backdrop-filter', 'none', 'important');
     fondoOverlay.style.setProperty('align-items', 'flex-start', 'important');
@@ -8995,47 +8992,96 @@ document.addEventListener("DOMContentLoaded", () => {
     var fondoOverlay = cajaModal ? cajaModal.parentElement : null;
     if (!cajaModal || !fondoOverlay) return;
 
+    // Restaurar título "JON VXNTS" y botón "X"
     Array.from(cajaModal.children).forEach(function(hijo) {
       if (hijo.id === 'jvx-vista-perfil') return;
-      if (hijo.dataset.origDisplay) hijo.style.display = hijo.dataset.origDisplay;
+      hijo.style.removeProperty('display');
+      if (hijo.dataset.origDisplay && hijo.dataset.origDisplay !== 'none') {
+        hijo.style.display = hijo.dataset.origDisplay;
+      }
     });
 
-    fondoOverlay.style.background = 'rgba(0, 0, 0, 0.85)';
-    fondoOverlay.style.backdropFilter = 'blur(6px)';
-    fondoOverlay.style.alignItems = 'center';
-    fondoOverlay.style.justifyContent = 'center';
-    fondoOverlay.style.padding = '16px';
+    // Restaurar tamaño grande centrado de la ventana de login
+    fondoOverlay.style.setProperty('background', 'rgba(0, 0, 0, 0.85)', 'important');
+    fondoOverlay.style.setProperty('backdrop-filter', 'blur(6px)', 'important');
+    fondoOverlay.style.setProperty('align-items', 'center', 'important');
+    fondoOverlay.style.setProperty('justify-content', 'center', 'important');
+    fondoOverlay.style.setProperty('padding', '16px', 'important');
 
-    cajaModal.style.width = '100%';
-    cajaModal.style.maxWidth = '380px';
-    cajaModal.style.padding = '24px 20px';
-    cajaModal.style.borderRadius = '20px';
+    cajaModal.style.setProperty('width', '100%', 'important');
+    cajaModal.style.setProperty('max-width', '380px', 'important');
+    cajaModal.style.setProperty('padding', '24px 20px', 'important');
+    cajaModal.style.setProperty('border-radius', '20px', 'important');
+    cajaModal.style.setProperty('margin', 'auto', 'important');
   }
 
-  // Interceptar clic en el botón superior y clics fuera del menú
+  function resetearBotonSuperior() {
+    var btnTop = document.getElementById('jvx-boton-perfil-solo-ui');
+    var svgInvitado = document.getElementById('jvx-header-svg-invitado');
+    var imgTop = document.getElementById('jvx-header-avatar-img');
+    var aliasTop = document.getElementById('jvx-header-inicial');
+
+    if (svgInvitado) svgInvitado.style.setProperty('display', 'block', 'important');
+    if (imgTop) imgTop.style.setProperty('display', 'none', 'important');
+    if (aliasTop) {
+      aliasTop.textContent = '';
+      aliasTop.style.setProperty('display', 'none', 'important');
+    }
+    if (btnTop) {
+      btnTop.style.setProperty('width', '28px', 'important');
+      btnTop.style.setProperty('padding', '0', 'important');
+      btnTop.style.setProperty('background', 'rgba(255,255,255,0.08)', 'important');
+      btnTop.style.setProperty('border-color', 'rgba(255,255,255,0.18)', 'important');
+    }
+  }
+
+  // Detectar clic en Cerrar sesión, botón superior y clics fuera del menú
   document.addEventListener('click', function(e) {
+    // 1. Si toca "Cerrar sesión"
+    var btnCerrar = e.target.closest ? e.target.closest('button[onclick*="jvxCerrarSesion"]') : null;
+    if (btnCerrar) {
+      sesionCerradaManual = true;
+      autoCerradoHecho = false;
+      var correoEl = document.getElementById('jvx-perfil-correo');
+      var aliasEl = document.getElementById('jvx-perfil-alias');
+      if (correoEl) correoEl.textContent = 'correo@gmail.com';
+      if (aliasEl) aliasEl.textContent = 'Usuario';
+      resetearBotonSuperior();
+      restaurarModalLogin();
+      return;
+    }
+
     var correoEl = document.getElementById('jvx-perfil-correo');
     var mail = correoEl ? correoEl.textContent.trim() : '';
-    var estaLogueado = mail && mail !== 'correo@gmail.com' && mail.indexOf('@') !== -1;
+    var estaLogueado = !sesionCerradaManual && mail && mail !== 'correo@gmail.com' && mail.indexOf('@') !== -1;
 
+    // 2. Si toca el botón superior de perfil
     var btnTop = e.target.closest ? e.target.closest('#jvx-boton-perfil-solo-ui') : null;
-    if (btnTop && estaLogueado) {
-      e.preventDefault();
-      e.stopImmediatePropagation();
-
-      var vistaPerfil = document.getElementById('jvx-vista-perfil');
-      var fondoOverlay = vistaPerfil && vistaPerfil.parentElement ? vistaPerfil.parentElement.parentElement : null;
-      var yaAbierto = fondoOverlay && fondoOverlay.style.display !== 'none' && vistaPerfil.style.display !== 'none';
-
-      if (yaAbierto) {
-        if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
+    if (btnTop) {
+      if (estaLogueado) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        var vistaPerfil = document.getElementById('jvx-vista-perfil');
+        var fondoOverlay = vistaPerfil && vistaPerfil.parentElement ? vistaPerfil.parentElement.parentElement : null;
+        var yaAbierto = fondoOverlay && fondoOverlay.style.display !== 'none' && vistaPerfil.style.display !== 'none';
+        if (yaAbierto) {
+          if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
+        } else {
+          abrirMenuPerfil();
+        }
       } else {
-        abrirMenuPerfil();
+        restaurarModalLogin();
       }
       return;
     }
 
-    // Cerrar al tocar fuera del cuadrito
+    // 3. Si toca "Continuar con Google" o "Ingresar" para volver a entrar
+    var btnLogin = e.target.closest ? e.target.closest('button') : null;
+    if (btnLogin && (btnLogin.textContent.indexOf('Google') !== -1 || btnLogin.textContent.indexOf('Ingresar') !== -1)) {
+      sesionCerradaManual = false;
+    }
+
+    // 4. Cerrar menú pequeño al tocar fuera
     var vistaPerfil = document.getElementById('jvx-vista-perfil');
     var fondoOverlay = vistaPerfil && vistaPerfil.parentElement ? vistaPerfil.parentElement.parentElement : null;
     if (estaLogueado && fondoOverlay && fondoOverlay.style.display !== 'none' && vistaPerfil.style.display !== 'none') {
@@ -9059,10 +9105,9 @@ document.addEventListener("DOMContentLoaded", () => {
     var aliasTop = document.getElementById('jvx-header-inicial');
 
     var mail = correoEl ? correoEl.textContent.trim() : '';
-    var estaLogueado = mail && mail !== 'correo@gmail.com' && mail.indexOf('@') !== -1;
+    var estaLogueado = !sesionCerradaManual && mail && mail !== 'correo@gmail.com' && mail.indexOf('@') !== -1;
 
     if (estaLogueado) {
-      // Cerrar automáticamente solo la primera vez tras iniciar sesión
       var fondoOverlay = vistaPerfil && vistaPerfil.parentElement ? vistaPerfil.parentElement.parentElement : null;
       if (!autoCerradoHecho && fondoOverlay && fondoOverlay.style.display !== 'none' && vistaPerfil && vistaPerfil.style.display !== 'none') {
         autoCerradoHecho = true;
@@ -9107,21 +9152,8 @@ document.addEventListener("DOMContentLoaded", () => {
         refEl.textContent = 'JVX-' + prefijo + num;
       }
     } else {
-      autoCerradoHecho = false;
+      resetearBotonSuperior();
       restaurarModalLogin();
-
-      if (svgInvitado) svgInvitado.style.setProperty('display', 'block', 'important');
-      if (imgTop) imgTop.style.setProperty('display', 'none', 'important');
-      if (aliasTop) {
-        aliasTop.textContent = '';
-        aliasTop.style.setProperty('display', 'none', 'important');
-      }
-      if (btnTop) {
-        btnTop.style.setProperty('width', '28px', 'important');
-        btnTop.style.setProperty('padding', '0', 'important');
-        btnTop.style.setProperty('background', 'rgba(255,255,255,0.08)', 'important');
-        btnTop.style.setProperty('border-color', 'rgba(255,255,255,0.18)', 'important');
-      }
     }
   }
 
