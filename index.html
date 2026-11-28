@@ -8949,92 +8949,109 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 <script>
 (function() {
-  var aperturaManual = false;
   var autoCerradoHecho = false;
 
-  // 1. Detectar cuando el cliente toca su botón superior para abrir el menú pequeño
+  function abrirMenuPerfil() {
+    var vistaPerfil = document.getElementById('jvx-vista-perfil');
+    if (!vistaPerfil) return;
+    var cajaModal = vistaPerfil.parentElement;
+    var fondoOverlay = cajaModal ? cajaModal.parentElement : null;
+    if (!cajaModal || !fondoOverlay) return;
+
+    // Mostrar tanto el fondo como la vista de perfil
+    fondoOverlay.style.setProperty('display', 'flex', 'important');
+    vistaPerfil.style.setProperty('display', 'block', 'important');
+
+    // Ocultar título gigante "JON VXNTS" y la "X"
+    Array.from(cajaModal.children).forEach(function(hijo) {
+      if (hijo.id === 'jvx-vista-perfil') return;
+      if (!hijo.dataset.origDisplay) hijo.dataset.origDisplay = hijo.style.display || 'block';
+      hijo.style.setProperty('display', 'none', 'important');
+    });
+
+    // Ocultar botón "Volver a la tienda"
+    var btnVolver = vistaPerfil.querySelector('button[onclick="jvxCerrarAuth()"]');
+    if (btnVolver) btnVolver.style.display = 'none';
+
+    // Posicionar como cuadrito flotante en la esquina superior derecha
+    fondoOverlay.style.setProperty('background', 'rgba(0, 0, 0, 0.25)', 'important');
+    fondoOverlay.style.setProperty('backdrop-filter', 'none', 'important');
+    fondoOverlay.style.setProperty('align-items', 'flex-start', 'important');
+    fondoOverlay.style.setProperty('justify-content', 'flex-end', 'important');
+    fondoOverlay.style.setProperty('padding', '56px 12px 0 12px', 'important');
+
+    cajaModal.style.setProperty('width', '280px', 'important');
+    cajaModal.style.setProperty('max-width', '92vw', 'important');
+    cajaModal.style.setProperty('padding', '14px', 'important');
+    cajaModal.style.setProperty('border-radius', '16px', 'important');
+    cajaModal.style.setProperty('margin', '0', 'important');
+    cajaModal.style.setProperty('box-shadow', '0 14px 35px rgba(0, 0, 0, 0.9)', 'important');
+  }
+
+  function restaurarModalLogin() {
+    var vistaPerfil = document.getElementById('jvx-vista-perfil');
+    if (!vistaPerfil) return;
+    var cajaModal = vistaPerfil.parentElement;
+    var fondoOverlay = cajaModal ? cajaModal.parentElement : null;
+    if (!cajaModal || !fondoOverlay) return;
+
+    Array.from(cajaModal.children).forEach(function(hijo) {
+      if (hijo.id === 'jvx-vista-perfil') return;
+      if (hijo.dataset.origDisplay) hijo.style.display = hijo.dataset.origDisplay;
+    });
+
+    fondoOverlay.style.background = 'rgba(0, 0, 0, 0.85)';
+    fondoOverlay.style.backdropFilter = 'blur(6px)';
+    fondoOverlay.style.alignItems = 'center';
+    fondoOverlay.style.justifyContent = 'center';
+    fondoOverlay.style.padding = '16px';
+
+    cajaModal.style.width = '100%';
+    cajaModal.style.maxWidth = '380px';
+    cajaModal.style.padding = '24px 20px';
+    cajaModal.style.borderRadius = '20px';
+  }
+
+  // Interceptar clic en el botón superior y clics fuera del menú
   document.addEventListener('click', function(e) {
+    var correoEl = document.getElementById('jvx-perfil-correo');
+    var mail = correoEl ? correoEl.textContent.trim() : '';
+    var estaLogueado = mail && mail !== 'correo@gmail.com' && mail.indexOf('@') !== -1;
+
     var btnTop = e.target.closest ? e.target.closest('#jvx-boton-perfil-solo-ui') : null;
-    if (btnTop) {
-      aperturaManual = true;
+    if (btnTop && estaLogueado) {
+      e.preventDefault();
+      e.stopImmediatePropagation();
+
+      var vistaPerfil = document.getElementById('jvx-vista-perfil');
+      var fondoOverlay = vistaPerfil && vistaPerfil.parentElement ? vistaPerfil.parentElement.parentElement : null;
+      var yaAbierto = fondoOverlay && fondoOverlay.style.display !== 'none' && vistaPerfil.style.display !== 'none';
+
+      if (yaAbierto) {
+        if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
+      } else {
+        abrirMenuPerfil();
+      }
       return;
     }
 
-    // Cerrar el menú pequeño si toca fuera de él
+    // Cerrar al tocar fuera del cuadrito
     var vistaPerfil = document.getElementById('jvx-vista-perfil');
-    if (vistaPerfil && vistaPerfil.style.display !== 'none') {
+    var fondoOverlay = vistaPerfil && vistaPerfil.parentElement ? vistaPerfil.parentElement.parentElement : null;
+    if (estaLogueado && fondoOverlay && fondoOverlay.style.display !== 'none' && vistaPerfil.style.display !== 'none') {
       var cajaModal = vistaPerfil.parentElement;
       if (cajaModal && !cajaModal.contains(e.target)) {
-        aperturaManual = false;
         if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
       }
     }
   }, true);
 
-  // 2. Transformar el modal en menú pequeño desplegable en la esquina superior derecha
-  function aplicarModoDropdown() {
-    var vistaPerfil = document.getElementById('jvx-vista-perfil');
-    if (!vistaPerfil) return;
-
-    var cajaModal = vistaPerfil.parentElement;
-    var fondoOverlay = cajaModal ? cajaModal.parentElement : null;
-    if (!cajaModal || !fondoOverlay) return;
-
-    var estaAbiertoPerfil = vistaPerfil.style.display !== 'none' && fondoOverlay.style.display !== 'none';
-
-    // Si se abrió automáticamente tras iniciar sesión (no por clic en el icono), cerrarlo directo para ir a la tienda
-    if (estaAbiertoPerfil && !aperturaManual && !autoCerradoHecho) {
-      autoCerradoHecho = true;
-      if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
-      return;
-    }
-
-    Array.from(cajaModal.children).forEach(function(hijo) {
-      if (hijo.id === 'jvx-vista-perfil') return;
-      if (estaAbiertoPerfil) {
-        if (!hijo.dataset.origDisplay) hijo.dataset.origDisplay = hijo.style.display || 'block';
-        hijo.style.setProperty('display', 'none', 'important');
-      } else if (hijo.dataset.origDisplay) {
-        hijo.style.display = hijo.dataset.origDisplay;
-      }
-    });
-
-    var btnVolver = vistaPerfil.querySelector('button[onclick="jvxCerrarAuth()"]');
-    if (btnVolver) btnVolver.style.display = estaAbiertoPerfil ? 'none' : 'block';
-
-    if (estaAbiertoPerfil) {
-      fondoOverlay.style.setProperty('background', 'rgba(0, 0, 0, 0.25)', 'important');
-      fondoOverlay.style.setProperty('backdrop-filter', 'none', 'important');
-      fondoOverlay.style.setProperty('align-items', 'flex-start', 'important');
-      fondoOverlay.style.setProperty('justify-content', 'flex-end', 'important');
-      fondoOverlay.style.setProperty('padding', '56px 12px 0 12px', 'important');
-
-      cajaModal.style.setProperty('width', '280px', 'important');
-      cajaModal.style.setProperty('max-width', '92vw', 'important');
-      cajaModal.style.setProperty('padding', '14px', 'important');
-      cajaModal.style.setProperty('border-radius', '16px', 'important');
-      cajaModal.style.setProperty('margin', '0', 'important');
-      cajaModal.style.setProperty('box-shadow', '0 14px 35px rgba(0, 0, 0, 0.9)', 'important');
-    } else {
-      fondoOverlay.style.background = 'rgba(0, 0, 0, 0.85)';
-      fondoOverlay.style.backdropFilter = 'blur(6px)';
-      fondoOverlay.style.alignItems = 'center';
-      fondoOverlay.style.justifyContent = 'center';
-      fondoOverlay.style.padding = '16px';
-
-      cajaModal.style.width = '100%';
-      cajaModal.style.maxWidth = '380px';
-      cajaModal.style.padding = '24px 20px';
-      cajaModal.style.borderRadius = '20px';
-    }
-  }
-
-  // 3. Mantener siempre actualizado el Avatar y Alias en el botón superior
   function sincronizarUIUsuario() {
     var correoEl = document.getElementById('jvx-perfil-correo');
     var aliasEl = document.getElementById('jvx-perfil-alias');
     var fotoEl = document.getElementById('jvx-perfil-foto');
     var refEl = document.getElementById('jvx-codigo-referido');
+    var vistaPerfil = document.getElementById('jvx-vista-perfil');
 
     var btnTop = document.getElementById('jvx-boton-perfil-solo-ui');
     var svgInvitado = document.getElementById('jvx-header-svg-invitado');
@@ -9045,6 +9062,13 @@ document.addEventListener("DOMContentLoaded", () => {
     var estaLogueado = mail && mail !== 'correo@gmail.com' && mail.indexOf('@') !== -1;
 
     if (estaLogueado) {
+      // Cerrar automáticamente solo la primera vez tras iniciar sesión
+      var fondoOverlay = vistaPerfil && vistaPerfil.parentElement ? vistaPerfil.parentElement.parentElement : null;
+      if (!autoCerradoHecho && fondoOverlay && fondoOverlay.style.display !== 'none' && vistaPerfil && vistaPerfil.style.display !== 'none') {
+        autoCerradoHecho = true;
+        if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
+      }
+
       var aliasGuardado = localStorage.getItem('jvx_alias_' + mail);
       var avatarGuardado = localStorage.getItem('jvx_avatar_' + mail);
 
@@ -9084,7 +9108,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } else {
       autoCerradoHecho = false;
-      aperturaManual = false;
+      restaurarModalLogin();
+
       if (svgInvitado) svgInvitado.style.setProperty('display', 'block', 'important');
       if (imgTop) imgTop.style.setProperty('display', 'none', 'important');
       if (aliasTop) {
@@ -9098,8 +9123,6 @@ document.addEventListener("DOMContentLoaded", () => {
         btnTop.style.setProperty('border-color', 'rgba(255,255,255,0.18)', 'important');
       }
     }
-
-    aplicarModoDropdown();
   }
 
   window.jvxCopiarReferido = function() {
@@ -9127,7 +9150,7 @@ document.addEventListener("DOMContentLoaded", () => {
     alert('Historial de compras: Aquí se mostrarán las cuentas y recargas del cliente.');
   };
 
-  setInterval(sincronizarUIUsuario, 300);
+  setInterval(sincronizarUIUsuario, 400);
   sincronizarUIUsuario();
 })();
 </script>
