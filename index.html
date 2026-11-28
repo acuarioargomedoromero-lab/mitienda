@@ -9862,7 +9862,7 @@ onAuthStateChanged(auth, (user) => {
 })();
 </script>
 <script>
-window.addEventListener('load', function () {
+(function () {
   function logueado() {
     var b = document.getElementById('jvx-header-user-box');
     return !!b && getComputedStyle(b).display !== 'none';
@@ -9873,25 +9873,29 @@ window.addEventListener('load', function () {
     if (d) d.style.display = d.style.display === 'block' ? 'none' : 'block';
   }
 
-  // Con sesión iniciada, estos botones abren el menú nuevo en vez de la ventana grande
-  ['jvxAbrirAuth', 'jvxAbrirAuthModal', 'jvxAccionIconoUsuario'].forEach(function (nombre) {
-    var original = window[nombre];
-    window[nombre] = function () {
-      if (logueado()) { alternarMenu(); return; }
-      if (typeof original === 'function') return original.apply(this, arguments);
-    };
-  });
+  // 1) Con sesión iniciada, tocar el ícono del encabezado abre el menú nuevo
+  document.addEventListener('click', function (e) {
+    if (!logueado()) return;
+    if (e.target.closest('#jvx-dropdown-usuario, #jvx-modal-auth, #jvx-modal-alias')) return;
+    var icono = e.target.closest(
+      '#jvx-header-user-box, #jvx-btn-abrir-auth, [onclick*="jvxAccionIconoUsuario"], [onclick*="jvxAbrirAuth"], [onclick*="jvxToggleMenuUsuario"]'
+    );
+    if (!icono) return;
+    e.preventDefault();
+    e.stopPropagation();
+    alternarMenu();
+  }, true);
 
-  // Al iniciar sesión, la ventana de perfil grande se cierra sola
-  var perfil = document.getElementById('jvx-vista-perfil');
-  if (perfil) {
-    new MutationObserver(function () {
-      if (perfil.style.display !== 'none' && typeof window.jvxCerrarAuth === 'function') {
-        window.jvxCerrarAuth();
-      }
-    }).observe(perfil, { attributes: true, attributeFilter: ['style'] });
-  }
-});
+  // 2) La ventana grande de perfil se cierra sola apenas aparece
+  setInterval(function () {
+    var modal = document.getElementById('jvx-modal-auth');
+    var perfil = document.getElementById('jvx-vista-perfil');
+    if (!modal || !perfil) return;
+    if (getComputedStyle(modal).display !== 'none' && getComputedStyle(perfil).display !== 'none') {
+      modal.style.display = 'none';
+    }
+  }, 250);
+})();
 </script>
 <script>
   window.jvxAccionIconoUsuario = function() {
