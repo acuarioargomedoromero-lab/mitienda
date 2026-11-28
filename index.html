@@ -8951,6 +8951,8 @@ document.addEventListener("DOMContentLoaded", () => {
 (function() {
   var autoCerradoHecho = false;
   var sesionCerradaManual = false;
+  var estiloOrigFondo = null;
+  var estiloOrigCaja = null;
 
   function obtenerElementosModal() {
     var vistaPerfil = document.getElementById('jvx-vista-perfil');
@@ -8959,7 +8961,10 @@ document.addEventListener("DOMContentLoaded", () => {
     var fondoOverlay = cajaModal ? cajaModal.parentElement : null;
     if (!cajaModal || !fondoOverlay) return null;
 
-    // Buscar solo el botón X y el título JON VXNTS dentro de cajaModal (sin tocar otros modales)
+    // Guardar copia intacta de los estilos originales la primera vez
+    if (estiloOrigFondo === null) estiloOrigFondo = fondoOverlay.getAttribute('style') || '';
+    if (estiloOrigCaja === null) estiloOrigCaja = cajaModal.getAttribute('style') || '';
+
     var btnX = cajaModal.querySelector('button[onclick*="jvxCerrarAuth"]');
     var titulo = null;
     Array.from(cajaModal.children).forEach(function(el) {
@@ -9006,23 +9011,16 @@ document.addEventListener("DOMContentLoaded", () => {
     var m = obtenerElementosModal();
     if (!m) return;
 
-    // Solo restaurar X y título JON VXNTS (sin tocar ningún otro elemento oculto)
+    var estabaVisible = m.fondoOverlay.style.display !== 'none';
+
+    // Devolver exactamente el atributo style original intacto
+    if (estiloOrigFondo !== null) m.fondoOverlay.setAttribute('style', estiloOrigFondo);
+    if (estiloOrigCaja !== null) m.cajaModal.setAttribute('style', estiloOrigCaja);
+    m.fondoOverlay.style.display = estabaVisible ? 'flex' : 'none';
+
     if (m.btnX) m.btnX.style.removeProperty('display');
     if (m.titulo) m.titulo.style.removeProperty('display');
     m.vistaPerfil.style.display = 'none';
-
-    m.fondoOverlay.style.removeProperty('background');
-    m.fondoOverlay.style.removeProperty('backdrop-filter');
-    m.fondoOverlay.style.removeProperty('align-items');
-    m.fondoOverlay.style.removeProperty('justify-content');
-    m.fondoOverlay.style.removeProperty('padding');
-
-    m.cajaModal.style.removeProperty('width');
-    m.cajaModal.style.removeProperty('max-width');
-    m.cajaModal.style.removeProperty('padding');
-    m.cajaModal.style.removeProperty('border-radius');
-    m.cajaModal.style.removeProperty('margin');
-    m.cajaModal.style.removeProperty('box-shadow');
   }
 
   function resetearBotonSuperior() {
@@ -9044,6 +9042,9 @@ document.addEventListener("DOMContentLoaded", () => {
       btnTop.style.setProperty('border-color', 'rgba(255,255,255,0.18)', 'important');
     }
   }
+
+  // Capturar estilos originales apenas carga la página
+  obtenerElementosModal();
 
   document.addEventListener('click', function(e) {
     // 1. Al tocar "Cerrar sesión"
