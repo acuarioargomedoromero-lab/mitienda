@@ -8949,23 +8949,157 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 <script>
 (function() {
-  // Generar código de referido único basado en el correo y permitir copiar link
-  function actualizarReferido() {
-    var correoEl = document.getElementById('jvx-perfil-correo');
-    var refEl = document.getElementById('jvx-codigo-referido');
-    if (!correoEl || !refEl) return;
+  var aperturaManual = false;
+  var autoCerradoHecho = false;
 
-    var mail = correoEl.textContent.trim();
-    if (mail && mail !== 'correo@gmail.com') {
-      var prefijo = mail.split('@')[0].replace(/[^a-zA-Z0-9]/g, '').substring(0, 4).toUpperCase();
-      var hash = 0;
-      for (var i = 0; i < mail.length; i++) {
-        hash = ((hash << 5) - hash) + mail.charCodeAt(i);
-        hash |= 0;
-      }
-      var num = Math.abs(hash % 900) + 100;
-      refEl.textContent = 'JVX-' + prefijo + num;
+  // 1. Detectar cuando el cliente toca su botón superior para abrir el menú pequeño
+  document.addEventListener('click', function(e) {
+    var btnTop = e.target.closest ? e.target.closest('#jvx-boton-perfil-solo-ui') : null;
+    if (btnTop) {
+      aperturaManual = true;
+      return;
     }
+
+    // Cerrar el menú pequeño si toca fuera de él
+    var vistaPerfil = document.getElementById('jvx-vista-perfil');
+    if (vistaPerfil && vistaPerfil.style.display !== 'none') {
+      var cajaModal = vistaPerfil.parentElement;
+      if (cajaModal && !cajaModal.contains(e.target)) {
+        aperturaManual = false;
+        if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
+      }
+    }
+  }, true);
+
+  // 2. Transformar el modal en menú pequeño desplegable en la esquina superior derecha
+  function aplicarModoDropdown() {
+    var vistaPerfil = document.getElementById('jvx-vista-perfil');
+    if (!vistaPerfil) return;
+
+    var cajaModal = vistaPerfil.parentElement;
+    var fondoOverlay = cajaModal ? cajaModal.parentElement : null;
+    if (!cajaModal || !fondoOverlay) return;
+
+    var estaAbiertoPerfil = vistaPerfil.style.display !== 'none' && fondoOverlay.style.display !== 'none';
+
+    // Si se abrió automáticamente tras iniciar sesión (no por clic en el icono), cerrarlo directo para ir a la tienda
+    if (estaAbiertoPerfil && !aperturaManual && !autoCerradoHecho) {
+      autoCerradoHecho = true;
+      if (typeof jvxCerrarAuth === 'function') jvxCerrarAuth();
+      return;
+    }
+
+    Array.from(cajaModal.children).forEach(function(hijo) {
+      if (hijo.id === 'jvx-vista-perfil') return;
+      if (estaAbiertoPerfil) {
+        if (!hijo.dataset.origDisplay) hijo.dataset.origDisplay = hijo.style.display || 'block';
+        hijo.style.setProperty('display', 'none', 'important');
+      } else if (hijo.dataset.origDisplay) {
+        hijo.style.display = hijo.dataset.origDisplay;
+      }
+    });
+
+    var btnVolver = vistaPerfil.querySelector('button[onclick="jvxCerrarAuth()"]');
+    if (btnVolver) btnVolver.style.display = estaAbiertoPerfil ? 'none' : 'block';
+
+    if (estaAbiertoPerfil) {
+      fondoOverlay.style.setProperty('background', 'rgba(0, 0, 0, 0.25)', 'important');
+      fondoOverlay.style.setProperty('backdrop-filter', 'none', 'important');
+      fondoOverlay.style.setProperty('align-items', 'flex-start', 'important');
+      fondoOverlay.style.setProperty('justify-content', 'flex-end', 'important');
+      fondoOverlay.style.setProperty('padding', '56px 12px 0 12px', 'important');
+
+      cajaModal.style.setProperty('width', '280px', 'important');
+      cajaModal.style.setProperty('max-width', '92vw', 'important');
+      cajaModal.style.setProperty('padding', '14px', 'important');
+      cajaModal.style.setProperty('border-radius', '16px', 'important');
+      cajaModal.style.setProperty('margin', '0', 'important');
+      cajaModal.style.setProperty('box-shadow', '0 14px 35px rgba(0, 0, 0, 0.9)', 'important');
+    } else {
+      fondoOverlay.style.background = 'rgba(0, 0, 0, 0.85)';
+      fondoOverlay.style.backdropFilter = 'blur(6px)';
+      fondoOverlay.style.alignItems = 'center';
+      fondoOverlay.style.justifyContent = 'center';
+      fondoOverlay.style.padding = '16px';
+
+      cajaModal.style.width = '100%';
+      cajaModal.style.maxWidth = '380px';
+      cajaModal.style.padding = '24px 20px';
+      cajaModal.style.borderRadius = '20px';
+    }
+  }
+
+  // 3. Mantener siempre actualizado el Avatar y Alias en el botón superior
+  function sincronizarUIUsuario() {
+    var correoEl = document.getElementById('jvx-perfil-correo');
+    var aliasEl = document.getElementById('jvx-perfil-alias');
+    var fotoEl = document.getElementById('jvx-perfil-foto');
+    var refEl = document.getElementById('jvx-codigo-referido');
+
+    var btnTop = document.getElementById('jvx-boton-perfil-solo-ui');
+    var svgInvitado = document.getElementById('jvx-header-svg-invitado');
+    var imgTop = document.getElementById('jvx-header-avatar-img');
+    var aliasTop = document.getElementById('jvx-header-inicial');
+
+    var mail = correoEl ? correoEl.textContent.trim() : '';
+    var estaLogueado = mail && mail !== 'correo@gmail.com' && mail.indexOf('@') !== -1;
+
+    if (estaLogueado) {
+      var aliasGuardado = localStorage.getItem('jvx_alias_' + mail);
+      var avatarGuardado = localStorage.getItem('jvx_avatar_' + mail);
+
+      var alias = (aliasEl && aliasEl.textContent.trim() !== 'Usuario' ? aliasEl.textContent.trim() : '') || aliasGuardado || mail.split('@')[0];
+      var fotoSrc = avatarGuardado || (fotoEl ? fotoEl.getAttribute('src') : '');
+
+      if (aliasEl && aliasEl.textContent.trim() === 'Usuario') aliasEl.textContent = alias;
+      if (fotoEl && avatarGuardado && fotoEl.src !== avatarGuardado) fotoEl.src = avatarGuardado;
+
+      if (svgInvitado) svgInvitado.style.setProperty('display', 'none', 'important');
+      if (imgTop && fotoSrc) {
+        if (imgTop.getAttribute('src') !== fotoSrc) imgTop.src = fotoSrc;
+        imgTop.style.setProperty('display', 'block', 'important');
+        imgTop.style.setProperty('width', '22px', 'important');
+        imgTop.style.setProperty('height', '22px', 'important');
+      }
+      if (aliasTop) {
+        aliasTop.textContent = alias;
+        aliasTop.style.setProperty('display', 'inline-block', 'important');
+      }
+      if (btnTop) {
+        btnTop.style.setProperty('width', 'auto', 'important');
+        btnTop.style.setProperty('padding', '2px 10px 2px 3px', 'important');
+        btnTop.style.setProperty('background', 'rgba(239, 68, 68, 0.16)', 'important');
+        btnTop.style.setProperty('border-color', 'rgba(239, 68, 68, 0.5)', 'important');
+      }
+
+      if (refEl) {
+        var prefijo = mail.split('@')[0].replace(/[^a-zA-Z0-9]/g, '').substring(0, 4).toUpperCase();
+        var hash = 0;
+        for (var i = 0; i < mail.length; i++) {
+          hash = ((hash << 5) - hash) + mail.charCodeAt(i);
+          hash |= 0;
+        }
+        var num = Math.abs(hash % 900) + 100;
+        refEl.textContent = 'JVX-' + prefijo + num;
+      }
+    } else {
+      autoCerradoHecho = false;
+      aperturaManual = false;
+      if (svgInvitado) svgInvitado.style.setProperty('display', 'block', 'important');
+      if (imgTop) imgTop.style.setProperty('display', 'none', 'important');
+      if (aliasTop) {
+        aliasTop.textContent = '';
+        aliasTop.style.setProperty('display', 'none', 'important');
+      }
+      if (btnTop) {
+        btnTop.style.setProperty('width', '28px', 'important');
+        btnTop.style.setProperty('padding', '0', 'important');
+        btnTop.style.setProperty('background', 'rgba(255,255,255,0.08)', 'important');
+        btnTop.style.setProperty('border-color', 'rgba(255,255,255,0.18)', 'important');
+      }
+    }
+
+    aplicarModoDropdown();
   }
 
   window.jvxCopiarReferido = function() {
@@ -8986,22 +9120,18 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   window.jvxAbrirRecarga = function() {
-    // Aquí puedes conectar tu modal de recargas (Yape/Plin/Binance)
-    alert('Próximamente: Módulo de recarga de saldo');
+    alert('Módulo de recargas: Aquí abrirás tu ventana de Yape / Plin / Binance.');
   };
 
   window.jvxAbrirPedidos = function() {
-    alert('Próximamente: Historial de tus compras');
+    alert('Historial de compras: Aquí se mostrarán las cuentas y recargas del cliente.');
   };
 
-  var obsRef = new MutationObserver(actualizarReferido);
-  var targetCorreo = document.getElementById('jvx-perfil-correo');
-  if (targetCorreo) {
-    obsRef.observe(targetCorreo, { childList: true, characterData: true, subtree: true });
-    actualizarReferido();
-  }
+  setInterval(sincronizarUIUsuario, 300);
+  sincronizarUIUsuario();
 })();
 </script>
+
 
 <!-- VENTANA RÁPIDA OPCIONAL PARA ELEGIR ALIAS Y AVATAR TRAS ENTRAR CON GOOGLE -->
 <div id="jvx-modal-alias" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(8px); z-index: 100000; align-items: center; justify-content: center; padding: 16px; font-family: 'Segoe UI', Roboto, sans-serif;">
